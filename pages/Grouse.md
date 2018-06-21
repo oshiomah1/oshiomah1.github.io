@@ -1,10 +1,8 @@
 ---
 title: Sage Grouse
-layout: mod_post
-cover-photo: assets/images/harrison_dada2_thick_blackbg.png
-cover-photo-alt: example cover photo
-auto-header: none
+layout: page
 icon: fa-circle-o-notch
+stupid: true
 ---
 
 ## Functional Metagenomics of the Sage Grouse Secal Microbiome
