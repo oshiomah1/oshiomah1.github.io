@@ -45,13 +45,13 @@ url: "" # the base hostname & protocol for your site
 
 # Social settings
 facebook_url:
-github_url: jwestrob
+github_url: https://github.com/jwestrob
 googleplus_url:
 instagram_url:
-linkedin_url: jwestrob
+linkedin_url: https://linkedin.com/jwestrob
 pinterest_url:
 slack_url:
-twitter_url: jwestrob
+twitter_url: https://twitter.com/jwestrob
 
 # Google Analytics Tracking ID goes here:
 google_analytics:
