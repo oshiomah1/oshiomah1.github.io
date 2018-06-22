@@ -6,36 +6,51 @@ excerpt: "Do what pplacer does but slower and dumber. But.... accurately."
 ---
 
 
-### v 0.1.0
+### v 0.2.0
 
-Hello there! This is the first iteration of a tutorial on how to use my phylogenomics pipeline (powered by Anvi'o and ITOL).
+Hello there! This is the second iteration of a tutorial on how to use my phylogenomics workflow (powered by Anvi'o and ITOL).
+
+
 
 First, let's address a key question: why would you want to do this?
 
-  - You have an insatiable desire to create phylogenetic trees
-  - You have some unknown genomes that you want to get a taxonomic placement for
-  - You want to pull out ribosomal genes from lots of genomes at once
-  - You want to experience sassy error messages from Anvi'o
+I developed this workflow to get some taxonomic placement for metagenomic bins that were assembled from the digestive tract of the Greater Sage Grouse. Since this system is very poorly studied from a genomic perspective, there were very few entries in the NCBI database that aligned with high identity to any marker genes from these bins. (That, and I hadn't read Tyler Barnum's <a href="https://tylerbarnum.wordpress.com/2018/06/22/searching-uncultivated-bacteria-and-archaea-uba-genomes-for-important-genes/"><font color="blue">very helpful blog post</font></a> on how to query the IMG database.)
 
-If any of those apply to you, read on! If not... do what you like, I suppose.
+If you find yourself with a bunch of bins and no way to get a good taxonomic placement for them, this workflow will help you out! If you happen upon this and know of a way to do any of this better, please let me know.
 
-Please note that the following tutorial only applies to Unix-based systems. If you don't have a Unix-based system, consider getting one.
+This is in very large part based on the [Anvi'o Phylogenomics Workflow](http://merenlab.org/2017/06/07/phylogenomics/) from the Meren Lab. If you're interested in this stuff, definitely read this tutorial; there's lots of functionalities available in Anvi'o that I didn't use here (such as visualizing the tree in a python environment with ete3, and how to create custom HMM suites to use with these scripts instead of the provided SCG sets).
+
+This is kind of a stripped-down version of what that page describes, with examples of how to go about adding to the database along with some scripts-of-scripts I've made to help things go faster.
+
+
+
+_**Index**_
+
+  1. [Installation](#Installation)
+    - [Installing Conda](#installing-conda)
+    - [Installing Anvi'o](#installing-anvio)
+    - [Installing iQ-TREE](#installing-iqtree)
+  2. [Basic Overview and Outline](#overview)
+  3. [Scripts](#scripts)
+
+Please note that the following tutorial only applies to Unix-based systems. If you don't have a Unix-based system, consider getting one. You'll be glad you did (and Ubuntu is free)!
 
 ---
-
+<a name="Installation"></a>
 ## Installation
 
-There are two possible situations if you're reading this.
+Here's a list of dependencies for this workflow:
 
-1. You are working at Pitt and have access to Microbiome01.
-
-2. You don't have access to the Pitt cluster.
-
-If the first one applies to you, either use my account or talk to Kelvin. (Emailing me would be preferable in this case if it's not running globally yet; I can give you the info you need to run this)
-
-If the second one applies to you, we're going to do some installation.
+  - Python
+  - Anaconda
+  - Anvi'o
+  - iQ-TREE (or whatever phylogenetic tree building software you prefer; Anvi'o has its own)
+  - Command line proficiency (human only)
 
 If you don't have Python installed, go ahead and install that (instructions are distribution-specific, and I leave it in your capable hands).
+
+<a name="installing-conda"></a>
+## Installling Anaconda
 
 First, go [here](https://www.anaconda.com/download/#linux) to download the Anaconda installer. Please ensure you download the version that fits the Python version you have.
 
@@ -60,7 +75,9 @@ Congratulations! From this point on installing things should be easy. Make sure 
 
 If everything's good, proceed. Otherwise... try again or contact me with your error. Google is also a reliable friend in instances like these, and you will likely be able to solve this most quickly by googling it. Please try that before contacting me or I will tell you to google it.
 
+<a name="installing-anvio"></a>
 ### Installing Anvi'o
+---
 Watch this.
 
 ```
@@ -69,8 +86,11 @@ conda create -n anvio4 -c bioconda -c conda-forge python=3 anvio=4
 
 Boom.
 
-### Installing iqtree
+See the Meren Lab's (far superior and more thorough) instructions for alternative installation methods [here](http://merenlab.org/2016/06/26/installation-v2/).
 
+<a name="installing-iqtree"></a>
+### Installing iqtree
+---
 And again, bask in the glory of easy software installation.
 
 ```
@@ -82,18 +102,18 @@ Ta-dah!
 
 ---
 
+<a name="overview"></a>
 ## Basic overview and outline
 
-The phylogenomics workflow I've "developed" (I put together other people's software; this is just how to do it) is fairly straightforward, though it does involve a couple of steps.
-The main purpose behind it was to create a database to use to generate taxonomic placements for unknown MAGs from a sample of Sage Grouse secum. We got several MAGs out of my assembly pipeline ([https://github.com/jwestrob/Metaxas](https://github.com/jwestrob/Metaxas); if you're trying to use this please let me know so I can help) but had no way of doing taxonomic ID for any of them, save for one _Megamonas_ MAG.
+The phylogenomics workflow I've settled on here (using some beautiful, well-documented software) is fairly straightforward, though it does involve a couple of steps.
+The main purpose behind it was to create a database to use to generate taxonomic placements for unknown MAGs from a sample of Sage Grouse secum. We got several MAGs out of my assembly pipeline (<a href="https://github.com/jwestrob/Metaxas"><font color="blue">Metaxas</font></a>; if you're trying to use this please let me know so I can help) but had no way of doing taxonomic ID for any of them, save for one _Megamonas_ MAG.
 
-Essentially, Anvi'o has several suites of HMMs for bacterial and archaeal single-copy genes, as well as ribosomal RNA genes. The basic gist of what I do here is covered in great detail here as well: [http://merenlab.org/2017/06/07/phylogenomics/](http://merenlab.org/2017/06/07/phylogenomics/) I highly recommend you look there for a good understanding of all the things Anvi'o can do, as well as bash tips and tricks. The folks at the Meren lab know exactly what they're doing.
+Essentially, Anvi'o has several suites of HMMs for bacterial and archaeal single-copy genes, as well as ribosomal RNA genes. Again, the basic gist of what I do here is covered in far greater detail here: [http://merenlab.org/2017/06/07/phylogenomics/](http://merenlab.org/2017/06/07/phylogenomics/) I highly recommend you look there for a good understanding of all the things Anvi'o can do, as well as bash tips and tricks.
 
-This is kind of a stripped-down, streamlined version of what that page describes, with examples of how to go about adding to the database and understanding what it is and does.
 
 ---
 
-Please note that I have made several scripts to make this process a lot easier. I'm going to show you precisely how to go about using them with a specific tutorial (TODO: ADD LINK TO EXAMPLE DOC).
+Please note that I have made several scripts to make this process a lot easier.
 
 The scripts are hosted at https://github.com/jwestrob/Script_Toybox. If you are going to proceed with the tutorial, please clone this repository onto your computer as so:
 
@@ -124,9 +144,27 @@ before you start doing anything with Anvi'o. This activates the virtual environm
 
 ---
 
-# Script explanations
+<a name="scripts"></a>
+
+## Script explanations
 
 ### run_anvio_dbandstats.py
+```
+$ python ~/scripts/run_anvio_dbandstats.py -h
+
+usage: run_anvio_dbandstats.py [-h] [-a] [-f [fastas to process]]
+                               [-t threads to use]
+
+Run anvi'o stuff on either all files in a directory (-a) or sets of files
+(-s). Remember to activate Anvi'o first!
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -a                    Run db and stats on all .fa/.fasta files in directory.
+  -f [fastas to process]
+                        COMMA-SEPARATED list of fastas to operate on.
+  -t threads to use     How many threads do you want Anvi'o to use?
+```
 
 This script essentially takes all the fasta files in a current directory (with the -a flag) or specific files in a comma-separated list (with the -f flag), reformats the headers to be Anvi'o-compliant, then runs the Anvi'o HMM and NCBI COG profiling scripts on it. Please note that this works for fasta files with the '.fa' or '.fasta' extension, not for '.fna'. Please change your extensions accordingly if needed.
 
@@ -167,25 +205,29 @@ You WILL have an ```external-genomes.txt``` soon. Don't worry about that part.
 - Lots and lots of trees
 
 Setup Procedure
-1. Make a folder somewhere to place your genomes in. Keep in mind this is NOT the database. If you're on Microbiome01, that's /mnt/data/Phylogenomics. (If you're not with Pitt and you want to use my database, just let me know and I can get it to you.) Place all your FASTA files in this folder. First, create subdirectories for each FASTA (name them according to the file being analyzed). Then, perform the following:
+1. Make a folder somewhere to place your bins in. Keep in mind this is NOT the database. Place all your bin FASTA files in this folder. First, create subdirectories for each FASTA (name them according to the file being analyzed). Then, perform the following:
 
 ```
-$ ln -s SCRIPTS/run_anvio_dbandstats.py
+$ ln -s SCRIPTS/run_anvio_dbandstats.py .
 $ source activate anvio4
 $ python run_anvio_dbandstats.py -a
 ```
 
+This will
+
 2.  Run_anvio_dbandstats.py creates a “fixed” FASTA with simplified header names that are compliant with Anvi’o’s format. I suggest removing the non “fixed” fasta files to avoid confusion. Now, move everything to its proper folder.
 
-3. Now, I’ll describe the components of the workflow and the overall procedure. Hopefully, you have access to my database, which will be stored in a particular directory on the cluster. However, if you’re going to be adding to it (as I’m assuming is the case if you’re reading this tutorial), I’m assuming you’re able to copy it onto your local machine. Please do so. (Dealing with NCBI stuff is otherwise a bit of a pain. You don't want to have to SFTP every time you download a batch of genomes.)
+3. Now, I’ll describe the components of the workflow and the overall procedure. Hopefully, you have access to my database, which will be stored in a particular directory on the cluster. However, if you’re going to be adding to it (as I’m assuming is the case if you’re reading this tutorial), I’m assuming you’re able to copy it onto your local machine. Please do so. (Dealing with NCBI genomes is otherwise a bit of a pain. You don't want to have to SFTP every time you download a batch of genomes.)
 
-I’m going to refer to the directory containing the database from here on out as GENOMES. Remember, on Microbiome01 that's /mnt/data/Phylogenomics.
+I’m going to refer to the directory containing the database from here on out as BINS.
 
 The most important file you’re working with is called ‘external-genomes.txt’. Please don’t delete it. It has the list of Anvi’o contigs databases being used to pull out the concatenated alignments. You can modify this in any way you please- if you download and profile genomes from NCBI, for instance, you ought to add the names of the genomes and of the contigs databases to this document.
 
 
 ---
 ## Main Procedure
+
+
 
 Navigate to the folder containing one of your FASTA sequences. You should have your genome (fixed by run_anvio_dbandstats.py) and a contigs db in this directory. Please run the following command (I used Grouse_Metabat_001 as an example here):
 ```
@@ -241,7 +283,14 @@ name	contigs_db_path
 Grouse_Metabat_001	 Grouse_Metabat_001.db
 ```
 
-Make sure this is tab-delimited!
+Alternatively, if it makes things easier for you, you don't have to take off the '.db' for the entry in the 'name' column:
+
+```
+name	contigs_db_path
+Grouse_Metabat_001.db	 Grouse_Metabat_001.db
+```
+
+Make sure this is tab-delimited! I will make a script to do this automatically very soon, I promise you.
 
 Now that you've added everything to your external-genomes.txt file, move all your contigs DBs to the 'contigs_dbs' folder:
 
