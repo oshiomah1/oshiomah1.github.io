@@ -12,19 +12,30 @@ Hello there! This is the second iteration of a tutorial on how to use my phyloge
 
 ## _**Index**_
 
-  1. [Installation](#Installation)
-    - [Installing Conda](#installing-conda)
-    - [Installing Anvi'o](#installing-anvio)
-    - [Installing iQ-TREE](#installing-iqtree)
-  2. [Basic Overview and Outline](#overview)
-  3. [Scripts](#scripts)
-  4. [The Actual Workflow](#workflow)
-    - [Setting up](#setting-up)
-    - [Getting Ribosomal Gene HMM Hits From Your Bin](#get-ribosomal-hits)
-    - [Downloading Genomes](#downloading-genomes)
-    - [Profiling and Adding Genomes to Your New Database](#adding-to-db)
-    - [Extracting gene hits and making a tree](#extracting-tree)
-  5. [References](#references)
+<div id="toc_container">
+<p class="toc_title">Index</p>
+<ul class="toc_list">
+  <li><a href="#First_Point_Header">1. Installation</a><br/>
+  <ul>
+    <li><a href="#installing-conda">1.1 Installing Conda</a></li>
+    <li><a href="#installing-anvio">1.2 Installing Anvi'o</a></li>
+    <li><a href="#installing-iqtree">1.3 Installing iQ-TREE</a></li>
+  </ul>
+</li>
+<li><a href="#overview">2. Basic Overview and Outline</a></li><br/>
+<li><a href="#scripts">3. Scripts</a></li><br/>
+  <li><a href="#workflow">4. The Actual Workflow</a></li><br/>
+  <ul>
+    <li><a href="#setting-up">4.1 Setting Up</a></li>
+    <li><a href="#get-ribosomal-hits">4.2 Getting Ribosomal Gene HMM Hits From Your Bin</a></li>
+    <li><a href="#downloading-genomes">4.3 Downloading Genomes</a></li>
+    <li><a href="#adding-to-db">4.4 Profiling and Adding Genomes to Your New Database</a></li>
+    <li><a href="#extracting-tree">4.5 Extracting Gene Hits and Making a Tree</a></li>
+  </ul>
+<li><a href="#references">5. References</a></li>
+</ul>
+</div>
+
 
 
 First, let's address a key question: why would you want to do this?
