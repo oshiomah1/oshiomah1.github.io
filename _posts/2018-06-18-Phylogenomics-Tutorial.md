@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "How to build an Anvi'o Phylogenomics Database!"
-date:   2018-06-18
-excerpt: "Do what pplacer does but slower and dumber. But.... accurately."
+date:   2018-06-22
+excerpt: "Do what pplacer does but slower... and you get nice trees."
 ---
 
 
@@ -10,6 +10,21 @@ excerpt: "Do what pplacer does but slower and dumber. But.... accurately."
 
 Hello there! This is the second iteration of a tutorial on how to use my phylogenomics workflow (powered by Anvi'o and ITOL).
 
+## _**Index**_
+
+  1. [Installation](#Installation)
+    - [Installing Conda](#installing-conda)
+    - [Installing Anvi'o](#installing-anvio)
+    - [Installing iQ-TREE](#installing-iqtree)
+  2. [Basic Overview and Outline](#overview)
+  3. [Scripts](#scripts)
+  4. [The Actual Workflow](#workflow)
+    - [Setting up](#setting-up)
+    - [Getting Ribosomal Gene HMM Hits From Your Bin](#get-ribosomal-hits)
+    - [Downloading Genomes](#downloading-genomes)
+    - [Profiling and Adding Genomes to Your New Database](#adding-to-db)
+    - [Extracting gene hits and making a tree](#extracting-tree)
+  5. [References](#references)
 
 
 First, let's address a key question: why would you want to do this?
@@ -18,20 +33,13 @@ I developed this workflow to get some taxonomic placement for metagenomic bins t
 
 If you find yourself with a bunch of bins and no way to get a good taxonomic placement for them, this workflow will help you out! If you happen upon this and know of a way to do any of this better, please let me know.
 
-This is in very large part based on the [Anvi'o Phylogenomics Workflow](http://merenlab.org/2017/06/07/phylogenomics/) from the Meren Lab. If you're interested in this stuff, definitely read this tutorial; there's lots of functionalities available in Anvi'o that I didn't use here (such as visualizing the tree in a python environment with ete3, and how to create custom HMM suites to use with these scripts instead of the provided SCG sets).
+This is in very large part based on the [Anvi'o Phylogenomics Workflow](http://merenlab.org/2017/06/07/phylogenomics/) from the Meren Lab. If you're interested in this stuff, definitely read this tutorial; there's lots of functionalities available in Anvi'o that I didn't use here (such as visualizing the tree in a python environment with fasttree, and how to create custom HMM suites to use with these scripts instead of the provided SCG sets).
 
-This is kind of a stripped-down version of what that page describes, with examples of how to go about adding to the database along with some scripts-of-scripts I've made to help things go faster.
+This is kind of a stripped-down version of what that page describes. I found that there are some good resources on NCBI to help identify  unknown bins, and so I wanted to provide a specific example of how to go about constructing and adding to a database of your own using the procedure I kind of cobbled together from various online resources. The Anvi'o phylogenomics tutorial is awesome, but I wanted to include a specific example (by request) and show how to fetch things off the NCBI database in order to get a good idea of what a bin might actually be.
 
 
 
-_**Index**_
 
-  1. [Installation](#Installation)
-    - [Installing Conda](#installing-conda)
-    - [Installing Anvi'o](#installing-anvio)
-    - [Installing iQ-TREE](#installing-iqtree)
-  2. [Basic Overview and Outline](#overview)
-  3. [Scripts](#scripts)
 
 Please note that the following tutorial only applies to Unix-based systems. If you don't have a Unix-based system, consider getting one. You'll be glad you did (and Ubuntu is free)!
 
@@ -45,7 +53,9 @@ Here's a list of dependencies for this workflow:
   - Anaconda
   - Anvi'o
   - iQ-TREE (or whatever phylogenetic tree building software you prefer; Anvi'o has its own)
-  - Command line proficiency (human only)
+  - Command line proficiency
+  - An internet connection
+  - Time
 
 If you don't have Python installed, go ahead and install that (instructions are distribution-specific, and I leave it in your capable hands).
 
@@ -123,13 +133,29 @@ git clone https://github.com/jwestrob/Script_Toybox.git
 
 From here on out, I will refer to the directory where you placed this repository as "SCRIPTS". I recommend putting it someplace convenient, such as in your home directory, so you can access it with something like "~/scripts". Also, I always rename the directory to "scripts" so I don't have to type out Script_Toybox. Do what you like.
 
+<a name="link"></a>
+The best method, though, is to use the following trick:
+
+  - cd into that directory and do ```pwd```. Copy the directory information.
+
+  - Now, open your .bashrc (sudo nano ~/.bashrc on your local machine; no sudo if you're on a cluster) and enter the following line:
+    ```
+    export SCRIPTS="/path/to/cloned/repository"
+    ```
+
+  - Now, re-load your .bashrc with the following command:
+    ```
+    $ source ~/.bashrc
+    ```
+    and you can now access the directory via $SCRIPTS. (e.g. ```$ ls $SCRIPTS```.)
+
 Scripts we’ll be using:
 
-- SCRIPTS/run_anvio_dbandstats.py : Takes all .fa files in a directory and runs everything to generate good contigs databases for you. Just runs in the local directory. If you need to use it in subdirectories, do a symbolic link (ln -s ~/scripts/run_anvio_dbandstats.py). Make sure to go in and modify the number of threads (set to 4 by default) to the number available on your system.
+- $SCRIPTS/run_anvio_dbandstats.py : Takes all .fa files in a directory and runs everything to generate good contigs databases for you. Just runs in the local directory. If you need to use it in subdirectories, do a symbolic link (ln -s ~/scripts/run_anvio_dbandstats.py). Make sure to go in and modify the number of threads (set to 4 by default) to the number available on your system.
 
-- SCRIPTS/get_concatenated_proteins.sh : Takes all the contigs databases you’ve generated and gets a concatenated alignment of Ribosomal LSU Proteins 1-6, both in nucleotide and amino acid format. FOR BACTERIA ONLY!!!! Modifying it to use Archaeal SCGs or Ribosomal RNAs is as easy as changing “--hmm-source” to “Rinke_et_al” or “Ribosomal_RNAs”, respectively.
+- $SCRIPTS/get_concatenated_proteins.sh : Takes all the contigs databases you’ve generated and gets a concatenated alignment of Ribosomal LSU Proteins 1-6, both in nucleotide and amino acid format. FOR BACTERIA ONLY!!!! Modifying it to use Archaeal SCGs or Ribosomal RNAs is as easy as changing “--hmm-source” to “Rinke_et_al” or “Ribosomal_RNAs”, respectively.
 
-- SCRIPTS/get_extended_proteins.sh : Does the same as the above script, but instead of Large Subunit proteins 1-6, it uses all the bacterial ribosomal proteins in the Campbell et al. HMM suite (49 in total).
+- $SCRIPTS/get_extended_proteins.sh : Does the same as the above script, but instead of Large Subunit proteins 1-6, it uses all the bacterial ribosomal proteins in the Campbell et al. HMM suite (49 in total).
 
 
 # REMINDER
@@ -192,11 +218,14 @@ You WILL have an ```external-genomes.txt``` soon. Don't worry about that part.
 
 ---
 
-# The actual workflow
+<a name="Workflow"></a>
+## The actual workflow
 
 ### Inputs
 
 - FASTA files of your bins/unknown genomes
+- The SCRIPTS directory described above (you can totally get by without this though)
+
 
 ### Outputs
 
@@ -204,65 +233,215 @@ You WILL have an ```external-genomes.txt``` soon. Don't worry about that part.
 - Anvi’o contigs DB for selected genomes
 - Lots and lots of trees
 
+<a name="setting-up"></a>
+### Setting up!
+First make a directory to work in (I named mine Phylogenomics_Tutorial):
+
+```
+$ mkdir Phylogenomics_Tutorial
+$ cd Phylogenomics_Tutorial
+$ mkdir Bins
+$ mkdir Genomes
+$ cd Bins
+```
+You should have a directory with the following structure:
+
+```
+Phylogenomics_Tutorial/
+├── Bins
+└── Genomes
+
+2 directories, 0 files
+```
+
+I have an example set up, too! If you'd like to follow along, download the bin that I've hosted as so:
+
+```
+$ wget jwestrob.github.io/assets/genome_files/Grouse_MyCC56_008.fa
+```
+
+Spoiler: I've identified this as belonging to genome _Megamonas_, with its closest related genome being a member of the species _M. hypermegale_, which was previously characterized in the secums (seca?) of ducks and chickens. Just roll with it for now.
+
 Setup Procedure
-1. Make a folder somewhere to place your bins in. Keep in mind this is NOT the database. Place all your bin FASTA files in this folder. First, create subdirectories for each FASTA (name them according to the file being analyzed). Then, perform the following:
+- You should now be in the Bins/ folder. If you're following the example, you're just going to have one fasta here: ```Grouse_MyCC56_008.fa```. Otherwise, put your unknown bins here. First, go ahead and profile your bins with Anvi'o (make sure to provide a value for NUM_THREADS, either manually or by setting ```NUM_THREADS = 4``` or somesuch):
+
+For now, all you have in the Bins/ directory is ```Grouse_MyCC56_008.fa```. First, make a directory for this bin (I use ```mkdir Grouse_MyCC_008```). Now, run this code to profile your bin as an Anvi'o contigs DB:
 
 ```
-$ ln -s SCRIPTS/run_anvio_dbandstats.py .
 $ source activate anvio4
-$ python run_anvio_dbandstats.py -a
+$ python $SCRIPTS/run_anvio_dbandstats.py -a -t $NUM_THREADS
 ```
 
-This will
+For each bin fasta, this will generate two files. Let's use our example to see- this is just after running the above command:
+```
+$ tree Bins/
+Bins
+├── Grouse_MyCC56_008.db
+├── Grouse_MyCC56_008.fa
+├── Grouse_MyCC56_008-fixed.fa
+└── MyCC_008
+```
 
-2.  Run_anvio_dbandstats.py creates a “fixed” FASTA with simplified header names that are compliant with Anvi’o’s format. I suggest removing the non “fixed” fasta files to avoid confusion. Now, move everything to its proper folder.
+Where we started with just ```Grouse_MyCC56_008.fa```, now we have ```Grouse_MyCC56_008.db``` and ```Grouse_myCC56_008-fixed.fa```. The latter file is a “fixed” FASTA with simplified header names that are compliant with Anvi’o’s format; the ```.db``` file is the Anvi'o contigs DB, with HMM hits for three different sets of HMMs: Ribosomal RNAs, Bacterial SCGs (Campbell et al.), and Archaeal SCGs (Rinke et al.).
 
-3. Now, I’ll describe the components of the workflow and the overall procedure. Hopefully, you have access to my database, which will be stored in a particular directory on the cluster. However, if you’re going to be adding to it (as I’m assuming is the case if you’re reading this tutorial), I’m assuming you’re able to copy it onto your local machine. Please do so. (Dealing with NCBI genomes is otherwise a bit of a pain. You don't want to have to SFTP every time you download a batch of genomes.)
 
-I’m going to refer to the directory containing the database from here on out as BINS.
+- I suggest removing the non-“fixed” fasta files to avoid confusion. Now, move everything to its proper folder; in this case, just do this:
 
-The most important file you’re working with is called ‘external-genomes.txt’. Please don’t delete it. It has the list of Anvi’o contigs databases being used to pull out the concatenated alignments. You can modify this in any way you please- if you download and profile genomes from NCBI, for instance, you ought to add the names of the genomes and of the contigs databases to this document.
+  ```
+  $ mv Grouse_MyCC_008* MyCC_008
+  ```
 
+Great! Now let's make a folder in which we'll store genomes we'll be pulling from the NCBI database (or wherever else you might like). Execute the following commands:
+
+```
+$ cd ../Genomes
+
+#Create a file external-genomes.txt
+$ touch external-genomes.txt
+
+#Add header to external-genomes.txt
+$ echo name$'\t'contigs_db_path >> external-genomes.txt
+
+#Make directory to store FASTA files in
+$ mkdir Genomes
+
+#Make directory to store Anvi'o contigs DBs in
+$ mkdir contigs_dbs
+```
+
+Your ```Genomes/``` directory should now look like this:
+
+```
+$ tree Genomes/
+
+Genomes
+├── contigs_dbs
+├── external-genomes.txt
+└── Genomes
+
+2 directories, 1 file
+```
+
+(I’m going to refer to the directory containing the example/bins from here on out as $BINS and the directory containing the external genomes as $GENOMES. If you want to make an environment variable to access these directories, <a href="#link"><font color="blue">here's how to do that.</font></a>)
 
 ---
-## Main Procedure
+<a name="get-ribosomal-hits"></a>
+## Get Ribosomal Hits From Your Bin
 
+Navigate to the folder containing one of your FASTA bins. You should have your genome (fixed by run_anvio_dbandstats.py) and a contigs db in this directory. For our example, that directory is BINS/.
 
+Now, the first thing I do is pull out the sequences for the large ribosomal subunit. Of course, Ribosomal small subunit protein S3 is also a very popular protein to use for phylogenetic analysis; modify this as you like.
 
-Navigate to the folder containing one of your FASTA sequences. You should have your genome (fixed by run_anvio_dbandstats.py) and a contigs db in this directory. Please run the following command (I used Grouse_Metabat_001 as an example here):
+I would also like to point out that the [Anvi'o phylogenomics tutorial](http://merenlab.org/2017/06/07/phylogenomics/#working-with-fasta-files) is really really good reading material for this bit, if you haven't read it already.
+
+For our example, the command is as follows:
+
 ```
-  $ anvi-get-sequences-for-hmm-hits -c Grouse_Metabat_001.db \
-      --hmm-sources Campbell_et_al --gene_names \
-      Ribosomal_L1,Ribosomal_L2,Ribosomal_L3,Ribosomal_L4,Ribosomal_L5,Ribosomal_L6 \
-      --return-best-hit -o MB_001_Campbellseqs.fa
+  $ anvi-get-sequences-for-hmm-hits -c Grouse_MyCC56_008.db \
+  --hmm-sources Campbell_et_al \
+  --gene-names Ribosomal_L1,Ribosomal_L2,Ribosomal_L3,Ribosomal_L4,Ribosomal_L5,Ribosomal_L6 \
+  --return-best-hit -o MC_008_Campbellseqs.fa
 ```
-Now, you can use any set of genes you want. If you have an Archaeal genome, for example, instead of “--hmm-sources Campbell_et_al”, use “Rinke_et_al”. If you’d like to see a list of available sources, use the “-l” flag. If you’d like to see a list of available gene names, use the “-L” flag.
 
-If you’d like to see a complete list of flags and options, run “anvi-get-sequences-for-hmm-hits -c [CONTIGS_DB] -h”. You must include a contigs DB or Anvi’o will get mad at you. I don’t know why this is. Please take it up with Meren.
+I also like to get the ribosomal RNA genes. Here's the command to do that, but PLEASE BE ADVISED that there are no ribosomal RNA hits for this particular bin. This is just an example.
 
-Your next order of business is to take that to [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) and search for homology. Who knows, you might even find homology strong enough that you don’t have to do the rest of this procedure!
+```
+  $ anvi-get-sequences-for-hmm-hits -c Grouse_MyCC56_008.db --hmm-sources Ribosomal_RNAs \
+  --gene-names Bacterial_16S_rRNA,Bacterial_23S_rRNA,Bacterial_5S_rRNA \
+  --return-best-hit -o MC_008_rRNAs.fa
+```
 
-When you’ve got that done, choose genomes from the BLAST search and download them from the [NCBI database](https://www.ncbi.nlm.nih.gov/genome/browse/#!/overview/). I recommend downloading a bunch before going to the next step. Place them in GENOMES/. As you download them from NCBI, make sure to name them with the following convention:
+Now, you can use any set of genes you want.
+- If you have an Archaeal genome, for example, instead of “--hmm-sources Campbell_et_al”, use “Rinke_et_al”.
+- If you want to see ribosomal RNA hits, use "--hmm-sources Ribosomal_RNAs"
+- If you’d like to see a list of available sources, use the “-l” flag. If you’d like to see a list of available gene names for a particular source, use the “-L” flag.
+
+If you’d like to see a complete list of flags and options, run “anvi-get-sequences-for-hmm-hits -c [CONTIGS_DB] -h”. You must include a contigs DB or Anvi’o will get mad at you.
+
+#### Side Note:
+
+- Anvi'o gets a little nervous when you include the '--return-best-hit' flag.  That's OK. It's just in case there are multiple hits within the bin; unlikely but still a possibility we'd like to work around.
+
+To be thorough, I recommend extracting the Campbell or Rinke et al. sequences (not both) along with the ribosomal RNAs, concatenating them, and then BLASTing the resulting fasta file. The problem with relying on just the ribosomal RNAs is that sometimes you just don't have any; it's always nice to get a good 16S hit though.
+
+Your next order of business is to take the resulting FASTA to [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) and search for homology. Who knows, you might even find homology strong enough that you don’t have to do the rest of this procedure!
+
+- For our example, upload ```Phylogenomics_Tutorial/Bins/MyCC_008/MC_008_Campbellseqs.fa``` to BLAST. You'll notice several of these proteins have high-identity (100% coverage, >95% nucleotide identity) alignments to _Megamonas hypermegale_ genomes. There is a reason for that.
+
+<a name="downloading-genomes"></a>
+### Downloading Genomes
+
+When you’ve got that done, our next step is to select genomes that have high homology from your BLAST search and grab them from the <a href="https://www.ncbi.nlm.nih.gov/genome/browse/#!/overview/"><font color="blue">NCBI Genome Database</font></a>. I recommend downloading a bunch before going to the next step. Place them in Phylogenomics_Tutorial/Genomes/ (aka $GENOMES).
+
+For our example, we know that we have something in genus _Megamonas_. _Megamonas_ is in the order _Selenomonadales_, so go ahead and search "Selenomonadales" in the top bar. You'll notice that there are several _Megamonas_ genomes, as well as several from other genera within _Selenomonadales_. Download whichever ones you like! As for my analysis, I chose:
+
+  - _Megamonas_ sp.
+  - _Megamonas hypermegale_
+  - _Megamonas funiformis_
+  - _Megamonas rupellensis_
+  - _Anaerovibro lipolyticus_
+  - _Centipedia periodontii_
+  - _Dendrosporobacter quercicolus_
+  - _Mitsuokella jalaudinii_
+  - _Propionispira raffinosivorans_
+  - _Selenomonas ruminantium_
+  - _Sporomusa acidovorans_
+
+Please note that I chose the genomes outside genus _Megamonas_ relatively naively, mostly based on how cool the name was.
+
+As you download these genome fasta files from NCBI, I suggest you name them using the following convention:
 
 "[Genus name]\_[species name].fa"
 
-Next, navigate to GENOMES/. Perform the following commands:
+Now, for many of these genomes, getting the actual FASTA file is a straightforward process. If you click on the entry in the NCBI Genome Database search, you'll either see a box at the top of the page that looks like this:
+
+![Easy Download](/assets/images/Megamonas_funiformis.png)
+
+In which case just select 'Download sequences in FASTA format for genome'- you'll receive a download in .fna.gz format. Gunzip it (```gunzip whatever.fna.gz```) and rename it (```mv whatever.fna Genus_species.fa```).
+
+Or you'll see a page that looks like this:
+
+![Hard Download](/assets/images/Megamonas.png)
+
+In which case you should click the link that says 'Assembly' on the top right. On the following page, you'll likely see a couple of alternative assemblies; I like to select the assembly based on Contig N50, though I know that's not always an entirely robust metric by which to choose your assemblies. It suits our purposes here, though, I think. Click "Sort by significance" on the top of the page and select "Contig N50 (down)". Select your preferred assembly (with the box next to the assembly name), click 'Download Assemblies', select 'GenBank' as your source database, and 'Genomic FASTA' as your file type.
+
+You'll get a .tar file. I recommend renaming it when you download it; it helps avoid confusion.
+Untar it with ```tar xvf [TAR FILE].tar```. This will make a directory called "ncbi-genomes-20XX-XX-XX", where the latter part will be the date you downloaded the file.
+
+Then, gunzip everything in the directory: ```gunzip ncbi-genomes-20XX-XX-XX/*.gz```.
+
+Find the largest assembly (using ```ls -thora ncbi-genomes-20XX-XX-XX/```), and copy that into your working directory under the name you want!
+
+(```cp GCA_[lots of numbers and letters].fna ./Megamonas_sp.fa```)
+
+You can now keep the ncbi-genomes folder (which likely contains multiple assemblies), in which case rename it, or you can delete it. I usually get rid of it.
+
+
+### An Aside
+---
+
+Lots of these genomes were assembled by researchers at the University of Queensland (Parks et al.) for publication in the really cool 2017 paper <a href="https://www.nature.com/articles/s41564-017-0012-7"><font color="blue">Recovery of nearly 8,000 metagenome-assembled genomes substantially expands the tree of life</font></a>. You'll notice that genomes assembled for this paper will pop up a lot when you traverse through the NCBI database. Shouts out to Parks et al. for this- it's a huge boon to have all these sequences available.
+
+---
+<a name="adding-to-db"></a>
+### Profiling and adding genomes to the database
+
+Next, go ahead and profile all the genomes you downloaded using Anvi'o:
 
 ```
-#Create a local link to my anvi'o script-of-scripts
+#Create a symbolic link to my anvi'o script-of-scripts
 
-
-$ ln -s SCRIPTS/run_anvio_dbandstats.py
+$ ln -s $SCRIPTS/run_anvio_dbandstats.py .
 
 #Profile all your genomes; create contigs DBs
 
-$ python run_anvio_dbandstats.py -a
+$ python run_anvio_dbandstats.py -a -t $NUM_THREADS
 
 #Put all your fixed fasta files (anvi'o compatible headers) in Genomes/
 
 $ mv *-fixed.fa Genomes/
 
-#Get rid of files with old headers
+#Get rid of files with old headers (optional):
 
 $ rm *.fa
 ```
@@ -290,7 +469,9 @@ name	contigs_db_path
 Grouse_Metabat_001.db	 Grouse_Metabat_001.db
 ```
 
-Make sure this is tab-delimited! I will make a script to do this automatically very soon, I promise you.
+Make sure this is tab-delimited!
+
+**(I will make a script to do this automatically very soon, I promise.)**
 
 Now that you've added everything to your external-genomes.txt file, move all your contigs DBs to the 'contigs_dbs' folder:
 
@@ -298,46 +479,154 @@ Now that you've added everything to your external-genomes.txt file, move all you
 $ mv *.db contigs_dbs/
 ```
 
-Cool. Good job. Proud of you. We’re almost to the point where you can go grab a beer. Hold tight.
+Cool. Good job; we’re almost done. Hold tight.
 
-Now, navigate back to the directory containing your genome to be analyzed. Make a subdirectory and put your fasta file and original contigs db there. Then, copy your GENOMES/external-genomes.txt here. Our example directory, Grouse_Metabat_001, looks like this:
+Now, navigate back to the $BINS folder. Enter the directory for the bin you want to analyze. Make a subdirectory (for our example, name it MyCC_008) and put your bin FASTA file and original contigs db there. Then, copy your GENOMES/external-genomes.txt here. Our example directory, MyCC_008, now looks like this:
 
-![directory_topography](images/dir_flowchart.png)
+```
+$ tree MyCC_008/
+
+MyCC_008/
+└── MyCC_008
+    ├── Grouse_MyCC56_008.db
+    ├── Grouse_MyCC56_008.fa
+    ├── Grouse_MyCC56_008-fixed.fa
+    └── MC_008_Campbellseqs.fa
+
+1 directory, 4 files
+```
+
+Trust me, it will be worth it to have everything in a separate directory where it will be safe.
+
+
+<a name="extracting-tree"></a>
+## Extracting gene hits and making a tree
 
 You’re doing wonderful. We’re very close. Next, you’re going to want to get your scripts ready. Perform the following commands:
 
 ```
-$ ln -s SCRIPTS/get_concatenated_proteins.sh
-$ ln -s SCRIPTS/get_extended_proteins.sh
+$ ln -s $SCRIPTS/get_concatenated_proteins.sh .
+$ ln -s $SCRIPTS/get_extended_proteins.sh .
 ```
-Now, link all your contigs dbs here. (This looks messy, but it’s not much of an inconvenience, I promise.)
+Now, link all your contigs dbs here. (This will look messy, but it’s not much of an inconvenience, I promise.)
 
 ```
-$ ln -s GENOMES/contigs_dbs/*.db .
+$ ln -s $GENOMES/contigs_dbs/*.db .
+$ cp $GENOMES/external-genomes.txt .
 ```
 
-Now, try running get_concatenated_proteins.sh. This will result in the creation of two files: concatenated-nuc-proteins.fa (Nucleotide sequences of LSU genes L1-L6) and concatenated-proteins.fa (Amino acid sequences of the same). Depending on how many genomes you had in external-genomes.txt, this might take a while. If you’re running get_extended_proteins.sh, be prepared to wait.
+If you're following the example, your directory will look like this:
 
-If something is wrong here, check your external-genomes.txt. If you forgot to remove a “db” from one of the fields on the left, or if you have a duplicate name somewhere (which can happen with all the copy-pasting you’ll be doing). If your files were generated, great! Let’s move on.
+```
+MyCC_008/
+├── Anaerovibrio_lipolyticus.db -> ../../Genomes/contigs_dbs/Anaerovibrio_lipolyticus.db
+├── Centipeda_periodontii.db -> ../../Genomes/contigs_dbs/Centipeda_periodontii.db
+├── Dendrosporobacter_quercicolus.db -> ../../Genomes/contigs_dbs/Dendrosporobacter_quercicolus.db
+├── Megamonas_funiformis.db -> ../../Genomes/contigs_dbs/Megamonas_funiformis.db
+├── Megamonas_hypermegale.db -> ../../Genomes/contigs_dbs/Megamonas_hypermegale.db
+├── Megamonas_sp.db -> ../../Genomes/contigs_dbs/Megamonas_sp.db
+└── MyCC_008
+    ├── Grouse_MyCC56_008.db
+    ├── Grouse_MyCC56_008.fa
+    ├── Grouse_MyCC56_008-fixed.fa
+    └── MC_008_Campbellseqs.fa
+```
+
+Now, make a symbolic link to the contigs DB in your MyCC_008 directory (or equivalent, if you're not following the example):
+
+```
+$ ln -s MyCC_008/Grouse_MyCC56_008.db .
+```
+
+And add it to your ```external-genomes.txt```, which should now look like this:
+
+```
+name	contigs_db_path
+Anaerovibrio_lipolyticus	Anaerovibrio_lipolyticus.db
+Centipeda_periodontii	Centipeda_periodontii.db
+Dendrosporobacter_quercicolus	Dendrosporobacter_quercicolus.db
+Megamonas_funiformis	Megamonas_funiformis.db
+Megamonas_hypermegale	Megamonas_hypermegale.db
+Megamonas_sp	Megamonas_sp.db
+Grouse_MyCC56_008	Grouse_MyCC56_008.db
+```
+
+Now, try running:
+
+```
+$ bash get_concatenated_proteins.sh
+```
+
+This will result in the creation of two files: ```concatenated-nuc-proteins.fa``` (Nucleotide sequences of LSU genes L1-L6) and ```concatenated-proteins.fa``` (Amino acid sequences of the same). Depending on how many genomes you had in external-genomes.txt, this might take a while. If you’re running ```get_extended_proteins.sh```, be prepared to wait if your database is large.
+
+If something is wrong here, check your external-genomes.txt. If you forgot to remove a “db” from one of the fields on the left, or if you have a duplicate name somewhere (which can happen with all the copy-pasting you’ll be doing), you'll get an error. If your files were generated, great! Let’s move on.
 
 Make a directory to run your phylogenetic analysis in. I usually call them First_Tree, Second_Tree, etc. or some variant thereof. Perform the following command:
 
 ```
+$ mkdir First_Tree
 $ mv concatenated* First_Tree/
 $ cd First_Tree/
 ```  
 
-Almost there. Now, I generally like to do my trees using the nucleotide sequences (I just figure it has better phylogenetic signal; I may well be wrong). Here’s how to do that:
+Almost there. Now, I generally like to do my trees using the nucleotide sequences (I just figure it has better phylogenetic signal; I may well be wrong about that, though). Here’s how to do that:
 
 ```
 $ iqtree-omp -s concatenated-nuc-proteins.fa -bb 1000 -nt AUTO -m TEST
 ```
 
-This will automatically decide how many threads to use, do ultrafast bootstrap with 1000 bootstrap trees, and test for the best model to use by Aikake and Bayesian information criteria. Now go get that beer and come back.
+This will automatically decide how many threads to use, do ultrafast bootstrap with 1000 bootstrap trees, and test for the best model to use by Aikake and Bayesian information criteria. Now go get a beer or something and come back.
+
+The resulting files should look like this:
+
+```
+First_Tree/
+├── concatenated-nuc-proteins.fa
+├── concatenated-nuc-proteins.fa.bionj
+├── concatenated-nuc-proteins.fa.ckp.gz
+├── concatenated-nuc-proteins.fa.contree
+├── concatenated-nuc-proteins.fa.iqtree
+├── concatenated-nuc-proteins.fa.log
+├── concatenated-nuc-proteins.fa.mldist
+├── concatenated-nuc-proteins.fa.model
+├── concatenated-nuc-proteins.fa.splits.nex
+├── concatenated-nuc-proteins.fa.treefile
+└── concatenated-proteins.fa
+```
 
 Great! Now, to visualize this tree, go to [iTOL](http://itol.embl.de). Create an account (you’ll be glad you did) and go to “My Trees” on the top navigation bar. Select “upload tree file” and go to the directory where you just ran iq-tree. Upload the treefile- in our case, “concatenated-nuc-proteins.fa.treefile”.
+
+Here's the tree I get from our example:
+
+![example tree](/assets/images/example-tree.png){:width="1500px"}
+
+As you can see, our genome is very closely related to _Megamonas hypermegale_. That's because (I'm pretty sure) that's what it is. I haven't done any rigorous analysis that might indicate for sure it's the same species, but from this you can get a very high-confidence indication that it's at least part of the genus _Megamonas_ with a well-profiled close relative.
 
 Now, if you see that your genome has a closely related friend in the phylogeny, congratulations! You’re done! Otherwise, look at the most closely related sequences and try to see if you can find any clues as to what your mystery genome might be. Then, go download more genomes from the taxon/taxa of your choice from NCBI, and repeat this whole process again! (I’ve done up to 10 trees in a single directory trying to find out what some stupid bacterium is. I don’t think it has any relatives in the database, unfortunately.)
 
 
 You now know how to do the whole thing! Congrats!
+
+Please please let me know if you have any questions, suggestions, edits or gripes. Send me a missive: [jwestrob@berkeley.edu](mailto:jwestrob@berkeley.edu).
+
+
+<a name="references"></a>
+## _**REFERENCES**_
+
+- <a href="https://peerj.com/articles/1319/"><font color="blue">Anvi’o: an advanced analysis and visualization platform for ‘omics data</font></a>. A. Murat Eren, et al. PeerJ, 2015 Oct
+
+  - <a href="http://merenlab.org/2017/06/07/phylogenomics/"><font color="blue">An Anvi'o Workflow for Phylogenomics</font></a>
+
+- <a href="https://www.nature.com/articles/s41564-017-0012-7"><font color="blue">Recovery of nearly 8,000 metagenome-assembled genomes substantially expands the tree of life</font></a>. Parks DH, et al. Nat Microbiol 2017 Nov
+
+- D.T. Hoang, O. Chernomor, A. von Haeseler, B.Q. Minh, L.S. Vinh (2018) UFBoot2: Improving the ultrafast bootstrap approximation. Mol. Biol. Evol., 35:518–522. https://doi.org/10.1093/molbev/msx281
+
+- S. Kalyaanamoorthy, B.Q. Minh, T.K.F. Wong, A. von Haeseler, L.S. Jermiin (2017) ModelFinder: Fast model selection for accurate phylogenetic estimates. Nat. Methods, 14:587-589. https://doi.org/10.1038/nmeth.4285
+
+- L.-T. Nguyen, H.A. Schmidt, A. von Haeseler, B.Q. Minh (2015) IQ-TREE: A fast and effective stochastic algorithm for estimating maximum likelihood phylogenies.. Mol. Biol. Evol., 32:268-274. https://doi.org/10.1093/molbev/msu300
+
+- <a href="https://www.nature.com/articles/nature12352"><font color="blue">Insights into the phylogeny and coding potential of microbial dark matter</font></a> Christian Rinke et al. Nature, 2013
+
+- Seeman T, <a href="https://github.com/tseemann/barrnap"><font color="blue">barrnap</font></a>
+
+- <a href="http://www.pnas.org/content/110/14/5540.short"><font color="blue">UGA is an additional glycine codon in uncultured SR1 bacteria from the human microbiota</font></a> James H. Campbell et al., PNAS 2013.
