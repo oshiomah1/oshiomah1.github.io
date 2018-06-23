@@ -2,7 +2,7 @@
 layout: post
 title:  "How to build an Anvi'o Phylogenomics Database!"
 date:   2018-06-22
-excerpt: "Do what pplacer does but slower... and you get nice trees."
+excerpt: "Do what pplacer does but slower... and with access to the NCBI database."
 ---
 
 
