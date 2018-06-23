@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How to build an Anvi'o Phylogenomics Database!"
+title:  "How to perform taxonomic placement with Anvi'o and the NCBI database!"
 date:   2018-06-22
 excerpt: "Do what pplacer does but slower... and with access to the NCBI database."
 ---
