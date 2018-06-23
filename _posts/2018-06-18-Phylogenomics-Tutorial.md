@@ -12,8 +12,7 @@ Hello there! This is the second iteration of a tutorial on how to use my phyloge
 
 ## _**Index**_
 
-<div id="toc_container">
-<p class="toc_title">Index</p>
+<div class="toc_container">
 <ul class="toc_list">
   <li><a href="#First_Point_Header">1. Installation</a><br/>
   <ul>
