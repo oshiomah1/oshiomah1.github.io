@@ -1,49 +1,27 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
+sitemap: false
 ---
-@import "jekyll-theme-prologue";
 
-.box {
-    position: relative;
-    background-color: #99a;
-    width: 75%;
-    vertical-align: middle;
-    text-align:center;
-    left:12.5%;
-    padding: 2em;
-    border-radius: 25px;
-}
-.bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 50%
-}
+/*
+ *
+ *  Moon
+ *
+ *  Designer: Taylan Tatlı
+ *  WEB: http://taylantatli.me
+ *
+*/
 
-.indentedtext
-{
-    text-indent:0em;
-}
-
-small {
-  font-size: 75%;
-}
-
-#toc_container {
-    background: #f9f9f9 none repeat scroll 0 0;
-    border: 1px solid #aaa;
-    display: table;
-    font-size: 95%;
-    margin-bottom: 1em;
-    padding: 20px;
-    width: auto;
-}
-
-.toc_title {
-    font-weight: 700;
-    text-align: center;
-}
-
-#toc_container li, #toc_container ul, #toc_container ul li{
-    list-style: outside none none !important;
-}
+// Partials
+@import "variables";
+@import "mixins";
+@import "normalize";
+@import "site";
+@import "typography";
+@import "elements";
+@import "syntax";
+@import "nav";
+@import "vendor/fonts";
+@import "vendor/font-awesome";
+@import "vendor/animate";
+@import "vendor/magnific-popup/magnific-popup";
+@import "print"
