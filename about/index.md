@@ -1,12 +1,17 @@
 ---
 layout: page
-title: About the Theme
+title: About Me
 tags: [about, Jekyll, theme, moon]
 date: 2016-03-21
 comments: false
 ---
-    
-<center><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
+
+#<center> <a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
+
+Hi! I'm Jacob West-Roberts, a Ph.D. student at UC Berkeley studying environmental science. I'm especially interested in microbes that live in areas impacted by industrial or mining pollution, and how their unique metabolic capabilities can help develop bioremediation techniques.
+
+Before I came to UC Berkeley I studied at Carnegie Mellon University, where I got an M.S. in Computational Biology, and at the University of Colorado at Boulder, where I got my B.A. in Molecular Biology.
+
 
 ## Features
 * Minimal, you can focus on your content
@@ -33,5 +38,5 @@ See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub
 ## Getting Started
 
 To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
-      
+
 [Install Moon](https://github.com/TaylanTatli/Moon){: .btn}
