@@ -5,7 +5,7 @@ description:        "Moon is a minimal, one column jekyll theme for your blog."
 reading_time:       false
 words_per_minute:   200
 logo:               'assets/img/nerd.jpg'
-background:         'assets/img/pretty_tree_cropped.jpg'
+background:         'assets/img/pretty_tree_cropped_smaller.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
 baseurl:            "/" # the subpath of your site, e.g. /blog

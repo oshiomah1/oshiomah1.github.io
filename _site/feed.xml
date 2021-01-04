@@ -1,555 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="//feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="//feed.xml" rel="self" type="application/atom+xml" /><link href="//" rel="alternate" type="text/html" /><updated>2020-02-18T02:13:22-08:00</updated><id>//</id><title type="html">Jacob West-Roberts</title><subtitle>Moon is a minimal, one column jekyll theme for your blog.</subtitle><entry><title type="html">Testing post</title><link href="//testpost/" rel="alternate" type="text/html" title="Testing post" /><published>2020-02-17T00:00:00-08:00</published><updated>2020-02-17T00:00:00-08:00</updated><id>//testpost</id><content type="html" xml:base="//testpost/">Can I make a project post display properly? Let's find out.</content><category term="test" /><summary type="html">Just making sure everything works.</summary></entry><entry><title type="html">Moon Jekyll Theme</title><link href="//moon-theme/" rel="alternate" type="text/html" title="Moon Jekyll Theme" /><published>2016-04-06T00:00:00-07:00</published><updated>2016-04-06T00:00:00-07:00</updated><id>//moon-theme</id><content type="html" xml:base="//moon-theme/">![Moon Homepage](https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png)    
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="//feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="//feed.xml" rel="self" type="application/atom+xml" /><link href="//" rel="alternate" type="text/html" /><updated>2021-01-03T20:09:59-07:00</updated><id>//</id><title type="html">Jacob West-Roberts</title><subtitle>Moon is a minimal, one column jekyll theme for your blog.</subtitle><entry><title type="html">Week 5 Walkthrough</title><link href="//Week_5_walkthrough/" rel="alternate" type="text/html" title="Week 5 Walkthrough" /><published>2020-02-17T00:00:00-07:00</published><updated>2020-02-17T00:00:00-07:00</updated><id>//Week_5_walkthrough</id><content type="html" xml:base="//Week_5_walkthrough/">&lt;h1 id=&quot;welcome-to-week-5-of-lab&quot;&gt;Welcome to week 5 of lab!&lt;/h1&gt;
 
-&lt;center&gt;&lt;b&gt;Moon&lt;/b&gt; is a minimal, one column jekyll theme.&lt;/center&gt;
+&lt;h3 id=&quot;this-week-were-going-to-be-refining-our-bins-and-doing-some-additional-binning-using-esoms-emergent-self-organizing-maps&quot;&gt;This week we’re going to be refining our bins and doing some additional binning using ESOMs (Emergent Self-Organizing Maps).&lt;/h3&gt;
 
- I'm not a developer or designer. And I don't add footer to show who did this theme. If you like this theme or using it, please give a **star** for motivation, It makes me happy.
+&lt;h3 id=&quot;this-is-a-really-interesting-way-of-visualizing-the-way-automated-algorithms-interpret-and-sort-metagenomic-data-next-week-well-be-using-automated-binners-which-utilize-other-unsupervised-machine-learning-algorithms-not-esoms-though-well-talk-more-about-the-other-popular-methods-next-week&quot;&gt;This is a really interesting way of visualizing the way automated algorithms interpret and sort metagenomic data. Next week we’ll be using automated binners, which utilize other unsupervised machine learning algorithms. (Not ESOMs, though. We’ll talk more about the other popular methods next week.)&lt;/h3&gt;
 
-&lt;iframe src=&quot;https://ghbtns.com/github-btn.html?user=TaylanTatli&amp;repo=Moon&amp;type=star&amp;count=true&amp;size=large&quot; frameborder=&quot;0&quot; scrolling=&quot;0&quot; width=&quot;160px&quot; height=&quot;30px&quot;&gt;&lt;/iframe&gt;    
+&lt;p&gt;This lab is going to be pretty short from your perspective, but know that there was a lot of preparation that went into this week’s material! I hope it’s enjoyable for you.&lt;/p&gt;
 
-## Installation
-* Fork the [Moon repo](https://github.com/TaylanTatli/Moon/fork)
-* Edit `_config.yml` file.
-* Remove sample posts from `_posts` folder and add yours.
-* Edit `index.md` file in `about` folder.
-* Change repo name to `YourUserName.github.io`    
+&lt;hr /&gt;
 
-That's all.
+&lt;h1 id=&quot;section-1-x11-forwarding&quot;&gt;Section 1: X11 Forwarding&lt;/h1&gt;
 
-## Preview
+&lt;p&gt;You’re going to be doing this week’s lab using a GUI process, which requires some special considerations. GUI stands for &lt;strong&gt;G&lt;/strong&gt;raphical &lt;strong&gt;U&lt;/strong&gt;ser &lt;strong&gt;I&lt;/strong&gt;nterface. You might be thinking, “aren’t we doing all our work in a shell?” Well, yes, we are. This week we’re going to set things up so that you can run a GUI process on our server while having a window on your computer to modify and mess with as you see fit. X11 forwarding is what you’re going to need to use in order to accomplish this.&lt;/p&gt;
 
-{% capture images %}
-	https://cloud.githubusercontent.com/assets/754514/14509716/61ac6c8e-01d6-11e6-879f-8308883de790.png
-	https://cloud.githubusercontent.com/assets/754514/14509717/61ad05ae-01d6-11e6-85ae-5a817dd8763b.png
-	https://cloud.githubusercontent.com/assets/754514/14509714/61a89708-01d6-11e6-8fcd-74b002a060df.png
-{% endcapture %}
-{% include gallery images=images caption=&quot;Screenshots of Moon Theme&quot; cols=3 %}
+&lt;p&gt;How to set up X11 forwarding depends entirely on which operating system you’re using. In our class, we have four options, which I will order from least to most complicated:&lt;/p&gt;
 
----
+&lt;ul&gt;
+  &lt;li&gt;Linux-based operating systems (NOT CHROMEBOOKS):
+    &lt;ul&gt;
+      &lt;li&gt;in your terminal, type &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -X [YOUR USERNAME]@class.ggkbase.berkeley.edu&lt;/code&gt;. You’re done.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Mac OS X:
+    &lt;ul&gt;
+      &lt;li&gt;For whatever reason, X11 forwarding is disabled by default on macs. Don’t ask me why. In order to get around this, you have to go and download XQuartz (https://www.xquartz.org/).&lt;/li&gt;
+      &lt;li&gt;Go and download XQuartz-2.7.11.dmg, open it, and open the .pkg file you’ll find therein. This will install XQuartz on your system.&lt;/li&gt;
+      &lt;li&gt;Now log in and log out of your current session. (Go to the top right, click on your username, and click ‘login/switch user’ or whatever it says.)&lt;/li&gt;
+      &lt;li&gt;Now, go to your terminal, type &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -X [YOUR USERNAME]@class.ggkbase.berkeley.edu&lt;/code&gt;. Now you’re done.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Windows:
+    &lt;ul&gt;
+      &lt;li&gt;Download and install xming: https://sourceforge.net/projects/xming/&lt;/li&gt;
+      &lt;li&gt;Edit Putty preferences:
+  &lt;img src=&quot;X11_putty.png&quot; alt=&quot;enable_putty&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;Launch your connection as normal. Congratulations.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Chromebook:
+    &lt;ul&gt;
+      &lt;li&gt;Use one of the windows PCs in lab. Sorry.&lt;/li&gt;
+      &lt;li&gt;If you really are determined to figure out how to do it, look here: https://superuser.com/questions/1037230/is-there-a-way-to-use-xterm-on-chromebook&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-{% capture images %}
-	https://cloud.githubusercontent.com/assets/754514/14509718/61b09a20-01d6-11e6-8da1-4202ae4d83cd.png
-	https://cloud.githubusercontent.com/assets/754514/14509715/61aa9d00-01d6-11e6-81a6-c6837edf2e84.png
-{% endcapture %}
-{% include gallery images=images caption=&quot;Moon Theme on Small Screen Size&quot; cols=2 %}      
+&lt;hr /&gt;
 
-See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub.      
+&lt;h1 id=&quot;section-2-preparing-files-for-esoms&quot;&gt;Section 2: Preparing files for ESOMs&lt;/h1&gt;
 
-## Site Setup
-A quick checklist of the files you’ll want to edit to get up and running.    
+&lt;p&gt;Now, I’ve actually run the ESOMs already. (They take a really long time- best to do that before class.) You just need to gather a couple  of things.&lt;/p&gt;
 
-### Site Wide Configuration
-`_config.yml` is your friend. Open it up and personalize it. Most variables are self explanatory but here's an explanation of each if needed:
+&lt;h3 id=&quot;subsection-1-grabbing-all-of-the-esom-files-and-putting-them-in-your-home-directory&quot;&gt;Subsection 1: Grabbing all of the ESOM files and putting them in your home directory.&lt;/h3&gt;
 
-#### title
+&lt;p&gt;You just need to copy the files over. (Only one person per group needs to do this, strictly speaking, though you all can if you like - the files aren’t that large. Talk to me during lab if you’re doing this.)&lt;/p&gt;
 
-The title of your site... shocker!
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cp -r /class_data/[YOUR BABY]/esom_files ~&lt;/code&gt;&lt;/p&gt;
 
-Example `title: My Awesome Site`
+&lt;h3 id=&quot;subsection-2-generating-cls-files&quot;&gt;Subsection 2: Generating &lt;code class=&quot;highlighter-rouge&quot;&gt;.cls&lt;/code&gt; files&lt;/h3&gt;
 
-#### bio
+&lt;p&gt;What you’re going to be doing next is to get a file from &amp;lt;a href=class.ggkbase.berkeley.edu&amp;gt;class.ggkbase.berkeley.edu&amp;lt;/a&amp;gt; (in your browser, not on the terminal) that indicates which scaffolds correspond to each bin.&lt;/p&gt;
 
-The description to show on your homepage.
+&lt;p&gt;Only one person per group will need to do this.&lt;/p&gt;
 
-#### description
+&lt;p&gt;Go to class.ggkbase.berkeley.edu, log in, and navigate to the project folder for your baby. You’ll be downloading a ‘scaffold2bin’ file, which has information for each of the scaffolds in your project and their corresponding bin ID. Download it from this drop-down menu:&lt;/p&gt;
 
-The description to use for meta tags and navigation menu.
+&lt;p&gt;&lt;img src=&quot;scaf2bin_ggkbase.png&quot; alt=&quot;download_scaf2bin&quot; /&gt;&lt;/p&gt;
 
-#### url
+&lt;p&gt;&lt;strong&gt;It is important that you don’t rename this file for now!! Don’t do it!!&lt;/strong&gt;&lt;/p&gt;
 
-Used to generate absolute urls in `sitemap.xml`, `feed.xml`, and for generating canonical URLs in `&lt;head&gt;`. When developing locally either comment this out or use something like `http://localhost:4000` so all assets load properly. *Don't include a trailing `/`*.
+&lt;p&gt;Upload this to your home directory on class.ggkbase.berkeley.edu, either by using Putty to SFTP (Windows) or by using a SCP command on your terminal (Linux/Mac) like so:&lt;/p&gt;
 
-Examples:
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;`scp [BABY ID].scaffolds_to_bin.tsv [YOUR USERID]@class.ggkbase.berkeley.edu:/home/[YOUR USERID]`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-{% highlight yaml %}
-url: http://taylantatli.me/Moon
-url: http://localhost:4000
-url: //cooldude.github.io
-url:
-{% endhighlight %}
+&lt;p&gt;Where &lt;code class=&quot;highlighter-rouge&quot;&gt;[BABY ID]&lt;/code&gt; is the name of your baby (you’ll see it in the name of the file you download from ggkbase) and &lt;code class=&quot;highlighter-rouge&quot;&gt;[YOUR USERID]&lt;/code&gt; is, as you probably guessed, your username (student1, … , studentX).&lt;/p&gt;
 
-#### reading_time
+&lt;p&gt;Once that’s downloaded, you’re going to need to convert this to a &lt;code class=&quot;highlighter-rouge&quot;&gt;.cls&lt;/code&gt; file so that the ESOM program can read it in. You’re going to do this using a script I wrote, like so:&lt;/p&gt;
 
-Set true to show reading time for posts. And set `words_per_minute`, default is 200.
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;`python3 /class_data/convert_scaf2bin.py [SCAFFOLDS 2 BIN FILE]`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-#### logo
-Your site's logo. It will show on homepage and navigation menu. Also used for twitter meta tags.
+&lt;p&gt;which will create a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;ggkbase_names.cls&lt;/code&gt; in your current directory. Now, move that file to &lt;code class=&quot;highlighter-rouge&quot;&gt;~/esom_files&lt;/code&gt;.&lt;/p&gt;
 
-#### background
-Image for background. If you don't set it, color will be used as a background.
+&lt;p&gt;Good job. Proud of you.&lt;/p&gt;
 
-#### Google Analytics and Webmaster Tools
+&lt;hr /&gt;
 
-Google Analytics UA and Webmaster Tool verification tags can be entered in `_config.yml`. For more information on obtaining these meta tags check [Google Webmaster Tools](http://support.google.com/webmasters/bin/answer.py?hl=en&amp;answer=35179) and [Bing Webmaster Tools](https://ssl.bing.com/webmaster/configure/verify/ownership) support.
+&lt;h1 id=&quot;section-3-binning&quot;&gt;Section 3: Binning!!!!&lt;/h1&gt;
 
-#### MathJax
-It's enabled. But if you don't want to use it. Set it false in  `_config.yml`.
+&lt;p&gt;Okay, now comes the fun part. You’re going to actually run the ESOM binning program! This is the GUI process I was talking about earlier. ONE PERSON per group should do the following, in your home directory (&lt;code class=&quot;highlighter-rouge&quot;&gt;cd ~&lt;/code&gt;):&lt;/p&gt;
 
-#### Disqus Comments
-Set your disqus shortname in `_config.yml` to use comments.
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a symbolic link to the executable file for the ESOMana program:&lt;/p&gt;
 
----
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s /opt/bin/bio/ESOM/bin/esomana .&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Run the program to launch the GUI&lt;/p&gt;
 
-### Navigation Links
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;./esomana&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-To set what links appear in the top navigation edit `_data/navigation.yml`. Use the following format to set the URL and title for as many links as you'd like. *External links will open in a new window.*
+&lt;p&gt;Congratulations! Now let’s start loading things. Navigate to the top left of your window and select “File -&amp;gt; Load &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;.wts”. You’ll find all the files in your &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/[USERID]/esom_files&lt;/code&gt; folder. If you don’t have that folder, that means you didn’t follow my instructions from earlier. Go look up.&lt;/p&gt;
 
-{% highlight yaml %}
-- title: Home
-  url: /
+&lt;p&gt;You’ll see a colored map with some dots pop up now, like so:&lt;/p&gt;
 
-- title: Blog
-  url: /blog/
+&lt;p&gt;&lt;img src=&quot;esom_init.png&quot; alt=&quot;esom_init&quot; /&gt;&lt;/p&gt;
 
-- title: Projects
-  url: /projects/
+&lt;p&gt;Now you’re going to load the class information from your ggkbase bins. Go to “File -&amp;gt; Load .cls” and select “ggkbase_names.cls”, which should be in your &lt;code class=&quot;highlighter-rouge&quot;&gt;esom_files/&lt;/code&gt; folder.&lt;/p&gt;
 
-- title: About
-  url: /about/
+&lt;p&gt;Now, go and look at the ‘Classes’ tab in the bottom menu. You’ll see a bunch of classes, but everything will have the same color- choose a color for each of your bins. After that’s done, you should see something like this:&lt;/p&gt;
 
-- title: Moon
-  url: http://taylantatli.me/Moon
-{% endhighlight %}
+&lt;p&gt;&lt;img src=&quot;esom_colored.png&quot; alt=&quot;esom_colored&quot; /&gt;&lt;/p&gt;
 
----
+&lt;p&gt;Now we’re going to investigate individual bins and see how we can refine them. In your ‘Classes’ menu, for each class, there’s a little box on the left. If you click it, it will make all the points on the ESOM map corresponding to that class bold, for easier viewing. Try it out, perhaps with a couple closely related bins.&lt;/p&gt;
 
-## Layouts and Content
-
-Moon Theme use [Jekyll Compress](https://github.com/penibelst/jekyll-compress-html) to compress html output. But it can cause errors if you use &quot;linenos&quot; (line numbers). I suggest don't use line numbers for codes, because it won't look good with this theme, also i didn't give a proper style for them. If you insist to use line numbers, just remove `layout: compress` string from layouts. It will disable compressing.
-
-### Feature Image
-
-You can set feature image per post. Just add `feature: some link` to your post's front matter.
-
-```
-feature: /assets/img/some-image.png
-or
-feaure: http://example.com/some-image.png
-```    
- This also will be used for twitter card:
-
-![Moon Twitter Card](https://cloud.githubusercontent.com/assets/754514/14509719/61c5751c-01d6-11e6-8c29-ce8ccad149bf.png)
-
-### Comments
-To show disqus comments for your post add `comments: true` to your post's front matter.
-
----
-
-## Questions?
-
-Found a bug or aren't quite sure how something works? By all means [file a GitHub Issue](https://github.com/TaylanTatli/Moon/issues/new). And if you make something cool with this theme feel free to let me know.
-
----
-
-## License
-
-This theme is free and open source software, distributed under the MIT License. So feel free to use this Jekyll theme on your site without linking back to me or including a disclaimer.</content><category term="jekyll" /><category term="moon" /><category term="blog" /><category term="about" /><category term="theme" /><summary type="html">Minimal, one column Jekyll theme for your blog.</summary></entry><entry><title type="html">Markdown Syntax</title><link href="//markdown-syntax/" rel="alternate" type="text/html" title="Markdown Syntax" /><published>2016-03-15T00:00:00-07:00</published><updated>2016-03-15T00:00:00-07:00</updated><id>//markdown-syntax</id><content type="html" xml:base="//markdown-syntax/">## HTML Elements
-
-Below is just about everything you'll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
-
-# Heading 1
-
-## Heading 2
-
-### Heading 3
-
-#### Heading 4
-
-##### Heading 5
-
-###### Heading 6
-
-### Body text
-
-Lorem ipsum dolor sit amet, test link adipiscing elit. **This is strong**. Nullam dignissim convallis est. Quisque aliquam.
-
-![Smithsonian Image](https://mmistakes.github.io/minimal-mistakes/images/3953273590_704e3899d5_m.jpg)
-{: .image-right}
-
-*This is emphasized*. Donec faucibus. Nunc iaculis suscipit dui. 53 = 125. Water is H2O. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. The New York Times (That’s a citation). Underline.Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.
-
-HTML and CSS are our tools. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.
-
-### Blockquotes
-
-&gt; Lorem ipsum dolor sit amet, test link adipiscing elit. Nullam dignissim convallis est. Quisque aliquam.
-
-## List Types
-
-### Ordered Lists
-
-1. Item one
-   1. sub item one
-   2. sub item two
-   3. sub item three
-2. Item two
-
-### Unordered Lists
-
-* Item one
-* Item two
-* Item three
-
-## Tables
-
-| Header1 | Header2 | Header3 |
-|:--------|:-------:|--------:|
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|----
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|=====
-| Foot1   | Foot2   | Foot3
-{: rules=&quot;groups&quot;}
-
-## Code Snippets
-
-{% highlight css %}
-#container {
-  float: left;
-  margin: 0 -240px 0 0;
-  width: 100%;
-}
-{% endhighlight %}
-
-## Buttons
-
-Make any link standout more when applying the `.btn` class.
-
-{% highlight html %}
-&lt;a href=&quot;#&quot; class=&quot;btn btn-success&quot;&gt;Success Button&lt;/a&gt;
-{% endhighlight %}
-
-&lt;div markdown=&quot;0&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;btn&quot;&gt;Primary Button&lt;/a&gt;&lt;/div&gt;
-&lt;div markdown=&quot;0&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn-success&quot;&gt;Success Button&lt;/a&gt;&lt;/div&gt;
-&lt;div markdown=&quot;0&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn-warning&quot;&gt;Warning Button&lt;/a&gt;&lt;/div&gt;
-&lt;div markdown=&quot;0&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn-danger&quot;&gt;Danger Button&lt;/a&gt;&lt;/div&gt;
-&lt;div markdown=&quot;0&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn-info&quot;&gt;Info Button&lt;/a&gt;&lt;/div&gt;
-
-## KBD
-
-You can also use `&lt;kbd&gt;` tag for keyboard buttons.
-
-{% highlight html %}
-&lt;kbd&gt;W&lt;/kbd&gt;&lt;kbd&gt;A&lt;/kbd&gt;&lt;kbd&gt;S&lt;/kbd&gt;&lt;kbd&gt;D&lt;/kbd&gt;
-{% endhighlight %}
-
-Press &lt;kbd&gt;W&lt;/kbd&gt;&lt;kbd&gt;A&lt;/kbd&gt;&lt;kbd&gt;S&lt;/kbd&gt;&lt;kbd&gt;D&lt;/kbd&gt; to move your car. **Midtown Maddness!!**
-
-## Notices
-
-**Watch out!** You can also add notices by appending `{: .notice}` to a paragraph.
-{: .notice}</content><category term="markdown" /><category term="syntax" /><category term="sample" /><category term="test" /><category term="jekyll" /><summary type="html">Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more.</summary></entry><entry><title type="html">A Post with a Video</title><link href="//video-post/" rel="alternate" type="text/html" title="A Post with a Video" /><published>2016-03-15T00:00:00-07:00</published><updated>2016-03-15T00:00:00-07:00</updated><id>//video-post</id><content type="html" xml:base="//video-post/">&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;//www.youtube.com/embed/SU3kYxJmWuQ&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
-
-Video embeds are responsive and scale with the width of the main content block with the help of [FitVids](http://fitvidsjs.com/).
-
-Not sure if this only effects Kramdown or if it's an issue with Markdown in general. But adding YouTube video embeds causes errors when building your Jekyll site. To fix add a space between the `&lt;iframe&gt;` tags and remove `allowfullscreen`. Example below:
-
-{% highlight html %}
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;//www.youtube.com/embed/SU3kYxJmWuQ&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
-{% endhighlight %}</content><category term="sample" /><category term="post" /><category term="video" /><summary type="html">Custom written post descriptions are the way to go... if you're not lazy.</summary></entry><entry><title type="html">MathJax Example</title><link href="//mathjax-example/" rel="alternate" type="text/html" title="MathJax Example" /><published>2015-08-10T00:00:00-07:00</published><updated>2015-08-10T00:00:00-07:00</updated><id>//mathjax-example</id><content type="html" xml:base="//mathjax-example/">[MathJax](http://www.mathjax.org/) is a simple way of including Tex/LaTex/MathML based mathematics in HTML webpages. To get up and running you need to include the MathJax script in the header of your github pages page, and then write some maths. For LaTex, there are two delimiters you need to know about, one for block or displayed mathematics `\[ ... \]`, and the other for inline mathematics `\( ... \)`.
-
-## Usage
-
-To enable MathJax support be sure Kramdown is your Markdown flavor of choice and MathJax is set to true in your `_config.yml` file.
-
-~~~
-markdown: kramdown
-mathjax: true
-~~~
-
-~~~
-Here is an example MathJax inline rendering \\( 1/x^{2} \\), and here is a block rendering: 
-\\[ \frac{1}{n^{2}} \\]
-~~~
-
-Here is an example MathJax inline rendering \\( 1/x^{2} \\), and here is a block rendering: 
-\\[ \frac{1}{n^{2}} \\]
-
-The only thing to look out for is the escaping of the backslash when using markdown, so the delimiters become `\\[ ... \\]` and `\\( ... \\)` for inline and block maths respectively.
-    
-
-$$
-\begin{align*}
-  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
-      \vdots &amp; \ddots &amp; \vdots \\
-      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
-$$</content><category term="markdown" /><category term="mathjax" /><category term="example" /><category term="test" /><category term="jekyll" /><summary type="html">MathJax Example for Moon Jekyll Theme.</summary></entry><entry><title type="html">Syntax Highlighting Post</title><link href="//code-highlighting-post/" rel="alternate" type="text/html" title="Syntax Highlighting Post" /><published>2013-08-16T00:00:00-07:00</published><updated>2013-08-16T00:00:00-07:00</updated><id>//code-highlighting-post</id><content type="html" xml:base="//code-highlighting-post/">Syntax highlighting is a feature that displays source code, in different colors and fonts according to the category of terms. This feature facilitates writing in a structured language such as a programming language or a markup language as both structures and syntax errors are visually distinct. Highlighting does not affect the meaning of the text itself; it is intended only for human readers.[^1]
-
-[^1]: &lt;http://en.wikipedia.org/wiki/Syntax_highlighting&gt;
-
-### Highlighted Code Blocks
-
-To modify styling and highlight colors edit `/assets/css/syntax.css`.
-
-{% highlight css %}
-#container {
-    float: left;
-    margin: 0 -240px 0 0;
-    width: 100%;
-}
-{% endhighlight %}
-
-{% highlight html %}
-{% raw %}
-&lt;nav class=&quot;pagination&quot; role=&quot;navigation&quot;&gt;
-    {% if page.previous %}
-        &lt;a href=&quot;{{ site.url }}{{ page.previous.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.previous.title }}&quot;&gt;Previous article&lt;/a&gt;
-    {% endif %}
-    {% if page.next %}
-        &lt;a href=&quot;{{ site.url }}{{ page.next.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.next.title }}&quot;&gt;Next article&lt;/a&gt;
-    {% endif %}
-&lt;/nav&gt;&lt;!-- /.pagination --&gt;
-{% endraw %}
-{% endhighlight %}
-
-{% highlight ruby %}
-module Jekyll
-  class TagIndex &lt; Page
-    def initialize(site, base, dir, tag)
-      @site = site
-      @base = base
-      @dir = dir
-      @name = 'index.html'
-      self.process(@name)
-      self.read_yaml(File.join(base, '_layouts'), 'tag_index.html')
-      self.data['tag'] = tag
-      tag_title_prefix = site.config['tag_title_prefix'] || 'Tagged: '
-      tag_title_suffix = site.config['tag_title_suffix'] || '&amp;#8211;'
-      self.data['title'] = &quot;#{tag_title_prefix}#{tag}&quot;
-      self.data['description'] = &quot;An archive of posts tagged #{tag}.&quot;
-    end
-  end
-end
-{% endhighlight %}
-
-
-### Standard Code Block
-
-    {% raw %}
-    &lt;nav class=&quot;pagination&quot; role=&quot;navigation&quot;&gt;
-        {% if page.previous %}
-            &lt;a href=&quot;{{ site.url }}{{ page.previous.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.previous.title }}&quot;&gt;Previous article&lt;/a&gt;
-        {% endif %}
-        {% if page.next %}
-            &lt;a href=&quot;{{ site.url }}{{ page.next.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.next.title }}&quot;&gt;Next article&lt;/a&gt;
-        {% endif %}
-    &lt;/nav&gt;&lt;!-- /.pagination --&gt;
-    {% endraw %}
-
-
-### Fenced Code Blocks
-
-To modify styling and highlight colors edit `/assets/css/syntax.css`. Line numbers and a few other things can be modified in `_config.yml`. Consult [Jekyll's documentation](http://jekyllrb.com/docs/configuration/) for more information.
-
-~~~ css
-#container {
-    float: left;
-    margin: 0 -240px 0 0;
-    width: 100%;
-}
-~~~
-
-~~~ html
-{% raw %}&lt;nav class=&quot;pagination&quot; role=&quot;navigation&quot;&gt;
-    {% if page.previous %}
-        &lt;a href=&quot;{{ site.url }}{{ page.previous.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.previous.title }}&quot;&gt;Previous article&lt;/a&gt;
-    {% endif %}
-    {% if page.next %}
-        &lt;a href=&quot;{{ site.url }}{{ page.next.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.next.title }}&quot;&gt;Next article&lt;/a&gt;
-    {% endif %}
-&lt;/nav&gt;&lt;!-- /.pagination --&gt;{% endraw %}
-~~~
-
-~~~ ruby
-module Jekyll
-  class TagIndex &lt; Page
-    def initialize(site, base, dir, tag)
-      @site = site
-      @base = base
-      @dir = dir
-      @name = 'index.html'
-      self.process(@name)
-      self.read_yaml(File.join(base, '_layouts'), 'tag_index.html')
-      self.data['tag'] = tag
-      tag_title_prefix = site.config['tag_title_prefix'] || 'Tagged: '
-      tag_title_suffix = site.config['tag_title_suffix'] || '&amp;#8211;'
-      self.data['title'] = &quot;#{tag_title_prefix}#{tag}&quot;
-      self.data['description'] = &quot;An archive of posts tagged #{tag}.&quot;
-    end
-  end
-end
-~~~
-
-### GitHub Gist Embed
-
-An example of a Gist embed below.
-
-{% gist mmistakes/6589546 %}</content><category term="sample post" /><category term="code" /><category term="highlighting" /><summary type="html">Demo post displaying the various ways of highlighting code in Markdown.</summary></entry><entry><title type="html">A Post with Images</title><link href="//sample-post-images/" rel="alternate" type="text/html" title="A Post with Images" /><published>2013-05-22T00:00:00-07:00</published><updated>2013-05-22T00:00:00-07:00</updated><id>//sample-post-images</id><content type="html" xml:base="//sample-post-images/">Here are some examples of what a post with images might look like. If you want to display two or three images next to each other responsively use `figure` with the appropriate `class`. Each instance of `figure` is auto-numbered and displayed in the caption.
-
-### Figures (for images or video)
-
-#### One Up
-
-&lt;figure&gt;
-	&lt;a href=&quot;http://farm9.staticflickr.com/8426/7758832526_cc8f681e48_b.jpg&quot;&gt;&lt;img src=&quot;http://farm9.staticflickr.com/8426/7758832526_cc8f681e48_c.jpg&quot;&gt;&lt;/a&gt;
-	&lt;figcaption&gt;&lt;a href=&quot;http://www.flickr.com/photos/80901381@N04/7758832526/&quot; title=&quot;Morning Fog Emerging From Trees by A Guy Taking Pictures, on Flickr&quot;&gt;Morning Fog Emerging From Trees by A Guy Taking Pictures, on Flickr&lt;/a&gt;.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-Vero laborum commodo occupy. Semiotics voluptate mumblecore pug. Cosby sweater ullamco quinoa ennui assumenda, sapiente occupy delectus lo-fi. Ea fashion axe Marfa cillum aliquip. Retro Bushwick keytar cliche. Before they sold out sustainable gastropub Marfa readymade, ethical Williamsburg skateboard brunch qui consectetur gentrify semiotics. Mustache cillum irony, fingerstache magna pour-over keffiyeh tousled selfies.
-
-#### Two Up
-
-Apply the `half` class like so to display two images side by side that share the same caption.
-
-{% highlight html %}
-&lt;figure class=&quot;half&quot;&gt;
-    &lt;a href=&quot;/images/image-filename-1-large.jpg&quot;&gt;&lt;img src=&quot;/images/image-filename-1.jpg&quot;&gt;&lt;/a&gt;
-    &lt;a href=&quot;/images/image-filename-2-large.jpg&quot;&gt;&lt;img src=&quot;/images/image-filename-2.jpg&quot;&gt;&lt;/a&gt;
-    &lt;figcaption&gt;Caption describing these two images.&lt;/figcaption&gt;
-&lt;/figure&gt;
-{% endhighlight %}
-
-And you'll get something that looks like this:
-
-&lt;figure class=&quot;half&quot;&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.JPG&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot;&gt;&lt;/a&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpeg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot;&gt;&lt;/a&gt;
-	&lt;figcaption&gt;Two images.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-#### Three Up
-
-Apply the `third` class like so to display three images side by side that share the same caption.
-
-{% highlight html %}
-&lt;figure class=&quot;third&quot;&gt;
-	&lt;img src=&quot;/images/image-filename-1.jpg&quot;&gt;
-	&lt;img src=&quot;/images/image-filename-2.jpg&quot;&gt;
-	&lt;img src=&quot;/images/image-filename-3.jpg&quot;&gt;
-	&lt;figcaption&gt;Caption describing these three images.&lt;/figcaption&gt;
-&lt;/figure&gt;
-{% endhighlight %}
-
-And you'll get something that looks like this:
-
-&lt;figure class=&quot;third&quot;&gt;
-	&lt;img src=&quot;http://placehold.it/600x300.jpg&quot;&gt;
-	&lt;img src=&quot;http://placehold.it/600x300.jpg&quot;&gt;
-	&lt;img src=&quot;http://placehold.it/600x300.jpg&quot;&gt;
-	&lt;figcaption&gt;Three images.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-### Alternative way
-
-Another way to achieve the same result is to include `gallery` Liquid template. In this case you
-don't have to write any HTML tags – just copy a small block of code, adjust the parameters (see below)
-and fill the block with any number of links to images. You can mix relative and external links.
-
-Here is the block you might want to use:
-
-{% highlight liquid %}
-{% raw %}
-{% capture images %}
-	http://vignette2.wikia.nocookie.net/naruto/images/9/97/Hinata.png
-	http://vignette4.wikia.nocookie.net/naruto/images/7/79/Hinata_Part_II.png
-	http://vignette1.wikia.nocookie.net/naruto/images/1/15/J%C5%ABho_S%C5%8Dshiken.png
-{% endcapture %}
-{% include gallery images=images caption=&quot;Test images&quot; cols=3 %}
-{% endraw %}
-{% endhighlight %}
-
-Parameters:
-
-- `caption`: Sets the caption under the gallery (see `figcaption` HTML tag above);
-- `cols`: Sets the number of columns of the gallery.
-Available values: [1..3].
-
-It will look something like this:
-
-{% capture images %}
-	http://vignette2.wikia.nocookie.net/naruto/images/9/97/Hinata.png
-	http://vignette4.wikia.nocookie.net/naruto/images/7/79/Hinata_Part_II.png
-	http://vignette1.wikia.nocookie.net/naruto/images/1/15/J%C5%ABho_S%C5%8Dshiken.png
-{% endcapture %}
-{% include gallery images=images caption=&quot;Test images&quot; cols=3 %}</content><category term="sample post" /><category term="images" /><category term="test" /><summary type="html">Examples and code for displaying images in posts.</summary></entry><entry><title type="html">Post with Image Feature</title><link href="//readability-feature-post/" rel="alternate" type="text/html" title="Post with Image Feature" /><published>2012-05-23T00:00:00-07:00</published><updated>2012-05-23T00:00:00-07:00</updated><id>//readability-feature-post</id><content type="html" xml:base="//readability-feature-post/">Portland in shoreditch Vice, labore typewriter pariatur hoodie fap sartorial Austin. Pinterest literally occupy Schlitz forage. Odio ad blue bottle vinyl, 90's narwhal commodo bitters pour-over nostrud. Ugh est hashtag in, fingerstache adipisicing laboris esse Pinterest shabby chic Portland. Shoreditch bicycle rights anim, flexitarian laboris put a bird on it vinyl cupidatat narwhal. Hashtag artisan skateboard, flannel Bushwick nesciunt salvia aute fixie do plaid post-ironic dolor McSweeney's. Cliche pour-over chambray nulla four loko skateboard sapiente hashtag.
-
-Vero laborum commodo occupy. Semiotics voluptate mumblecore pug. Cosby sweater ullamco quinoa ennui assumenda, sapiente occupy delectus lo-fi. Ea fashion axe Marfa cillum aliquip. Retro Bushwick keytar cliche. Before they sold out sustainable gastropub Marfa readymade, ethical Williamsburg skateboard brunch qui consectetur gentrify semiotics. Mustache cillum irony, fingerstache magna pour-over keffiyeh tousled selfies.
-
-## Cupidatat 90's lo-fi authentic try-hard
-
-In pug Portland incididunt mlkshk put a bird on it vinyl quinoa. Terry Richardson shabby chic +1, scenester Tonx excepteur tempor fugiat voluptate fingerstache aliquip nisi next level. Farm-to-table hashtag Truffaut, Odd Future ex meggings gentrify single-origin coffee try-hard 90's.
-
-* Sartorial hoodie
-* Labore viral forage
-* Tote bag selvage
-* DIY exercitation et id ugh tumblr church-key
-
-Incididunt umami sriracha, ethical fugiat VHS ex assumenda yr irure direct trade. Marfa Truffaut bicycle rights, kitsch placeat Etsy kogi asymmetrical. Beard locavore flexitarian, kitsch photo booth hoodie plaid ethical readymade leggings yr.
-
-Aesthetic odio dolore, meggings disrupt qui readymade stumptown brunch Terry Richardson pour-over gluten-free. Banksy american apparel in selfies, biodiesel flexitarian organic meh wolf quinoa gentrify banjo kogi. Readymade tofu ex, scenester dolor umami fingerstache occaecat fashion axe Carles jean shorts minim. Keffiyeh fashion axe nisi Godard mlkshk dolore. Lomo you probably haven't heard of them eu non, Odd Future Truffaut pug keytar meggings McSweeney's Pinterest cred. Etsy literally aute esse, eu bicycle rights qui meggings fanny pack. Gentrify leggings pug flannel duis.
-
-## Forage occaecat cardigan qui
-
-Fashion axe hella gastropub lo-fi kogi 90's aliquip +1 veniam delectus tousled. Cred sriracha locavore gastropub kale chips, iPhone mollit sartorial. Anim dolore 8-bit, pork belly dolor photo booth aute flannel small batch. Dolor disrupt ennui, tattooed whatever salvia Banksy sartorial roof party selfies raw denim sint meh pour-over. Ennui eu cardigan sint, gentrify iPhone cornhole.
-
-&gt; Whatever velit occaecat quis deserunt gastropub, leggings elit tousled roof party 3 wolf moon kogi pug blue bottle ea. Fashion axe shabby chic Austin quinoa pickled laborum bitters next level, disrupt deep v accusamus non fingerstache.
-
-Tote bag asymmetrical elit sunt. Occaecat authentic Marfa, hella McSweeney's next level irure veniam master cleanse. Sed hoodie letterpress artisan wolf leggings, 3 wolf moon commodo ullamco. Anim occupy ea labore Terry Richardson. Tofu ex master cleanse in whatever pitchfork banh mi, occupy fugiat fanny pack Austin authentic. Magna fugiat 3 wolf moon, labore McSweeney's sustainable vero consectetur. Gluten-free disrupt enim, aesthetic fugiat jean shorts trust fund keffiyeh magna try-hard.
-
-## Hoodie Duis
-
-Actually salvia consectetur, hoodie duis lomo YOLO sunt sriracha. Aute pop-up brunch farm-to-table odio, salvia irure occaecat. Sriracha small batch literally skateboard. Echo Park nihil hoodie, aliquip forage artisan laboris. Trust fund reprehenderit nulla locavore. Stumptown raw denim kitsch, keffiyeh nulla twee dreamcatcher fanny pack ullamco 90's pop-up est culpa farm-to-table. Selfies 8-bit do pug odio.
-
-### Thundercats Ho!
-
-Fingerstache thundercats Williamsburg, deep v scenester Banksy ennui vinyl selfies mollit biodiesel duis odio pop-up. Banksy 3 wolf moon try-hard, sapiente enim stumptown deep v ad letterpress. Squid beard brunch, exercitation raw denim yr sint direct trade. Raw denim narwhal id, flannel DIY McSweeney's seitan. Letterpress artisan bespoke accusamus, meggings laboris consequat Truffaut qui in seitan. Sustainable cornhole Schlitz, twee Cosby sweater banh mi deep v forage letterpress flannel whatever keffiyeh. Sartorial cred irure, semiotics ethical sed blue bottle nihil letterpress.
-
-Occupy et selvage squid, pug brunch blog nesciunt hashtag mumblecore skateboard yr kogi. Ugh small batch swag four loko. Fap post-ironic qui tote bag farm-to-table american apparel scenester keffiyeh vero, swag non pour-over gentrify authentic pitchfork. Schlitz scenester lo-fi voluptate, tote bag irony bicycle rights pariatur vero Vice freegan wayfarers exercitation nisi shoreditch. Chambray tofu vero sed. Street art swag literally leggings, Cosby sweater mixtape PBR lomo Banksy non in pitchfork ennui McSweeney's selfies. Odd Future Banksy non authentic.
-
-Aliquip enim artisan dolor post-ironic. Pug tote bag Marfa, deserunt pour-over Portland wolf eu odio intelligentsia american apparel ugh ea. Sunt viral et, 3 wolf moon gastropub pug id. Id fashion axe est typewriter, mlkshk Portland art party aute brunch. Sint pork belly Cosby sweater, deep v mumblecore kitsch american apparel. Try-hard direct trade tumblr sint skateboard. Adipisicing bitters excepteur biodiesel, pickled gastropub aute veniam.</content><category term="sample post" /><category term="readability" /><category term="test" /><category term="image" /><category term="feature" /><summary type="html">A ton of text to test readability with image feature.</summary></entry><entry><title type="html">Testing Readability with a Bunch of Text</title><link href="//readability-post/" rel="alternate" type="text/html" title="Testing Readability with a Bunch of Text" /><published>2012-05-22T00:00:00-07:00</published><updated>2012-05-22T00:00:00-07:00</updated><id>//readability-post</id><content type="html" xml:base="//readability-post/">Portland in shoreditch Vice, labore typewriter pariatur hoodie fap sartorial Austin. Pinterest literally occupy Schlitz forage. Odio ad blue bottle vinyl, 90's narwhal commodo bitters pour-over nostrud. Ugh est hashtag in, fingerstache adipisicing laboris esse Pinterest shabby chic Portland. Shoreditch bicycle rights anim, flexitarian laboris put a bird on it vinyl cupidatat narwhal. Hashtag artisan skateboard, flannel Bushwick nesciunt salvia aute fixie do plaid post-ironic dolor McSweeney's. Cliche pour-over chambray nulla four loko skateboard sapiente hashtag.
-
-Vero laborum commodo occupy. Semiotics voluptate mumblecore pug. Cosby sweater ullamco quinoa ennui assumenda, sapiente occupy delectus lo-fi. Ea fashion axe Marfa cillum aliquip. Retro Bushwick keytar cliche. Before they sold out sustainable gastropub Marfa readymade, ethical Williamsburg skateboard brunch qui consectetur gentrify semiotics. Mustache cillum irony, fingerstache magna pour-over keffiyeh tousled selfies.
-
-## Cupidatat 90's lo-fi authentic try-hard
-
-In pug Portland incididunt mlkshk put a bird on it vinyl quinoa. Terry Richardson shabby chic +1, scenester Tonx excepteur tempor fugiat voluptate fingerstache aliquip nisi next level. Farm-to-table hashtag Truffaut, Odd Future ex meggings gentrify single-origin coffee try-hard 90's.
-
-* Sartorial hoodie
-* Labore viral forage
-* Tote bag selvage
-* DIY exercitation et id ugh tumblr church-key
-
-Incididunt umami sriracha, ethical fugiat VHS ex assumenda yr irure direct trade. Marfa Truffaut bicycle rights, kitsch placeat Etsy kogi asymmetrical. Beard locavore flexitarian, kitsch photo booth hoodie plaid ethical readymade leggings yr.
-
-Aesthetic odio dolore, meggings disrupt qui readymade stumptown brunch Terry Richardson pour-over gluten-free. Banksy american apparel in selfies, biodiesel flexitarian organic meh wolf quinoa gentrify banjo kogi. Readymade tofu ex, scenester dolor umami fingerstache occaecat fashion axe Carles jean shorts minim. Keffiyeh fashion axe nisi Godard mlkshk dolore. Lomo you probably haven't heard of them eu non, Odd Future Truffaut pug keytar meggings McSweeney's Pinterest cred. Etsy literally aute esse, eu bicycle rights qui meggings fanny pack. Gentrify leggings pug flannel duis.
-
-## Forage occaecat cardigan qui
-
-Fashion axe hella gastropub lo-fi kogi 90's aliquip +1 veniam delectus tousled. Cred sriracha locavore gastropub kale chips, iPhone mollit sartorial. Anim dolore 8-bit, pork belly dolor photo booth aute flannel small batch. Dolor disrupt ennui, tattooed whatever salvia Banksy sartorial roof party selfies raw denim sint meh pour-over. Ennui eu cardigan sint, gentrify iPhone cornhole.
-
-&gt; Whatever velit occaecat quis deserunt gastropub, leggings elit tousled roof party 3 wolf moon kogi pug blue bottle ea. Fashion axe shabby chic Austin quinoa pickled laborum bitters next level, disrupt deep v accusamus non fingerstache.
-
-Tote bag asymmetrical elit sunt. Occaecat authentic Marfa, hella McSweeney's next level irure veniam master cleanse. Sed hoodie letterpress artisan wolf leggings, 3 wolf moon commodo ullamco. Anim occupy ea labore Terry Richardson. Tofu ex master cleanse in whatever pitchfork banh mi, occupy fugiat fanny pack Austin authentic. Magna fugiat 3 wolf moon, labore McSweeney's sustainable vero consectetur. Gluten-free disrupt enim, aesthetic fugiat jean shorts trust fund keffiyeh magna try-hard.
-
-## Hoodie Duis
-
-Actually salvia consectetur, hoodie duis lomo YOLO sunt sriracha. Aute pop-up brunch farm-to-table odio, salvia irure occaecat. Sriracha small batch literally skateboard. Echo Park nihil hoodie, aliquip forage artisan laboris. Trust fund reprehenderit nulla locavore. Stumptown raw denim kitsch, keffiyeh nulla twee dreamcatcher fanny pack ullamco 90's pop-up est culpa farm-to-table. Selfies 8-bit do pug odio.
-
-### Thundercats Ho!
-
-Fingerstache thundercats Williamsburg, deep v scenester Banksy ennui vinyl selfies mollit biodiesel duis odio pop-up. Banksy 3 wolf moon try-hard, sapiente enim stumptown deep v ad letterpress. Squid beard brunch, exercitation raw denim yr sint direct trade. Raw denim narwhal id, flannel DIY McSweeney's seitan. Letterpress artisan bespoke accusamus, meggings laboris consequat Truffaut qui in seitan. Sustainable cornhole Schlitz, twee Cosby sweater banh mi deep v forage letterpress flannel whatever keffiyeh. Sartorial cred irure, semiotics ethical sed blue bottle nihil letterpress.
-
-Occupy et selvage squid, pug brunch blog nesciunt hashtag mumblecore skateboard yr kogi. Ugh small batch swag four loko. Fap post-ironic qui tote bag farm-to-table american apparel scenester keffiyeh vero, swag non pour-over gentrify authentic pitchfork. Schlitz scenester lo-fi voluptate, tote bag irony bicycle rights pariatur vero Vice freegan wayfarers exercitation nisi shoreditch. Chambray tofu vero sed. Street art swag literally leggings, Cosby sweater mixtape PBR lomo Banksy non in pitchfork ennui McSweeney's selfies. Odd Future Banksy non authentic.
-
-Aliquip enim artisan dolor post-ironic. Pug tote bag Marfa, deserunt pour-over Portland wolf eu odio intelligentsia american apparel ugh ea. Sunt viral et, 3 wolf moon gastropub pug id. Id fashion axe est typewriter, mlkshk Portland art party aute brunch. Sint pork belly Cosby sweater, deep v mumblecore kitsch american apparel. Try-hard direct trade tumblr sint skateboard. Adipisicing bitters excepteur biodiesel, pickled gastropub aute veniam.</content><category term="sample post" /><category term="readability" /><category term="test" /><summary type="html">A ton of text to test readability.</summary></entry></feed>
+&lt;p&gt;Here, I’ve highlighted two closely related bins (at the family level, so kinda close)… notice how they’re next to each other and intermingle a little bit?&lt;/p&gt;</content><category term="test" /><summary type="html">Testing!</summary></entry><entry><title type="html">Testing post</title><link href="//testpost/" rel="alternate" type="text/html" title="Testing post" /><published>2020-02-17T00:00:00-07:00</published><updated>2020-02-17T00:00:00-07:00</updated><id>//testpost</id><content type="html" xml:base="//testpost/">&lt;p&gt;Can I make a project post display properly? Let’s find out.&lt;/p&gt;</content><category term="test" /><summary type="html">Just making sure everything works.</summary></entry></feed>
