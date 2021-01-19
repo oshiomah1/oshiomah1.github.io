@@ -1,122 +1,197 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="//feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="//feed.xml" rel="self" type="application/atom+xml" /><link href="//" rel="alternate" type="text/html" /><updated>2021-01-03T20:09:59-07:00</updated><id>//</id><title type="html">Jacob West-Roberts</title><subtitle>Moon is a minimal, one column jekyll theme for your blog.</subtitle><entry><title type="html">Week 5 Walkthrough</title><link href="//Week_5_walkthrough/" rel="alternate" type="text/html" title="Week 5 Walkthrough" /><published>2020-02-17T00:00:00-07:00</published><updated>2020-02-17T00:00:00-07:00</updated><id>//Week_5_walkthrough</id><content type="html" xml:base="//Week_5_walkthrough/">&lt;h1 id=&quot;welcome-to-week-5-of-lab&quot;&gt;Welcome to week 5 of lab!&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="//feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="//feed.xml" rel="self" type="application/atom+xml" /><link href="//" rel="alternate" type="text/html" /><updated>2021-01-16T20:12:26-07:00</updated><id>//</id><title type="html">Jacob West-Roberts</title><subtitle>Moon is a minimal, one column jekyll theme for your blog.</subtitle><entry><title type="html">Week 1 Walkthrough- Intro to Bash</title><link href="//Week_5_walkthrough/" rel="alternate" type="text/html" title="Week 1 Walkthrough- Intro to Bash" /><published>2020-02-17T00:00:00-07:00</published><updated>2020-02-17T00:00:00-07:00</updated><id>//Week_5_walkthrough</id><content type="html" xml:base="//Week_5_walkthrough/">&lt;h1&gt;Hello and welcome to week 1 of ESPM 112L-&lt;/h1&gt;
 
-&lt;h3 id=&quot;this-week-were-going-to-be-refining-our-bins-and-doing-some-additional-binning-using-esoms-emergent-self-organizing-maps&quot;&gt;This week we’re going to be refining our bins and doing some additional binning using ESOMs (Emergent Self-Organizing Maps).&lt;/h3&gt;
+&lt;h1&gt;Metagenomic Data Analysis Lab!&lt;/h1&gt;
 
-&lt;h3 id=&quot;this-is-a-really-interesting-way-of-visualizing-the-way-automated-algorithms-interpret-and-sort-metagenomic-data-next-week-well-be-using-automated-binners-which-utilize-other-unsupervised-machine-learning-algorithms-not-esoms-though-well-talk-more-about-the-other-popular-methods-next-week&quot;&gt;This is a really interesting way of visualizing the way automated algorithms interpret and sort metagenomic data. Next week we’ll be using automated binners, which utilize other unsupervised machine learning algorithms. (Not ESOMs, though. We’ll talk more about the other popular methods next week.)&lt;/h3&gt;
-
-&lt;p&gt;This lab is going to be pretty short from your perspective, but know that there was a lot of preparation that went into this week’s material! I hope it’s enjoyable for you.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;section-1-x11-forwarding&quot;&gt;Section 1: X11 Forwarding&lt;/h1&gt;
-
-&lt;p&gt;You’re going to be doing this week’s lab using a GUI process, which requires some special considerations. GUI stands for &lt;strong&gt;G&lt;/strong&gt;raphical &lt;strong&gt;U&lt;/strong&gt;ser &lt;strong&gt;I&lt;/strong&gt;nterface. You might be thinking, “aren’t we doing all our work in a shell?” Well, yes, we are. This week we’re going to set things up so that you can run a GUI process on our server while having a window on your computer to modify and mess with as you see fit. X11 forwarding is what you’re going to need to use in order to accomplish this.&lt;/p&gt;
-
-&lt;p&gt;How to set up X11 forwarding depends entirely on which operating system you’re using. In our class, we have four options, which I will order from least to most complicated:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Linux-based operating systems (NOT CHROMEBOOKS):
-    &lt;ul&gt;
-      &lt;li&gt;in your terminal, type &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -X [YOUR USERNAME]@class.ggkbase.berkeley.edu&lt;/code&gt;. You’re done.&lt;/li&gt;
+&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#tasks-for-today&quot; id=&quot;markdown-toc-tasks-for-today&quot;&gt;Tasks for Today&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-what-is-the-command-line&quot; id=&quot;markdown-toc-1-what-is-the-command-line&quot;&gt;1. What is the command line?&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#interlude-for-those-intimidated-by-the-command-line&quot; id=&quot;markdown-toc-interlude-for-those-intimidated-by-the-command-line&quot;&gt;Interlude: For those intimidated by the command line&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Mac OS X:
-    &lt;ul&gt;
-      &lt;li&gt;For whatever reason, X11 forwarding is disabled by default on macs. Don’t ask me why. In order to get around this, you have to go and download XQuartz (https://www.xquartz.org/).&lt;/li&gt;
-      &lt;li&gt;Go and download XQuartz-2.7.11.dmg, open it, and open the .pkg file you’ll find therein. This will install XQuartz on your system.&lt;/li&gt;
-      &lt;li&gt;Now log in and log out of your current session. (Go to the top right, click on your username, and click ‘login/switch user’ or whatever it says.)&lt;/li&gt;
-      &lt;li&gt;Now, go to your terminal, type &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -X [YOUR USERNAME]@class.ggkbase.berkeley.edu&lt;/code&gt;. Now you’re done.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-how-do-i-access-the-command-line&quot; id=&quot;markdown-toc-2-how-do-i-access-the-command-line&quot;&gt;2. How do I access the command line?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-basic-commands&quot; id=&quot;markdown-toc-3-basic-commands&quot;&gt;3. Basic Commands&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#--ls&quot; id=&quot;markdown-toc---ls&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#--cd&quot; id=&quot;markdown-toc---cd&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Windows:
-    &lt;ul&gt;
-      &lt;li&gt;Download and install xming: https://sourceforge.net/projects/xming/&lt;/li&gt;
-      &lt;li&gt;Edit Putty preferences:
-  &lt;img src=&quot;X11_putty.png&quot; alt=&quot;enable_putty&quot; /&gt;&lt;/li&gt;
-      &lt;li&gt;Launch your connection as normal. Congratulations.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-connecting-to-the-class-server&quot; id=&quot;markdown-toc-4-connecting-to-the-class-server&quot;&gt;4. Connecting to the class server&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssh&quot; id=&quot;markdown-toc-ssh&quot;&gt;SSH&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#changing-the-password&quot; id=&quot;markdown-toc-changing-the-password&quot;&gt;Changing the password&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Chromebook:
-    &lt;ul&gt;
-      &lt;li&gt;Use one of the windows PCs in lab. Sorry.&lt;/li&gt;
-      &lt;li&gt;If you really are determined to figure out how to do it, look here: https://superuser.com/questions/1037230/is-there-a-way-to-use-xterm-on-chromebook&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#5-creating-modifying-and-moving-files--directories&quot; id=&quot;markdown-toc-5-creating-modifying-and-moving-files--directories&quot;&gt;5. Creating, modifying, and moving files &amp;amp; directories&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#--pwd&quot; id=&quot;markdown-toc---pwd&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;pwd&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#--mkdir&quot; id=&quot;markdown-toc---mkdir&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#creating-and-deleting-files&quot; id=&quot;markdown-toc-creating-and-deleting-files&quot;&gt;Creating and deleting files&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#finishing-up&quot; id=&quot;markdown-toc-finishing-up&quot;&gt;Finishing up&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;This week’s lab is going to be short and sweet, and include lots of links to external resources (for your reference now and after this class is done). There’s a lot of writing here, but there’s not too much actual work involved yet. That will come, don’t worry!&lt;/p&gt;
 
-&lt;h1 id=&quot;section-2-preparing-files-for-esoms&quot;&gt;Section 2: Preparing files for ESOMs&lt;/h1&gt;
+&lt;p&gt;Using the terminal (also called the command line) is crucial for bioinformatics, among many other things, and this lab will lay the foundation for you to become proficient in using tools on the terminal. Before we get into how to access it on various operating systems, let’s discuss what it actually is.&lt;/p&gt;
 
-&lt;p&gt;Now, I’ve actually run the ESOMs already. (They take a really long time- best to do that before class.) You just need to gather a couple  of things.&lt;/p&gt;
+&lt;h3 id=&quot;tasks-for-today&quot;&gt;Tasks for Today&lt;/h3&gt;
 
-&lt;h3 id=&quot;subsection-1-grabbing-all-of-the-esom-files-and-putting-them-in-your-home-directory&quot;&gt;Subsection 1: Grabbing all of the ESOM files and putting them in your home directory.&lt;/h3&gt;
+&lt;p&gt;To get your points for lab today, you’re going to have to register for an account on the class server, join a group, and send me your username/password combo as well as the names of your group members. Additionally, you’re going to make a directory and a few files as part of the tutorial - you’re going to send me the path to this folder as well. (More on that in a bit.)&lt;/p&gt;
 
-&lt;p&gt;You just need to copy the files over. (Only one person per group needs to do this, strictly speaking, though you all can if you like - the files aren’t that large. Talk to me during lab if you’re doing this.)&lt;/p&gt;
+&lt;h3 id=&quot;1-what-is-the-command-line&quot;&gt;1. What is the command line?&lt;/h3&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cp -r /class_data/[YOUR BABY]/esom_files ~&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The command line is an interface designed for you to navigate directories and view files on a computer. This is also called the terminal; it looks like this.&lt;/p&gt;
 
-&lt;h3 id=&quot;subsection-2-generating-cls-files&quot;&gt;Subsection 2: Generating &lt;code class=&quot;highlighter-rouge&quot;&gt;.cls&lt;/code&gt; files&lt;/h3&gt;
+&lt;figure&gt;
+    
+    &lt;a href=&quot;https://1.bp.blogspot.com/-y_Qcr6C4aTQ/UB5xcCxM3ZI/AAAAAAAABSk/29C-JeH68Nk/s1600/Pretty+Terminal+Mac.png&quot;&gt;&lt;img src=&quot;https://1.bp.blogspot.com/-y_Qcr6C4aTQ/UB5xcCxM3ZI/AAAAAAAABSk/29C-JeH68Nk/s1600/Pretty+Terminal+Mac.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;figcaption&gt;Example Terminal with Color Formatting&lt;/figcaption&gt;
+&lt;/figure&gt;
 
-&lt;p&gt;What you’re going to be doing next is to get a file from &amp;lt;a href=class.ggkbase.berkeley.edu&amp;gt;class.ggkbase.berkeley.edu&amp;lt;/a&amp;gt; (in your browser, not on the terminal) that indicates which scaffolds correspond to each bin.&lt;/p&gt;
+&lt;p&gt;In the above example, you can see multiple types of commands, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt;. These are programs, included by default with unix systems such as Linux or Mac OSX. These programs are included as part of something known as a &lt;code class=&quot;highlighter-rouge&quot;&gt;shell&lt;/code&gt;; in Unix distributions (and when downloaded on Windows) this shell is named &lt;code class=&quot;highlighter-rouge&quot;&gt;bash&lt;/code&gt;, and on Mac OSX this is generally &lt;code class=&quot;highlighter-rouge&quot;&gt;zsh&lt;/code&gt;. (The difference between the two is unimportant for our purposes right now.) I’ll refer to the shell as &lt;code class=&quot;highlighter-rouge&quot;&gt;bash&lt;/code&gt; from here on out.&lt;/p&gt;
 
-&lt;p&gt;Only one person per group will need to do this.&lt;/p&gt;
+&lt;p&gt;The majority of the tools we will use in this course are operated from the command line, just like these. In essence, what you’ll be doing is navigating around a file system just like you might on your own computer using Windows explorer or the Mac OSX finder. This method has several advantages, though, because of all the programs you’ll have access to which are best used on the command line.&lt;/p&gt;
 
-&lt;p&gt;Go to class.ggkbase.berkeley.edu, log in, and navigate to the project folder for your baby. You’ll be downloading a ‘scaffold2bin’ file, which has information for each of the scaffolds in your project and their corresponding bin ID. Download it from this drop-down menu:&lt;/p&gt;
+&lt;h4 id=&quot;interlude-for-those-intimidated-by-the-command-line&quot;&gt;Interlude: For those intimidated by the command line&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;scaf2bin_ggkbase.png&quot; alt=&quot;download_scaf2bin&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;There are certainly ways around using the command line for most applications. We will go over alternatives at every step of the way where possible, and if you find a good alternative to the command line for a particular task, feel free to use it! I and many other bioinformaticians feel most comfortable on the command line, and I feel it’s a valuable tool. But don’t stress out about it! You don’t need to use it for everything.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;It is important that you don’t rename this file for now!! Don’t do it!!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Keep in mind also that I will provide specific examples on how to do most everything you’ll need to do on the command line for this course. And don’t panic if you run into errors- it’s a natural part of the process of working with these types of systems and data. It builds character, as they say.&lt;/p&gt;
 
-&lt;p&gt;Upload this to your home directory on class.ggkbase.berkeley.edu, either by using Putty to SFTP (Windows) or by using a SCP command on your terminal (Linux/Mac) like so:&lt;/p&gt;
+&lt;h3 id=&quot;2-how-do-i-access-the-command-line&quot;&gt;2. How do I access the command line?&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;`scp [BABY ID].scaffolds_to_bin.tsv [YOUR USERID]@class.ggkbase.berkeley.edu:/home/[YOUR USERID]`
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Where &lt;code class=&quot;highlighter-rouge&quot;&gt;[BABY ID]&lt;/code&gt; is the name of your baby (you’ll see it in the name of the file you download from ggkbase) and &lt;code class=&quot;highlighter-rouge&quot;&gt;[YOUR USERID]&lt;/code&gt; is, as you probably guessed, your username (student1, … , studentX).&lt;/p&gt;
-
-&lt;p&gt;Once that’s downloaded, you’re going to need to convert this to a &lt;code class=&quot;highlighter-rouge&quot;&gt;.cls&lt;/code&gt; file so that the ESOM program can read it in. You’re going to do this using a script I wrote, like so:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;`python3 /class_data/convert_scaf2bin.py [SCAFFOLDS 2 BIN FILE]`
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;which will create a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;ggkbase_names.cls&lt;/code&gt; in your current directory. Now, move that file to &lt;code class=&quot;highlighter-rouge&quot;&gt;~/esom_files&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Good job. Proud of you.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;section-3-binning&quot;&gt;Section 3: Binning!!!!&lt;/h1&gt;
-
-&lt;p&gt;Okay, now comes the fun part. You’re going to actually run the ESOM binning program! This is the GUI process I was talking about earlier. ONE PERSON per group should do the following, in your home directory (&lt;code class=&quot;highlighter-rouge&quot;&gt;cd ~&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;This will differ based on the operating system you’re using. Let’s divide this up into three categories.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Create a symbolic link to the executable file for the ESOMana program:&lt;/p&gt;
+    &lt;p&gt;Linux (includes Chrome OS)&lt;/p&gt;
 
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s /opt/bin/bio/ESOM/bin/esomana .&lt;/code&gt;&lt;/p&gt;
+    &lt;p&gt;Press &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl+Alt+t&lt;/code&gt; to open a terminal. Congratulations.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Run the program to launch the GUI&lt;/p&gt;
+    &lt;p&gt;Mac OSX&lt;/p&gt;
 
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;./esomana&lt;/code&gt;&lt;/p&gt;
+    &lt;p&gt;Click on the Spotlight Search icon (magnifying glass) at the top right corner of your screen. Search ‘terminal’, and open the application. I recommend pinning this to your dock/taskbar; you’ll be using it a fair bit.
+Detailed instructions &lt;a href=&quot;https://www.howtogeek.com/682770/how-to-open-the-terminal-on-a-mac/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Windows&lt;/p&gt;
+
+    &lt;p&gt;Go to the &lt;a href=&quot;https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab&quot;&gt;Windows store&lt;/a&gt; and download Windows Terminal.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Congratulations! Now let’s start loading things. Navigate to the top left of your window and select “File -&amp;gt; Load &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;.wts”. You’ll find all the files in your &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/[USERID]/esom_files&lt;/code&gt; folder. If you don’t have that folder, that means you didn’t follow my instructions from earlier. Go look up.&lt;/p&gt;
+&lt;p&gt;If you have trouble getting this working, let me know. It should be a fairly painless process in most instances, though, now that Windows has its own terminal! (That’s relatively new.)&lt;/p&gt;
 
-&lt;p&gt;You’ll see a colored map with some dots pop up now, like so:&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;&lt;img src=&quot;esom_init.png&quot; alt=&quot;esom_init&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;3-basic-commands&quot;&gt;3. Basic Commands&lt;/h2&gt;
 
-&lt;p&gt;Now you’re going to load the class information from your ggkbase bins. Go to “File -&amp;gt; Load .cls” and select “ggkbase_names.cls”, which should be in your &lt;code class=&quot;highlighter-rouge&quot;&gt;esom_files/&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;First we’re going to want to do the things you’re used to doing in normal file explorers like OSX Finder or Windows Explorer.&lt;/p&gt;
 
-&lt;p&gt;Now, go and look at the ‘Classes’ tab in the bottom menu. You’ll see a bunch of classes, but everything will have the same color- choose a color for each of your bins. After that’s done, you should see something like this:&lt;/p&gt;
+&lt;p&gt;The two most important commands are the ones you can see used in the example picture above: &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;esom_colored.png&quot; alt=&quot;esom_colored&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;--ls&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt;&lt;/h3&gt;
 
-&lt;p&gt;Now we’re going to investigate individual bins and see how we can refine them. In your ‘Classes’ menu, for each class, there’s a little box on the left. If you click it, it will make all the points on the ESOM map corresponding to that class bold, for easier viewing. Try it out, perhaps with a couple closely related bins.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; is fundamental and super important. Short for the word ‘list’ (&lt;a href=&quot;https://en.wikipedia.org/wiki/Ls#History&quot;&gt;proof&lt;/a&gt;), &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; shows you the contents of a directory. Try it out!&lt;/p&gt;
 
-&lt;p&gt;Here, I’ve highlighted two closely related bins (at the family level, so kinda close)… notice how they’re next to each other and intermingle a little bit?&lt;/p&gt;</content><category term="test" /><summary type="html">Testing!</summary></entry><entry><title type="html">Testing post</title><link href="//testpost/" rel="alternate" type="text/html" title="Testing post" /><published>2020-02-17T00:00:00-07:00</published><updated>2020-02-17T00:00:00-07:00</updated><id>//testpost</id><content type="html" xml:base="//testpost/">&lt;p&gt;Can I make a project post display properly? Let’s find out.&lt;/p&gt;</content><category term="test" /><summary type="html">Just making sure everything works.</summary></entry></feed>
+&lt;figure&gt;
+    
+    &lt;a href=&quot;https://i.stack.imgur.com/k4EBH.png&quot;&gt;&lt;img src=&quot;https://i.stack.imgur.com/k4EBH.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+    
+    &lt;figcaption&gt;Example usage of ls that I grabbed from google&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Advanced usage (not necessary, just fun)&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; has many options that can change what it shows you and how that data is displayed. My favorite is &lt;code class=&quot;highlighter-rouge&quot;&gt;ls -thora&lt;/code&gt;, which will show all the files in your current directory including hidden files, sort by date modified, and present it to you in a different format than standard &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt;. Try it! For a full list of options, see the &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; manual page by typing &lt;code class=&quot;highlighter-rouge&quot;&gt;man ls&lt;/code&gt; and pressing enter.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;--cd&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; is probably the most common command you’ll use, and the easiest (in my opinion) to remember. &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; stands for ‘change directory’. It just moves you from one folder to the next, exactly like clicking on a folder in a file explorer.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; has the advantage of being able to navigate anywhere in one command if you give the full location of a directory; the most analogous function is in Windows explorer when you paste the location of a file in the top navigation bar. (If there is one on OSX let me know, I don’t use that.) Let’s wait a little bit to try that one out.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-connecting-to-the-class-server&quot;&gt;4. Connecting to the class server&lt;/h2&gt;
+
+&lt;p&gt;The class server is a computer we’re using to host your data and perform computational tasks this semester. Each of you will register for an account today, and learn how to access it. Physically, it exists just off campus in the UC Berkeley data center on Hearst; luckily for you, we can access it from anywhere. Let’s go over how.&lt;/p&gt;
+
+&lt;h4 id=&quot;ssh&quot;&gt;SSH&lt;/h4&gt;
+
+&lt;p&gt;SSH stands for ‘Secure Shell’. Remember how the terminal is also called a shell? We’re just going to be connecting to a new terminal session on the class server over the internet. This is one of two most important commands to remember for this class, so write it down somewhere and remember you can always come back here to see it again.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh username@class.ggkbase.berkeley.edu&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Pretty simple! I will be giving out usernames in class, as well as telling you the default password. (Information security 101: Don’t give away passwords willy-nilly.) Once you’ve connected successfully, you’re going to need to change that default password.&lt;/p&gt;
+
+&lt;h4 id=&quot;changing-the-password&quot;&gt;Changing the password&lt;/h4&gt;
+
+&lt;p&gt;The command to change your password is &lt;code class=&quot;highlighter-rouge&quot;&gt;passwd&lt;/code&gt;. Type this, and you will see a prompt asking for your current password. Enter it, then enter the new password- then you’re done!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;5-creating-modifying-and-moving-files--directories&quot;&gt;5. Creating, modifying, and moving files &amp;amp; directories&lt;/h2&gt;
+
+&lt;p&gt;Alright, now to take your fancy new terminal for a spin.&lt;/p&gt;
+
+&lt;p&gt;When you SSH into the class server, you’re automatically going to be in your home directory (&lt;code class=&quot;highlighter-rouge&quot;&gt;/home/studentX&lt;/code&gt;, where X is your ID number). This is your personal workspace, for storing important files and doing whatever else you might need to do for the course. To see the full path, type the following command:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pwd&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h4 id=&quot;--pwd&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;pwd&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pwd&lt;/code&gt; stands for &lt;strong&gt;p&lt;/strong&gt;rint &lt;strong&gt;w&lt;/strong&gt;orking &lt;strong&gt;d&lt;/strong&gt;irectory. It gives you the name of the folder you’re currently at, which is useful for moving files around and navigating quickly. The location of files and directories on the terminal is called the &lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Next, let’s make a directory that we’ll work in for today. Call it whatever you like- if you’re not feeling creative, call it ‘tutorial’ or ‘sandbox’ or what have you. You can create a directory with the following command:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir tutorial&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;--mkdir&quot;&gt;- &lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir&lt;/code&gt; stands for, as you might have inferred, ‘make directory’. Pretty straightforward. You have to provide a name for this directory, though- ex.  &lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir tutorial&lt;/code&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Now we’re going to navigate into this folder- remember our old friend &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt;? Try it now-&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cd tutorial&lt;/code&gt; (or whatever you named it)&lt;/p&gt;
+
+&lt;p&gt;Now that you’re here (welcome!) let’s try creating a file. It’ll be empty at first, but that’s okay. You can create files in bash like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;filename&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;creating-and-deleting-files&quot;&gt;Creating and deleting files&lt;/h4&gt;
+
+&lt;p&gt;Creating files is easy- just use the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt; character, followed by the name of the file you’d like to create. (like so: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt; test.file&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;test.file&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;This file will be empty unless you’re putting something in it. Also, if there’s a file with the same name as the one you’re trying to create, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt; will overwrite that file- be careful!&lt;/p&gt;
+
+&lt;p&gt;Removing files is also pretty simple, although removing directories is not (for good reason). To remove files, use &lt;code class=&quot;highlighter-rouge&quot;&gt;rm&lt;/code&gt;, like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rm test.file&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;finishing-up&quot;&gt;Finishing up&lt;/h2&gt;
+
+&lt;p&gt;Now, to finish the tutorial, and your lab for today. Let’s make a file in your directory called ‘hello_world.txt’.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;hello_world.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Then we’re going to add some text to it, using only the command line!&lt;/p&gt;
+
+&lt;p&gt;First, try this: &lt;code class=&quot;highlighter-rouge&quot;&gt;echo &quot;I love science&quot;&lt;/code&gt;. See how it prints text to the terminal for you to read? Now we’re going to put that text in a file, using echo and the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt; operator. Try this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;echo &quot;Hello world!&quot; &amp;gt;&amp;gt; hello_world.txt&lt;/code&gt;&lt;/p&gt;</content><category term="test" /><summary type="html">Testing!</summary></entry><entry><title type="html">Testing post</title><link href="//testpost/" rel="alternate" type="text/html" title="Testing post" /><published>2020-02-17T00:00:00-07:00</published><updated>2020-02-17T00:00:00-07:00</updated><id>//testpost</id><content type="html" xml:base="//testpost/">&lt;p&gt;Can I make a project post display properly? Let’s find out.&lt;/p&gt;</content><category term="test" /><summary type="html">Just making sure everything works.</summary></entry></feed>

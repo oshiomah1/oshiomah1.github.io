@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Week 5 Walkthrough"
+title:  "Week 1 Walkthrough- Intro to Bash"
 date:   2020-02-17
 excerpt: "Testing!"
 project: "ESPM_112L"
@@ -10,112 +10,166 @@ comments: true
 ---
 
 
-# Welcome to week 5 of lab!
+
+<h1>Hello and welcome to week 1 of ESPM 112L-</h1>
+
+<h1>Metagenomic Data Analysis Lab!</h1>
+
+* TOC
+{:toc}
+
+This week's lab is going to be short and sweet, and include lots of links to external resources (for your reference now and after this class is done). There's a lot of writing here, but there's not too much actual work involved yet. That will come, don't worry!
 
 
-### This week we're going to be refining our bins and doing some additional binning using ESOMs (Emergent Self-Organizing Maps).
+Using the terminal (also called the command line) is crucial for bioinformatics, among many other things, and this lab will lay the foundation for you to become proficient in using tools on the terminal. Before we get into how to access it on various operating systems, let's discuss what it actually is.
+
+### Tasks for Today
+
+To get your points for lab today, you're going to have to register for an account on the class server, join a group, and send me your username/password combo as well as the names of your group members. Additionally, you're going to make a directory and a few files as part of the tutorial - you're going to send me the path to this folder as well. (More on that in a bit.)
+
+### 1. What is the command line?
+
+The command line is an interface designed for you to navigate directories and view files on a computer. This is also called the terminal; it looks like this.
+
+{% capture images %}
+  https://1.bp.blogspot.com/-y_Qcr6C4aTQ/UB5xcCxM3ZI/AAAAAAAABSk/29C-JeH68Nk/s1600/Pretty+Terminal+Mac.png
+{% endcapture %}
+{% include gallery images=images caption="Example Terminal with Color Formatting" cols=1 %}
+
+In the above example, you can see multiple types of commands, such as `ls` and `cd`. These are programs, included by default with unix systems such as Linux or Mac OSX. These programs are included as part of something known as a `shell`; in Unix distributions (and when downloaded on Windows) this shell is named `bash`, and on Mac OSX this is generally `zsh`. (The difference between the two is unimportant for our purposes right now.) I'll refer to the shell as `bash` from here on out.
+
+The majority of the tools we will use in this course are operated from the command line, just like these. In essence, what you'll be doing is navigating around a file system just like you might on your own computer using Windows explorer or the Mac OSX finder. This method has several advantages, though, because of all the programs you'll have access to which are best used on the command line.
+
+#### Interlude: For those intimidated by the command line
+
+There are certainly ways around using the command line for most applications. We will go over alternatives at every step of the way where possible, and if you find a good alternative to the command line for a particular task, feel free to use it! I and many other bioinformaticians feel most comfortable on the command line, and I feel it's a valuable tool. But don't stress out about it! You don't need to use it for everything.
+
+Keep in mind also that I will provide specific examples on how to do most everything you'll need to do on the command line for this course. And don't panic if you run into errors- it's a natural part of the process of working with these types of systems and data. It builds character, as they say.
+
+### 2. How do I access the command line?
+
+This will differ based on the operating system you're using. Let's divide this up into three categories.
+
+- Linux (includes Chrome OS)
+
+  Press `Ctrl+Alt+t` to open a terminal. Congratulations.
+
+- Mac OSX
+
+  Click on the Spotlight Search icon (magnifying glass) at the top right corner of your screen. Search 'terminal', and open the application. I recommend pinning this to your dock/taskbar; you'll be using it a fair bit.
+  Detailed instructions <a href="https://www.howtogeek.com/682770/how-to-open-the-terminal-on-a-mac/">here</a>.
+
+- Windows
+
+  Go to the <a href="https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab">Windows store</a> and download Windows Terminal.
 
 
-### This is a really interesting way of visualizing the way automated algorithms interpret and sort metagenomic data. Next week we'll be using automated binners, which utilize other unsupervised machine learning algorithms. (Not ESOMs, though. We'll talk more about the other popular methods next week.)
-
-This lab is going to be pretty short from your perspective, but know that there was a lot of preparation that went into this week's material! I hope it's enjoyable for you.
-
-
----
-
-# Section 1: X11 Forwarding
-
-You're going to be doing this week's lab using a GUI process, which requires some special considerations. GUI stands for **G**raphical **U**ser **I**nterface. You might be thinking, "aren't we doing all our work in a shell?" Well, yes, we are. This week we're going to set things up so that you can run a GUI process on our server while having a window on your computer to modify and mess with as you see fit. X11 forwarding is what you're going to need to use in order to accomplish this.
-
-How to set up X11 forwarding depends entirely on which operating system you're using. In our class, we have four options, which I will order from least to most complicated:
-
-- Linux-based operating systems (NOT CHROMEBOOKS):
-    - in your terminal, type `ssh -X [YOUR USERNAME]@class.ggkbase.berkeley.edu`. You're done.
-
-- Mac OS X:
-    - For whatever reason, X11 forwarding is disabled by default on macs. Don't ask me why. In order to get around this, you have to go and download XQuartz (https://www.xquartz.org/).
-    - Go and download XQuartz-2.7.11.dmg, open it, and open the .pkg file you'll find therein. This will install XQuartz on your system.
-    - Now log in and log out of your current session. (Go to the top right, click on your username, and click 'login/switch user' or whatever it says.)
-    - Now, go to your terminal, type `ssh -X [YOUR USERNAME]@class.ggkbase.berkeley.edu`. Now you're done.
-
-
-- Windows:
-    - Download and install xming: https://sourceforge.net/projects/xming/
-    - Edit Putty preferences:
-    ![enable_putty](X11_putty.png)
-    - Launch your connection as normal. Congratulations.
-
-- Chromebook:
-    - Use one of the windows PCs in lab. Sorry.
-    - If you really are determined to figure out how to do it, look here: https://superuser.com/questions/1037230/is-there-a-way-to-use-xterm-on-chromebook
-
-
----
-
-# Section 2: Preparing files for ESOMs
-
-Now, I've actually run the ESOMs already. (They take a really long time- best to do that before class.) You just need to gather a couple  of things.
-
-### Subsection 1: Grabbing all of the ESOM files and putting them in your home directory.
-
-You just need to copy the files over. (Only one person per group needs to do this, strictly speaking, though you all can if you like - the files aren't that large. Talk to me during lab if you're doing this.)
-
-`cp -r /class_data/[YOUR BABY]/esom_files ~`
-
-### Subsection 2: Generating `.cls` files
-
-What you're going to be doing next is to get a file from <a href=class.ggkbase.berkeley.edu>class.ggkbase.berkeley.edu</a> (in your browser, not on the terminal) that indicates which scaffolds correspond to each bin.
-
-Only one person per group will need to do this.
-
-Go to class.ggkbase.berkeley.edu, log in, and navigate to the project folder for your baby. You'll be downloading a 'scaffold2bin' file, which has information for each of the scaffolds in your project and their corresponding bin ID. Download it from this drop-down menu:
-
-![download_scaf2bin](scaf2bin_ggkbase.png)
-
-**It is important that you don't rename this file for now!! Don't do it!!**
-
-Upload this to your home directory on class.ggkbase.berkeley.edu, either by using Putty to SFTP (Windows) or by using a SCP command on your terminal (Linux/Mac) like so:
-
-    `scp [BABY ID].scaffolds_to_bin.tsv [YOUR USERID]@class.ggkbase.berkeley.edu:/home/[YOUR USERID]`
-
-Where `[BABY ID]` is the name of your baby (you'll see it in the name of the file you download from ggkbase) and `[YOUR USERID]` is, as you probably guessed, your username (student1, ... , studentX).
-
-Once that's downloaded, you're going to need to convert this to a `.cls` file so that the ESOM program can read it in. You're going to do this using a script I wrote, like so:
-
-    `python3 /class_data/convert_scaf2bin.py [SCAFFOLDS 2 BIN FILE]`
-
-which will create a file called `ggkbase_names.cls` in your current directory. Now, move that file to `~/esom_files`.
-
-Good job. Proud of you.
+If you have trouble getting this working, let me know. It should be a fairly painless process in most instances, though, now that Windows has its own terminal! (That's relatively new.)
 
 ---
 
-# Section 3: Binning!!!!
+## 3. Basic Commands
 
-Okay, now comes the fun part. You're going to actually run the ESOM binning program! This is the GUI process I was talking about earlier. ONE PERSON per group should do the following, in your home directory (`cd ~`):
+First we're going to want to do the things you're used to doing in normal file explorers like OSX Finder or Windows Explorer.
 
+The two most important commands are the ones you can see used in the example picture above: `ls` and `cd`.
 
-- Create a symbolic link to the executable file for the ESOMana program:
+### - `ls`
 
-    `ln -s /opt/bin/bio/ESOM/bin/esomana .`
+`ls` is fundamental and super important. Short for the word 'list' (<a href="https://en.wikipedia.org/wiki/Ls#History">proof</a>), `ls` shows you the contents of a directory. Try it out!
 
-- Run the program to launch the GUI
+{% capture images %}
+  https://i.stack.imgur.com/k4EBH.png
+{% endcapture %}
+{% include gallery images=images caption="Example usage of ls that I grabbed from google" cols=1 %}
 
-    `./esomana`
+- Advanced usage (not necessary, just fun)
 
-Congratulations! Now let's start loading things. Navigate to the top left of your window and select "File -> Load `*`.wts". You'll find all the files in your `/home/[USERID]/esom_files` folder. If you don't have that folder, that means you didn't follow my instructions from earlier. Go look up.
+  `ls` has many options that can change what it shows you and how that data is displayed. My favorite is `ls -thora`, which will show all the files in your current directory including hidden files, sort by date modified, and present it to you in a different format than standard `ls`. Try it! For a full list of options, see the `ls` manual page by typing `man ls` and pressing enter.
 
-You'll see a colored map with some dots pop up now, like so:
+### - `cd`
 
-![esom_init](esom_init.png)
+`cd` is probably the most common command you'll use, and the easiest (in my opinion) to remember. `cd` stands for 'change directory'. It just moves you from one folder to the next, exactly like clicking on a folder in a file explorer.
 
+`cd` has the advantage of being able to navigate anywhere in one command if you give the full location of a directory; the most analogous function is in Windows explorer when you paste the location of a file in the top navigation bar. (If there is one on OSX let me know, I don't use that.) Let's wait a little bit to try that one out.
 
-Now you're going to load the class information from your ggkbase bins. Go to "File -> Load .cls" and select "ggkbase_names.cls", which should be in your `esom_files/` folder.
+---
 
-Now, go and look at the 'Classes' tab in the bottom menu. You'll see a bunch of classes, but everything will have the same color- choose a color for each of your bins. After that's done, you should see something like this:
+## 4. Connecting to the class server
 
-![esom_colored](esom_colored.png)
+The class server is a computer we're using to host your data and perform computational tasks this semester. Each of you will register for an account today, and learn how to access it. Physically, it exists just off campus in the UC Berkeley data center on Hearst; luckily for you, we can access it from anywhere. Let's go over how.
 
-Now we're going to investigate individual bins and see how we can refine them. In your 'Classes' menu, for each class, there's a little box on the left. If you click it, it will make all the points on the ESOM map corresponding to that class bold, for easier viewing. Try it out, perhaps with a couple closely related bins.  
+#### SSH
 
-Here, I've highlighted two closely related bins (at the family level, so kinda close)... notice how they're next to each other and intermingle a little bit?
+SSH stands for 'Secure Shell'. Remember how the terminal is also called a shell? We're just going to be connecting to a new terminal session on the class server over the internet. This is one of two most important commands to remember for this class, so write it down somewhere and remember you can always come back here to see it again.
+
+`ssh username@class.ggkbase.berkeley.edu`
+
+Pretty simple! I will be giving out usernames in class, as well as telling you the default password. (Information security 101: Don't give away passwords willy-nilly.) Once you've connected successfully, you're going to need to change that default password.
+
+#### Changing the password
+
+The command to change your password is `passwd`. Type this, and you will see a prompt asking for your current password. Enter it, then enter the new password- then you're done!
+
+---
+
+## 5. Creating, modifying, and moving files & directories
+
+Alright, now to take your fancy new terminal for a spin.
+
+When you SSH into the class server, you're automatically going to be in your home directory (`/home/studentX`, where X is your ID number). This is your personal workspace, for storing important files and doing whatever else you might need to do for the course. To see the full path, type the following command:
+
+`pwd`
+
+---
+#### - `pwd`
+
+`pwd` stands for **p**rint **w**orking **d**irectory. It gives you the name of the folder you're currently at, which is useful for moving files around and navigating quickly. The location of files and directories on the terminal is called the `PATH`.
+
+---
+
+Next, let's make a directory that we'll work in for today. Call it whatever you like- if you're not feeling creative, call it 'tutorial' or 'sandbox' or what have you. You can create a directory with the following command:
+
+`mkdir tutorial`
+
+---
+
+#### - `mkdir`
+
+`mkdir` stands for, as you might have inferred, 'make directory'. Pretty straightforward. You have to provide a name for this directory, though- ex.  `mkdir tutorial`.
+
+---
+
+Now we're going to navigate into this folder- remember our old friend `cd`? Try it now-
+
+`cd tutorial` (or whatever you named it)
+
+Now that you're here (welcome!) let's try creating a file. It'll be empty at first, but that's okay. You can create files in bash like so:
+
+`>filename`
+
+---
+
+#### Creating and deleting files
+
+Creating files is easy- just use the `>` character, followed by the name of the file you'd like to create. (like so: `> test.file` or `>test.file`)
+
+This file will be empty unless you're putting something in it. Also, if there's a file with the same name as the one you're trying to create, `>` will overwrite that file- be careful!
+
+Removing files is also pretty simple, although removing directories is not (for good reason). To remove files, use `rm`, like so:
+
+`rm test.file`
+
+---
+
+## Finishing up
+
+Now, to finish the tutorial, and your lab for today. Let's make a file in your directory called 'hello_world.txt'.
+
+`>hello_world.txt`
+
+Then we're going to add some text to it, using only the command line!
+
+First, try this: `echo "I love science"`. See how it prints text to the terminal for you to read? Now we're going to put that text in a file, using echo and the `>>` operator. Try this:
+
+`echo "Hello world!" >> hello_world.txt`
