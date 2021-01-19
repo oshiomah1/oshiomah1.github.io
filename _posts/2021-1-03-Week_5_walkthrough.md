@@ -173,3 +173,11 @@ Then we're going to add some text to it, using only the command line!
 First, try this: `echo "I love science"`. See how it prints text to the terminal for you to read? Now we're going to put that text in a file, using echo and the `>>` operator. Try this:
 
 `echo "Hello world!" >> hello_world.txt`
+
+The `>>` operator will append the output of another program to the end of a file; since your `hello_world.txt` is currently empty, "Hello world!" is all that file will consist of.
+
+Next, you're going to want to turn in the PATH to your file; to get the PATH of a file (rather than a directory, like `pwd` does), try this:
+
+`realpath hello_world.txt`
+
+Send me this, along with your student ID/password combo and your group members' names, and your lab for today is complete!
