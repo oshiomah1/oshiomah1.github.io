@@ -2,7 +2,7 @@
 layout: post
 title:  "Week 1 Walkthrough- Intro to Bash"
 date:   2020-02-17
-excerpt: "Testing!"
+excerpt: "Introducing the Command Line!"
 project: "ESPM_112L"
 tag:
 - test
