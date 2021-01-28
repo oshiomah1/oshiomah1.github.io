@@ -188,7 +188,9 @@ Usage: sickle pe [options] -f <paired-end forward fastq file> -r <paired-end rev
 
 Here's an example, again using the example dataset. Remember not to copy paste this, because your sample name will be different!
 
-`sickle pe -t sanger -f JS_WN1_S130.1.fastq.gz -r JS_WN1_S130.2.fastq.gz -o JS_WN1_S130.trimmed.1.fastq.gz -p JS_WN1_S130.trimmed.2.fastq.gz -s JS_WN1_S130.trimmed.single.fastq.gz`
+```
+sickle pe -t sanger -f JS_WN1_S130.1.fastq.gz -r JS_WN1_S130.2.fastq.gz -o JS_WN1_S130.trimmed.1.fastq.gz -p JS_WN1_S130.trimmed.2.fastq.gz -s JS_WN1_S130.trimmed.single.fastq.gz
+```
 
 Notice the flag `-t sanger`; this indicates the way the per-base quality scores are formatted. This should take a couple more minutes. Also, make sure the output filenames (`-o`, `-p`, and `-s`) are different than the input filenames, so you don't accidentally overwrite your files. (If you do, just let me know and I'll get you the original data back.)
 
