@@ -50,7 +50,7 @@ Here's how you make a symbolic link to your reads- remember you'll need to do th
 ln -s [EXAMPLE FILENAME] .
 ```
 
-This creates a link - you can modify the file as normal,
+This creates a link - you can modify the file as normal, but it won't take up any extra disk space and will let you modify it without providing the full PATH. Otherwise, you'd have to type `/class_data/reads/[SAMPLE NAME]/` every time you wanted to access your files. (Which you can still do! I guess. Live your best life.)
 
 Here I'll use an example set of reads. Make sure to use your own set of reads which I provided to your group on Slack. Here's an example of what to do:
 ```
