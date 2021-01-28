@@ -57,7 +57,7 @@ Here I'll use an example set of reads. Make sure to use your own set of reads wh
 cd ~
 mkdir raw.d
 cd raw.d
-#
+#Remember to use your own reads instead of these example files!
 ln -s /class_data/reads/JS_WN1_S130/JS_WN1_S130.1.fastq.gz .
 ln -s /class_data/reads/JS_WN1_S130/JS_WN1_S130.2.fastq.gz .
 ```
