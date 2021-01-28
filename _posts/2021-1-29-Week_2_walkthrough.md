@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Week 2 Walkthrough- Intro to Bash"
+title:  "Week 2 Walkthrough- Read Quality and Trimming"
 date:   2020-02-29
 excerpt: "Introducing the Command Line!"
 project: "ESPM_112L"
