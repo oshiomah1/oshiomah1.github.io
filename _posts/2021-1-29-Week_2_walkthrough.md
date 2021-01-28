@@ -42,9 +42,7 @@ Each group will be assigned a sample today, and starting this week you'll work w
 
 Make a folder in your home directory (use the `mkdir` command) called `raw.d`. This is how we designate the folders containing our raw sequencing data in the Banfield lab standard workflow. Then `cd` into that directory. Now let's fetch your sequence files.
 
-The reads are located at
-# INSERT READ PATH HERE
-. Because these are large files, we can't just copy them over to all your home directories- that would instantly use tons of disk space! Instead we're going to make what are called 'symbolic links' of your read files. They look, act and are identical in every way to the original files; luckily, though, they don't take up any space on the hard drive! They'll show up as light blue instead of white like other normal files.
+The reads are located at `/class_data/reads/`. I've sent out the full path to your reads for each group on Slack. Because these are large files, we can't just copy them over to all your home directories- that would instantly use tons of disk space! Instead we're going to make what are called 'symbolic links' of your read files. They look, act and are identical in every way to the original files; luckily, though, they don't take up any space on the hard drive! They'll show up as light blue instead of white like other normal files.
 
 Here's how you make a symbolic link to your reads- remember you'll need to do this for both your forward and reverse reads.
 
