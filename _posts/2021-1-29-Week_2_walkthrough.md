@@ -105,6 +105,17 @@ The options for the program as as follows:
         directory as the sequence file which was processed.
 ```
 
+Read the help menu carefully. FastQC will analyze both your forward and reverse reads at once, so make sure to provide them both!
+
+You have the option of putting the output in a directory (by providing a value for the `-o` flag), which is tidy, or just having FastQC output everything in your current directory. I recommend making a directory to put the output in, like so:
+
+```
+mkdir fastQC_output
+fastqc -o fastQC_output [forward_reads] [reverse_reads]
+```
+
+
+
 
 {% capture images %}
   https://1.bp.blogspot.com/-y_Qcr6C4aTQ/UB5xcCxM3ZI/AAAAAAAABSk/29C-JeH68Nk/s1600/Pretty+Terminal+Mac.png
