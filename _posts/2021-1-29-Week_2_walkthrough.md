@@ -2,7 +2,7 @@
 layout: post
 title:  "Week 2 Walkthrough- Read Quality and Trimming"
 date:   2020-02-29
-excerpt: "Introducing the Command Line!"
+excerpt: "Read Trimming and Quality Control!"
 project: "ESPM_112L"
 tag:
 - test
