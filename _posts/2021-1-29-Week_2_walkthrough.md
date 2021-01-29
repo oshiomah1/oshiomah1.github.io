@@ -119,7 +119,7 @@ This took about 15 minutes running it on the data I use for my research- I would
 
 Once this is done, you're going to have an output .html file (either in your current directory or in the output directory you specified with `-o`). We're going to want to download it! This file is an .html file, so you want to open it in a web browser- Firefox, Chrome, Safari, Internet Explorer 6, Netscape, whatever you want.
 
-## How to Download Files From The Cluster (IMPORTANT)
+### How to Download Files From The Cluster (IMPORTANT)
 
 This is a very important skill, and one that will come up many times throughout the semester. Historically, it's been a bit tricky, so I want to devote some time to it.
 
