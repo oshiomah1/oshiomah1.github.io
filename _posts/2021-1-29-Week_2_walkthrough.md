@@ -218,6 +218,6 @@ Now, as you did before, download the FastQC output and open it on your computer.
 
 2. What are the noticeable differences in the FastQC output between your trimmed and untrimmed reads?
 
-3. Name two sequencing platforms and briefly describe the pros and cons of each and a project that would be appropriate (or inappropriate) to use them for.
+3. Briefly describe the pros and cons of short read vs. long read sequencing, and a project that would be appropriate (or inappropriate) to use them for.
 
 4. Based on the average read length and number of reads for one of your samples, answer the following question: What % of the community does a microbe with a 3,000,000 bp genome need to be at in order to be recovered at 10x coverage?
