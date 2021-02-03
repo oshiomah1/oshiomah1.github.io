@@ -45,11 +45,9 @@ Our lab uses either `metaSPAdes`, `idba_ud`, or `MEGAHIT`; today we'll be using 
 
 ---
 
-# This week's material: Assembly and Assembly Statistics
-
 # Section 1: Assembly
 
-## First, we're going to set up a practice assembly. Navigate to `/class_data/practice_assembly` and take a look at what's there.
+First, we're going to set up a practice assembly. Navigate to `/class_data/practice_assembly` and take a look at what's there.
 
 You'll notice there's two types of files here: `.fastq` and `.fa`. The `.fa` files are FASTA format, whereas the `.fastq` are in FASTQ format. You'll often see FASTA files with extensions like `.fa`, `.fasta`, `.fna`, and `.faa`. These all mean mostly the same thing, which is that it's in FASTA format. However, two are more specific: `fna` stands for **f**asta **n**ucleic **acid** (DNA FASTA) and `faa` stands for **f**asta **a**mino **a**cid (Protein FASTA).
 
