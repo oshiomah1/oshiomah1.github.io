@@ -29,14 +29,14 @@ First, [here's a link](https://journals.plos.org/plosone/article?id=10.1371/jour
 
 Second, let's go over the methods we use in our lab and why we use them.
 
-#Assembly methods
+# Assembly methods
 
 Our lab uses `idba_ud`, as we tend to get the best results with it (and it has a nice built-in scaffolder).
 This is by no means a one-size-fits-all solution; different assemblers work to different degrees depending on the type of sample you're working with, its environment of origin, and your sequencing depth.
 
 For a nice example, see the image below from the paper mentioned above:
 
-<img src="https://journals.plos.org/plosone/article/figure/image?size=large&id=info:doi/10.1371/journal.pone.0169662.g002" width=500>
+<img src="https://journals.plos.org/plosone/article/figure/image?size=large&id=info:doi/10.1371/journal.pone.0169662.g002" width=250>
 
 As you can see, different assemblers win out over others when looking at particular metrics, but none is consistently better than all the others based on all metrics across different sample types.
 It's up to you to decide which one is best for your particular situation, based on the particular traits of each assembler (which are well described in the Vollmers et al. paper above).
@@ -47,83 +47,163 @@ Our lab uses either `metaSPAdes`, `idba_ud`, or `MEGAHIT`; today we'll be using 
 
 # Section 1: Assembly
 
-First, we're going to set up a practice assembly. Navigate to `/class_data/practice_assembly` and take a look at what's there.
+First, we're going to set up a practice assembly. Navigate to `/class_data/example_assembly` and take a look at what's there. You'll see two files:
 
-You'll notice there's two types of files here: `.fastq` and `.fa`. The `.fa` files are FASTA format, whereas the `.fastq` are in FASTQ format. You'll often see FASTA files with extensions like `.fa`, `.fasta`, `.fna`, and `.faa`. These all mean mostly the same thing, which is that it's in FASTA format. However, two are more specific: `fna` stands for **f**asta **n**ucleic **acid** (DNA FASTA) and `faa` stands for **f**asta **a**mino **a**cid (Protein FASTA).
+```
+jwestrob@class:/class_data/example_assembly$ ls
 
-Now you're going to be practicing genome assembly. You have two options here: assemble your `.fastq` files with `MEGAHIT`, or assemble your `.fa` file with `idba_ud`. Choose one and stick with it! I'll give you help below.
+JS_WN1_S130_example.trimmed.1.fastq  JS_WN1_S130_example.trimmed.2.fastq
+```
 
-## Subsection: Tmux
-This is going to take a super long time to run, so you're not gonna want to have one terminal window open the whole time. Allow me to teach you about a nifty program called `tmux`.
-
-`tmux` allows you to make terminal windows that you can leave running (even when you close your connection!) and come back to later. It's really nice. There are other alternatives in bash, such as `nohup` and `screen`, but let's focus on this for now.
-
-
-- You're going to want to make a new window before you start anything. Try this:
-
-    - ```tmux new -s assembly```
-
-- Congrats! Now you're in a new `tmux` window called 'assembly'. To exit this window and leave it running, press `CTRL+b`, then `d`. If you've done that and you want to get back, use:
-
-   - ```tmux attach -t assembly```
-
-
-# IMPORTANT: Only one person per group should do the rest of this section!
+Here we have a subset of both the forward and reverse reads from the sample `JS_WN1_S130`, which none of the groups have been assigned. Here we have 500,000
 
 ## Subsection: Assembly prep
 
 Now we're going to prepare to run an assembly. Choose your reads, and do the following:
 
-**If you're going to assemble .fastq files using MEGAHIT:**
-- ```ln -s /class_data/practice_assembly/*.fastq ~```
+- ```ln -s /class_data/example_assembly/*.fastq ~```
 
-**If you're going to assemble .fa files using idba_ud:**
-- ```ln -s /class_data/practice_assembly/*.fa ~```
 
-This will create what's called a *symbolic link* in your home directory (~) - it's like copying over a file, but you don't actually make a new copy. You can just see the filename and operate on it as if you had copied it. If you remove this link, the original will be safe and sound in its original directory.
+This will create what's called a *symbolic link* in your home directory (your home directory is symbolized by `~`) - it's like copying over a file, but you don't actually make a new copy. You can just see the filename and operate on it as if you had copied it. If you remove this link, the original will be safe and sound in its original directory.
+
+## The Assembly Command
 
 Now, we're going to do actual assembly. Remember, **only one person per group should execute one of the following commands! We only have so many compute resources.**
 
-I also highly encourage you to look into potential alterations to these commands, of which there are many. The commands I provided to you will work, but try using either of the following commands to see more parameters to play with, and please ask me about them in class! (The following commands show the help menus for these two assemblers.)
 
-(don't play with the number of threads though)
+```
+#This navigates to your home directory
+cd ~
+#This displays the help for metaspades
+metaspades.py -h
+```
 
-```idba_ud -h```
+Take a look at some of these options.
 
-```megahit -h```
+```
+SPAdes genome assembler v3.15.0 [metaSPAdes mode]
 
-### If you're assembling using `idba_ud`:
-```idba_ud --pre_correction --min_contig 500 -r 4_milli_trimmed_raw.fa --num_threads 4 -o 4milli_idba_ud_practice```
+Usage: spades.py [options] -o <output_dir>
 
-### If you're assembling using `megahit`:
-```megahit -1 4milli_trimmed.R1.fastq -2 4milli_trimmed.R2.fastq -t 4 -m 0.13```
+Basic options:
+  -o <output_dir>             directory to store all the resulting files (required)
+  --iontorrent                this flag is required for IonTorrent data
+  --test                      runs SPAdes on toy dataset
+  -h, --help                  prints this usage message
+  -v, --version               prints version
 
-(The `-m 0.13` flag limits the process to 13% of the system's memory, ensuring that we can run at least 7 of these assemblies on the server at once.)
+Input data:
+  --12 <filename>             file with interlaced forward and reverse paired-end reads
+  -1 <filename>               file with forward paired-end reads
+  -2 <filename>               file with reverse paired-end reads
+  -s <filename>               file with unpaired reads
+  --merged <filename>         file with merged forward and reverse paired-end reads
+```
 
-Now these should take about 20 minutes for `idba_ud` and 4 minutes for `MEGAHIT`.
+So you're going to need at least two things to run metaSPAdes:
+- Reads to assemble (your `fastq` files)
+- The name of an output directory
+
+Here's how that command should look:
+
+```
+metaspades.py -t 4 -1 [forward reads] -2 [reverse reads] -o [output_directory name]
+```
+
+Let's run through these options one by one.
+
+- `-t` : The number of threads (separate processes) allotted to the program.
+- `-1` : The file containing the forward reads.
+- `-2` : The file containing the reverse reads.
+- `-o` : The name of the directory to output your assembly to. I suggest `metaspades_out`.
+
+
+With the standard parameters, assembling the example reads with 4 threads took about 2.5 minutes. Similar assemblies take ~4 minutes for `MEGAHIT` and ~15 for `idba_ud`.
+
+*Please do not run this with more than 4 threads!*
+
 
 ---
 
 # Section 2: Assembly Statistics
 
-- Take a look at the directory for your sample (e.g. /class_data/S3_002_000X1 or similar). *If you don't remember this ask me for help!*
+We're going to use a script called `contig_stats.pl`, written in perl, to generate assembly statistics.
 
-- You'll see two subfolders now - `assembly.d` and `raw.d`. We've already assembled this data, since it's absolutely enormous and would take a really long time to assemble on the class server. You'll find the reads you were working with last week in `raw.d` and the pre-made assemblies in `assembly.d`.
-
-- We're going to do a little bit of post-assembly quality control using the scaffolds now, which is just as important as investigating the quality of the reads pre-assembly.
-
-We'll do this by using `quast.py`- try it with the following commands.
-
+Navigate to your metaspades output directory (e.g. `cd metaspades_out`), and take a look at the files metaspades generated. Here's an example output:
 
 ```
-mkdir ~/quast_output
-/home/jwestrob/quast-5.0.2/quast.py -t 1 [YOUR CONTIG FILENAME HERE] -o ~/quast_output
+jwestrob@class:/class_data/example_assembly/metaspades_out$ ls
+
+assembly_graph_after_simplification.gfa  corrected               K55             run_spades.yaml
+assembly_graph.fastg                     dataset.info            misc            scaffolds.fasta
+assembly_graph_with_scaffolds.gfa        first_pe_contigs.fasta  params.txt      scaffolds.paths
+before_rr.fasta                          input_dataset.yaml      pipeline_state  spades.log
+contigs.fasta                            K21                     quast_out       strain_graph.gfa
+contigs.paths                            K33                     run_spades.sh   tmp
+
 ```
-(It will tell you that `python-matplotlib is missing or corrupted.` Don't worry about it.)
 
-Navigate into `quast_output`. Use ```realpath report.html``` to get the full path of the file, download it to your local machine, and visualize it. What do you see? If you have time, and your assembly is completed, try this on your completed assembly as well- how different are the stats? In which areas are they most different?
+You'll notice a lot of different unfamiliar files, but two that should hopefully stand out: `contigs.fasta` and `scaffolds.fasta`. We want `scaffolds.fasta` - remember, contigs are stitched together to make scaffolds.
 
-How exactly to copy these files to your local machine is something I'll leave to you - feel free to ask me questions in class if you can't remember from last week how to do this. I believe in you.
+Let's run `contig_stats.pl` to get a good idea of how well the assembly ran-
+
+```
+#This command will generate a file called 'scaffolds.fasta.summary.txt'
+contig_stats.pl -i scaffolds.fasta -o scaffolds.fasta
+```
+
+Let's look now at the resulting contig stats- try `less -S scaffolds.fasta.summary.text`. You'll see something like this:
+
+```
+Length distribution
+===================
+
+Range    	# sequences (%)	# bps (%)
+0-100:  	190 (0.24%)	14076 (0.04%)
+100-500:  	65811 (83.44%)	17993525 (60.05%)
+500-1000:  	10091 (12.79%)	6788583 (22.65%)
+1000-5000:  	2694 (3.41%)	4317525 (14.4%)
+5000-10000:  	70 (0.08%)	459324 (1.53%)
+10000-20000:  	11 (0.01%)	144408 (0.48%)
+20000-50000:  	3 (0%)	81549 (0.27%)
+50000-:     	2 (0%)	163131 (0.54%)
+
+General Information
+==================
+
+Total number of sequences: 78872
+Total number of bps:       29962121
+Average sequence length:   379.88 bps.
+N50:                       364 bps
+```
+
+## Interpreting assembly statistics
+
+Important stats to remember are:
+
+- N50 (Median contig size; half of contigs are above this size, half below)
+
+- Average sequence length
+
+- Total number of sequences (you want fewer, larger contigs!)
+
+- Number of large (50,000+ bp) contigs
+
+## Getting assembly statistics for your sample
+
+- Take a look at the directory for your sample (e.g. `/class_data/assemblies/JS_HA1_S131` or similar). *If you don't remember your sample ID ask me for help!*
+
+- Using the procedure above, generate contig stats for your scaffold file (`[samplename]_scaffold.fa`).
+
+# Questions for today's turn-in:
+
+1. What is the N50 of the contigs (*not* the scaffolds) from the example assembly?
+
+2. What differentiates contigs from scaffolds? Should an assembly yield more scaffolds than contigs, or vice versa?
+
+3. What is the length of the largest contig in your sample's assembly?
+
+# Note to Jacob: Get the assemblies for all the samples!!!
 
 ---
 
