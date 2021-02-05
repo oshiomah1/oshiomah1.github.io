@@ -41,6 +41,15 @@ For a nice example, see the image below from the paper mentioned above:
 As you can see, different assemblers win out over others when looking at particular metrics, but none is consistently better than all the others based on all metrics across different sample types.
 It's up to you to decide which one is best for your particular situation, based on the particular traits of each assembler (which are well described in the Vollmers et al. paper above).
 
+We can see the effect of using different assemblers on our data, too. I ran `megahit` and `metaSPAdes` for one of our class samples, `JS_HA1_S133`. Here's what the stats look like in comparison:
+
+|  Assembly Statistic | MEGAHIT      | metaSPAdes |
+| ----------- | ----------- | ----------- |
+| # Contigs           | 679859       |    2448126     |
+| N50                 | 1231 bp   |   578 bp      |
+| Average Sequence Length | 901.35 bp  | 453.59 bp  |
+|  Largest Contig     |     429190   |  502671     |
+
 Our lab uses either `metaSPAdes`, `idba_ud`, or `MEGAHIT`; today we'll be using `metaSPAdes`.
 
 ---
