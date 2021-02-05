@@ -203,7 +203,6 @@ Important stats to remember are:
 
 3. What is the length of the largest contig in your sample's assembly?
 
-# Note to Jacob: Get the assemblies for all the samples!!!
 
 ---
 
