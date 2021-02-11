@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Week 4 Walkthrough- Manual Binning"
-date:   2021-02-03
+date:   2021-02-12
 excerpt: "ggKbase binning!"
 project: "ESPM_112L"
 tag:
