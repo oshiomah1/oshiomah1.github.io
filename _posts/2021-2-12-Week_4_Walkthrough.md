@@ -152,11 +152,11 @@ Then go back, reset your selection criteria, and repeat until you can't find any
 
 Let's look at one of our scaffolds. On your binning page, scroll down until you see a table with scaffolds, coverage, GC content, and length. You might want to order the scaffolds by length, which you can do by clicking the two little arrows right next to 'DNA length', like so:
 
-<img src="{{site.baseurl}}/assets/img/contiglength.png" width=250>
+<img src="/assets/img/contiglength.png" width=250>
 
 Now click on one of your contigs, and let's see what we have going on. Here's the longest contig in the example bin I made in the GC content section:
 
-<img src="{{site.baseurl}}/assets/img/Long_Contig.png" width=250>
+<img src="/assets/img/Long_Contig.png" width=250>
 
 Now you can see some important info for this contig:
 
