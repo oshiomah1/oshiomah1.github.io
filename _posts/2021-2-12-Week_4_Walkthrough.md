@@ -45,7 +45,7 @@ When you get to the homepage, go to the top right and click "Create an account".
 
 <img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/ggkbase_create_account.png" width=250>
 
-When you do this, don't sign up with a real username- I have to give you each access to your bins manually, so I need your real names. If you do happen to use a different name or a username when signing up, let me know on slack so I can find you and give you access.
+When you do this, don't sign up with a real username- I have to give you each access to your bins manually, so I need your real names. If you do happen to use a different name or a username when signing up, let me know on slack so I can find you and give you access. Please use a reasonably complex password and either write it down or send it to me!
 
 In the meantime, let's go over binning principles.
 
@@ -109,13 +109,13 @@ GC Content is one of the best ways to separate genomes from a sample. Here's wha
 
 Now, when you make a selection in other feature types (like coverage or taxonomy) you'll see the distribution change here; in this example I've selected all the contigs with a coverage value between 60 and 80.
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/gc_content_spike.png" width=250>
+<img src="/assets/img/gc_content_spike.png" width=250>
 
 Notice how the GC content now has a spike at around 47 and another at ~55? See also how the taxonomy wheel has changed; how it's mostly beige (the phylum Bacteroidetes) with a little bit of green (Firmicutes).
 
 Let's try selecting that second GC content spike and see what happens:
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/firmicutes_gc.png" width=250>
+<img src="/assets/img/firmicutes_gc.png" width=250>
 
 Would you look at that! See how there's one copy of all those ribosomal proteins and single-copy genes? That's an indicator of a pretty good genome. This is a pretty good summary of what you need to do
 
@@ -127,11 +127,11 @@ It's also a great way to separate bins out!
 
 Here's what the coverage bar looks like:
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/coverage_notzoomed.png" width=250>
+<img src="/assets/img/coverage_notzoomed.png" width=250>
 
 You'll notice it's pretty hard to see any pattern that might correspond to an individual genome, since most contigs have pretty low coverage. (That's normal!) To get around this, we use the lower of the two bars to zoom in, like so:
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/coverage_zoomed.png" width=250>
+<img src="/assets/img/coverage_zoomed.png" width=250>
 
 Now you can make more refined selections on the upper bar- look for spikes, similar to what we did with the GC content example above.
 
@@ -139,4 +139,49 @@ Now you can make more refined selections on the upper bar- look for spikes, simi
 
 ## Finalizing a Bin
 
-Once you've got a good bin selected, we're going to want to finalize the bin. Go to the lower right-hand corner where it says "Manipulate selected contigs",
+Once you've got a good bin selected, we're going to want to finalize the bin. Go to the lower right-hand corner where it says "Manipulate selected contigs", and fill out the bin name (if it doesn't fill automatically), then press "Create a new bin". Here's what it looks like:
+
+
+<img src="/assets/img/Manipulate_Contigs.png" width=250>
+
+Then go back, reset your selection criteria, and repeat until you can't find any more good bins! (Or until you're satisfied!)
+
+---
+
+## Intepreting ggKbase annotation data
+
+Let's look at one of our scaffolds. On your binning page, scroll down until you see a table with scaffolds, coverage, GC content, and length. You might want to order the scaffolds by length, which you can do by clicking the two little arrows right next to 'DNA length', like so:
+
+<img src="/assets/img/contiglength.png", width=250>
+
+Now click on one of your contigs, and let's see what we have going on. Here's the longest contig in the example bin I made in the GC content section:
+
+<img src="/assets/img/Long_Contig.png", width=250>
+
+Now you can see some important info for this contig:
+
+1. It's from a _Clostridiales_ bacterium in the phylum _Firmicutes_.
+2. It's 52,778 bp long. (Not very long in the grand scheme of things!)
+3. It's at ~70x coverage- that means on average, 70 reads align to any given position on this contig. That's quite good- it's also why this genome was so easy to pull out.
+4. You can scroll down and see the annotations for the individual proteins- look in your bins to see if you can find anything interesting!
+
+---
+
+# Bonus: Viruses and Bacteriophage
+
+Now these aren't the organisms you're necessarily looking for today, but you will probably find a couple of them as you go through your data. The way we spot phages is by looking for a couple types of key features in the annotations (so you're going to have to look at the contigs to find this info):
+
+- Structural proteins - they're often called capsid, tail, or head proteins. These form the protein shell- the capsid- of a bacteriophage.  
+- Transposon-like proteins- these are proteins that allow for genetic regions to lift up and out of a genome, then integrate somewhere else. You'll see keywords like "Transposable element" or "integrase". Obviously pretty important if you're a virus and you want your DNA to integrate into your host's genome as a prophage!
+- Lots and lots of hypothetical proteins, and proteins with no informative annotation. Viral proteins evolve very quickly, and it's difficult to tell what they're doing based on sequence data alone a lot of the time.
+
+
+# Today's Turn-In
+
+1. Create at least five bins for your sample. Send me the taxonomy of the longest contig for each.
+
+2. How many scaffolds are there with a coverage above 200 and below 300 in your sample?
+
+3. What is the most abundant bacterial phylum in your sample?
+
+4. Extra credit- Find a phage!
