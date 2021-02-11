@@ -105,7 +105,7 @@ You can use this wheel to select contigs that share taxonomic affiliation. Try c
 
 GC Content is one of the best ways to separate genomes from a sample. Here's what it should look like before you do anything:
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/gc_content.png" width=250>
+<img src="{{site.baseurl}}/assets/img/gc_content.png" width=250>
 
 Now, when you make a selection in other feature types (like coverage or taxonomy) you'll see the distribution change here; in this example I've selected all the contigs with a coverage value between 60 and 80.
 
@@ -132,3 +132,11 @@ Here's what the coverage bar looks like:
 You'll notice it's pretty hard to see any pattern that might correspond to an individual genome, since most contigs have pretty low coverage. (That's normal!) To get around this, we use the lower of the two bars to zoom in, like so:
 
 <img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/coverage_zoomed.png" width=250>
+
+Now you can make more refined selections on the upper bar- look for spikes, similar to what we did with the GC content example above.
+
+---
+
+## Finalizing a Bin
+
+Once you've got a good bin selected, we're going to want to finalize the bin. Go to the lower right-hand corner where it says "Manipulate selected contigs",
