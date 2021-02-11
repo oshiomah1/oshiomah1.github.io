@@ -152,11 +152,11 @@ Then go back, reset your selection criteria, and repeat until you can't find any
 
 Let's look at one of our scaffolds. On your binning page, scroll down until you see a table with scaffolds, coverage, GC content, and length. You might want to order the scaffolds by length, which you can do by clicking the two little arrows right next to 'DNA length', like so:
 
-<img src="{{site.baseurl}}/assets/img/contiglength.png", width=250>
+<img src="{{site.baseurl}}/assets/img/contiglength.png" width=250>
 
 Now click on one of your contigs, and let's see what we have going on. Here's the longest contig in the example bin I made in the GC content section:
 
-<img src="{{site.baseurl}}/assets/img/Long_Contig.png", width=250>
+<img src="{{site.baseurl}}/assets/img/Long_Contig.png" width=250>
 
 Now you can see some important info for this contig:
 
@@ -171,7 +171,7 @@ Now you can see some important info for this contig:
 
 Now these aren't the organisms you're necessarily looking for today, but you will probably find a couple of them as you go through your data. The way we spot phages is by looking for a couple types of key features in the annotations (so you're going to have to look at the contigs to find this info):
 
-- Structural proteins - they're often called capsid, tail, or head proteins. These form the protein shell- the capsid- of a bacteriophage.  
+- Structural proteins - they're often annotated as capsid, tail, or head proteins. These form the protein shell- the capsid- of a bacteriophage.  
 - Transposon-like proteins- these are proteins that allow for genetic regions to lift up and out of a genome, then integrate somewhere else. You'll see keywords like "Transposable element" or "integrase". Obviously pretty important if you're a virus and you want your DNA to integrate into your host's genome as a prophage!
 - Lots and lots of hypothetical proteins, and proteins with no informative annotation. Viral proteins evolve very quickly, and it's difficult to tell what they're doing based on sequence data alone a lot of the time.
 
@@ -182,6 +182,6 @@ Now these aren't the organisms you're necessarily looking for today, but you wil
 
 2. How many scaffolds are there with a coverage above 200 and below 300 in your sample?
 
-3. What is the most abundant bacterial phylum in your sample?
+3. What is the most abundant bacterial phylum in your sample? How many bins did you recover from that phylum?
 
-4. Extra credit- Find a phage!
+4. Optional- Find a phage!
