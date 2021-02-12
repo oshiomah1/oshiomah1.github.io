@@ -43,9 +43,9 @@ ggKbase is our lab's platform for metagenomic data analysis. Head on over to htt
 
 When you get to the homepage, go to the top right and click "Create an account". (Ctrl+F if you can't find it.) Here's what you should see:
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/ggkbase_create_account.png" width=250>
+<img src="/assets/img/ggkbase_create_account.png" width=250>
 
-When you do this, don't sign up with a real username- I have to give you each access to your bins manually, so I need your real names. If you do happen to use a different name or a username when signing up, let me know on slack so I can find you and give you access. Please use a reasonably complex password and either write it down or send it to me!
+Please sign up with your first initial and your last name so I can find you, since I need to give you each access to your sample individually (and I need to find your name!).
 
 In the meantime, let's go over binning principles.
 
@@ -55,7 +55,7 @@ I'm going to start with an example project and show you how to bin it; we'll hav
 
 Let's start by going to the Projects page, which you can access with the button on the top left (ctrl+F "projects" if you can't find it) - you probably won't see anything until I give you access to your team's sample. Here's what I see (I have access to all the projects as the class instructor):
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/Horse_Projects.png" width=250>
+<img src="/assets/img/Horse_Projects.png" width=250>
 
 Let's select our example project - this sample isn't assigned to any team, so don't get confused and try to find it! None of you will have access to this one.
 
@@ -63,11 +63,11 @@ Let's select our example project - this sample isn't assigned to any team, so do
 
 Once you click on the name of the sample, you'll see this page:
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/HF3_S142_UNKpage.png" width=250>
+<img src="/assets/img/HF3_S142_UNKpage.png" width=250>
 
 Click "Bin organism" to get started.
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/ggkbase_all_features.png" width=250>
+<img src="/assets/img/ggkbase_all_features.png" width=250>
 
 Binning involves using all of this information to separate out genomes; here's what all of these features mean.
 
@@ -87,7 +87,7 @@ If you get an ideal bin, the taxonomy wheel should show a consistent color and y
 
 The Taxonomy wheel in this case displays the "consensus taxonomy" of a contig. It looks like this:
 
-<img src="https://github.com/jwestrob/jwestrob.github.io/blob/master/assets/img/taxonomywheel.png" width=250>
+<img src="/assets/img/taxonomywheel.png" width=250>
 
 From the innermost ring, each ring represents, in order, Domain, Phylum, Class, Order, Family, Genus and Species. Each group is color-coded for easy navigation- as you get more used to it, you'll start finding this scheme very convenient to visualize who's living in your sample.
 
