@@ -45,10 +45,95 @@ You can see that the consolidated bins are overall of much higher quality than t
 
 # Your binning results
 
-In the interest of time, and because of computational constraints, I've run two binners (again, MaxBin2 and Metabat) for you.
+In the interest of time, and because of computational constraints, I've run two binners (again, MaxBin2 and Metabat) for you. DASTool takes as input a file called a `scaffolds2bin` file; this is a file that shows which scaffold belongs to which bin. Each binner has different contig assignments- they make different decisions on which bins the contigs should be placed in- and so we generate a `scaffolds2bin` file for each binner.
+
+In the directory for your sample (`/class_data/assemblies/[YOUR SAMPLE NAME HERE]`) there should be a folder called `binning`. Navigate there, and you'll see four important files: your contigs file, a `scaffolds2bin.tsv` file for `Metabat`, a `scaffolds2bin.tsv` file for `MaxBin2`, and a `scaffolds2bin.txt` file from ggKbase (with the results from your binning last week).
+
+Here's the directory for the example assembly, `JS_HF3_S142`, to demonstrate:
+
+```
+[INSERT LS OUTPUT HERE]
+```
+
+Now what you need to do is use this information to run `DAS_Tool`.
+
+---
+
+# DAS_Tool
+
+`DAS_Tool` is, like all software you'll use in lab, already installed on the class server. Open the help menu by running `DAS_Tool -h`, and take a look at the options. (Remember, if you're ever running software on the command line and you're confused about how to use it, try running that command with `-h`; almost all the time, it'll show a help menu. Sometimes you need to use `--help` or something similar, but that's down to the individual program.)
+
+## Input
+
+As you can see from the help menu, `DAS_Tool` needs two main inputs: `-i`, a comma-separated list of `scaffolds2bin` files, and `-c`, the contigs file to create your bins from. Here's an example of the list you need to make-
+
+Given you're in a folder containing the following files:
+
+```
+MaxBin2.scaffolds2bin.tsv
+MetaBat.scaffolds2bin.tsv
+ggKbase.scaffolds2bin.tsv
+```
+You would provide the following as `-i` for `DAS_Tool`:
+
+```
+-i MaxBin2.scaffolds2bin.tsv,MetaBat.scaffolds2bin.tsv,ggKbase.scaffolds2bin.tsv
+```
+
+And for our contigs file, we provide the path:
+
+```
+-c /class_data/assemblies/JS_HF3_S142/JS_HF3_S142_scaffold.fa
+```
+
+Your path will be similar. If you have trouble getting the path, remember you can `cd` to the directory containing the fasta file and use `realpath [contigs_file].fa` to get the full path to that file!
+
+If you're in, for example, `/class_data/assemblies/JS_HF3_S142/binning` and you want to access the contigs file, it's one level *above* you, so we need to access it with `..`. In terminal, `.` means your current location (I always pronounce it 'here'), and `..` is the folder above you. So you can say
+
+```
+-c ../JS_HF3_S142_scaffold.fa
+```
+instead of providing the full path.
+
+## Output
+
+But remember, you can't write to folders within the `class_data` folder, so you need to include an output flag that specifies to output in your home directory. Remember, we refer to that with `~`; if you're student20, `~` means `/home/student20`. For me, `~` means `/home/jwestrob`.
+
+First, make a folder called `DAS_Tool` in your home directory, like so:
+
+```
+mkdir ~/Das_Tool
+```
+
+Then, in your DAS_Tool command, specify it as follows:
+
+```
+-o ~/Das_Tool/myOutput
+```
+
+(You can call it whatever you want, but include `~/Das_Tool` for sure.)
+
+---
+
+# Interpreting DAS Tool
+
+In that output directory, `~/Das_Tool`, you're going to see a bunch of files, but only two are important for your purposes. Here's an example of what you'll see:
+
+```
+LC_0.1_DAS_DASTool_hqBins.pdf              LC_0.1_DAS_proteins.faa
+LC_0.1_DAS_DASTool.log                     LC_0.1_DAS_proteins.faa.archaea.scg
+LC_0.1_DAS_DASTool_scaffolds2bin.txt       LC_0.1_DAS_proteins.faa.bacteria.scg
+LC_0.1_DAS_DASTool_scores.pdf              LC_0.1_DAS.seqlength
+LC_0.1_DAS_DASTool_summary.txt             LC_0.1_DAS_vamb.scaffolds2bin.tsv.eval
+LC_0.1_DAS_maxbin.scaffolds2bin.tsv.eval   
+LC_0.1_DAS_metabat.scaffolds2bin.tsv.eval
+```
+
+You want the files ending in `hqBins.pdf` and `DASTool_scaffolds2bin.txt`. We're going to use the first to examine how well your binners worked, and the second to upload the new bins to ggKbase.
 
 
 
+---
 
 # Today's Turn-In
 
