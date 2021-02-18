@@ -133,13 +133,13 @@ You want the files ending in `DASTool_scores.pdf`, `DASTool_hqBins.pdf`, and `DA
 
 Download those files (using cyberduck or your favorite alternative), and open up the `DASTool_hqBins.pdf` file to take a look. You'll see something like this:
 
-<img src="/assets/dastool_hqbins.png" width=250>
+<img src="/assets/img/dastool_hqbins.png" width=250>
 
 which shows the number of bins each binner generated, as well as how complete these genomes are estimated to be.
 
 Now take a look at the file ending in `DASTool_scores.pdf`, and you'll see something like this:
 
-<img src="/assets/dastool_scores.png" width=250>
+<img src="/assets/img/dastool_scores.png" width=250>
 
 Notice how DASTool tends to consolidate and eliminate the lower-quality bins, and has a much higher quality score cutoff than the other binners. Most binning software doesn't even take completeness into account, which is why you tend to see binning results that yield numerous low-quality bins.
 
@@ -151,7 +151,7 @@ Now let's take your shiny new set of bins and upload them to ggKbase.
 
 Go to class.ggkbase.berkeley.edu and go ahead and log in. Head over to your project page and select 'View Organisms', as you did last week. Up at the top right corner, you'll see a blue wrench icon that says 'Batch Rebinning'; click on it and select 'Rebin File'.
 
-<img src="/assets/rebin_file.png" width=250>
+<img src="/assets/img/rebin_file.png" width=250>
 
 Now, select 'Add file', upload that file, and press 'Upload and Rebin'. Wait a moment, and all your new DASTool bins will be ready for you to peruse!
 
