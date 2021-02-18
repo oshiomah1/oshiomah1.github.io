@@ -76,6 +76,14 @@ mkdir ~/Das_Tool
 
 ## Input
 
+---
+
+### Important: Explainer
+
+The following subsections show how to structure individual *pieces* of the DAS_Tool command. Scroll down to the section labeled "The Final Dastool Command" to see how they're strung together.
+
+---
+
 As you can see from the help menu, `DAS_Tool` needs two main inputs: `-i`, a comma-separated list of `scaffolds2bin` files, and `-c`, the contigs file to create your bins from. Here's an example of the list you need to make-
 
 Navigate (cd) to your sample directory (`/class_data/assemblies/[sample_id]/binning`) which will contain the following files:
@@ -147,7 +155,7 @@ You want the files ending in `DASTool_scores.pdf`, `DASTool_hqBins.pdf`, and `DA
 
 Download those files (using cyberduck or your favorite alternative), and open up the `DASTool_hqBins.pdf` file to take a look. You'll see something like this:
 
-<img src="/assets/img/dastool_hqbins.png" width=250>
+<img src="/assets/img/dastool_hqbins.png" width=500>
 
 which shows the number of bins each binner generated, as well as how complete these genomes are estimated to be.
 
