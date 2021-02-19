@@ -27,7 +27,7 @@ comments: true
 
 The objective of automatic binning (often shortened to autobinning) is the same as the process you used last week to separate out genome bins from a metagenomic assembly, just done computationally rather than manually. It's very convenient- if you have a bunch of samples. Manual binning is very time consuming and sometimes not effective. Automatic binning has some caveats, though, since a human isn't there to proofread and curate the binning result. That's your job!
 
-This week, I've run two sets of binning software for you - Metabat (https://peerj.com/articles/1165/) and MaxBin2 (https://pubmed.ncbi.nlm.nih.gov/26515820/). Your task today is going to be to use the results from these binning algorithms, as well as the results from your manual binning last week, to make a consolidated bin set using DASTool.
+This week, I've run one automatic binning program for you - Metabat (https://peerj.com/articles/1165/) and MaxBin2 (https://pubmed.ncbi.nlm.nih.gov/26515820/). Your task today is going to be to use the results from these binning algorithms, as well as the results from your manual binning last week, to make a consolidated bin set using DASTool.
 
 ## Bin consolidation
 
@@ -86,53 +86,75 @@ The following subsections show how to structure individual *pieces* of the DAS_T
 
 As you can see from the help menu, `DAS_Tool` needs two main inputs: `-i`, a comma-separated list of `scaffolds2bin` files, and `-c`, the contigs file to create your bins from. Here's an example of the list you need to make-
 
-Navigate (cd) to your sample directory (`/class_data/assemblies/[sample_id]/binning`) which will contain the following files:
+Navigate (cd) to your sample directory (`/class_data/assemblies/[sample_id]`) which will contain the following files:
 
 ```
-MaxBin2.scaffolds2bin.tsv
 MetaBat.scaffolds2bin.tsv
 ggKbase.scaffolds2bin.tsv
 ```
 
+First thing we're going to do is copy these over to your directory. Try the following commands:
+
+```
+#Navigate to your sample directory
+cd /class_data/assemblies/[sample_id]
+
+#Make a folder in your home directory to put the files in
+mkdir ~/DAS_Tool
+
+#Copy the right files to your new directory
+cp *scaffold_min1000.fa *.tsv ~/DAS_Tool
+
+#Navigate to that folder
+cd ~/DAS_Tool
+```
+
+Great! Now that you have all your files set up, let's go take a look at all the individual parts of the command.
+
+---
+
+## Input
+
+
 Now, given these files, you would provide the following as `-i` for `DAS_Tool`:
 
 ```
--i MaxBin2.scaffolds2bin.tsv,MetaBat.scaffolds2bin.tsv,ggKbase.scaffolds2bin.tsv
+-i metabat.scaffolds2bin.tsv,ggKbase.scaffolds2bin.tsv
 ```
 
 And for our contigs file, we provide the path:
 
 ```
--c /class_data/assemblies/JS_HF3_S142/JS_HF3_S142_scaffold.fa
+-c JS_HF3_S142_scaffold.fa
 ```
 
-Your path will be similar. If you have trouble getting the path, remember you can `cd` to the directory containing the fasta file and use `realpath [contigs_file].fa` to get the full path to that file!
-
-If you're in, for example, `/class_data/assemblies/JS_HF3_S142/binning` and you want to access the contigs file, it's one level *above* you, so we need to access it with `..`. In terminal, `.` means your current location (I always pronounce it 'here'), and `..` is the folder above you. So you can say
-
-```
--c ../JS_HF3_S142_scaffold.fa
-```
-instead of providing the full path.
+Remember, you should have copied this fasta file (as well as the scaffolds2bin files) over to a folder in your home directory `~/DAS_Tool`, which is where you should be running the command. If you get issues saying that DAS_Tool can't find your scaffolds file, try using `ls` to make sure you're in the same directory as that file, and that it's spelled correctly in your command!
 
 ## Output
 
 
-Then, in your DAS_Tool command, specify it as follows:
+You should be running this in a folder in your home directory (e.g. `~/DAS_Tool` or similar). Make sure you've navigated to that directory with `cd` before running.
+Now specify the prefix of your output. All the files DAS_Tool makes will start with this prefix; name it whatever you want, just don't name it something that will confuse you later!
 
 ```
--o ~/Das_Tool/myOutput
+-o DAS_Tool
 ```
 
-(You can call it whatever you want, but include `~/Das_Tool` for sure.)
 
 ---
 
 ## The Final Dastool Command
 
 ```
-cd /class_data/assemblies/JS_HF3_S142/binning
-DAS_Tool -i /home/jacob/Documents/webdev/jwestrob.github.io/_posts/2021-2-19-Week_5_Walkthrough.md -c /class_data/assemblies/JS_HF3_S142/JS_HF3_S142_scaffold.fa -o ~/Das_Tool/output
+cd /class_data/assemblies/JS_HF3_S142/
+
+#Remember to make a new directory to run DAS_Tool
+mkdir ~/DAS_Tool
+cp *scaffold_min1000.fa *.tsv ~/DAS_Tool
+
+#Navigate there and run the command
+cd ~/DAS_Tool
+DAS_Tool -i maxbin2.scaffolds2bin.tsv,metabat.scaffolds2bin.tsv,JS_HF3_S142_scaffolds2bin.tsv -c JS_HF3_S142_scaffold_min1000.fa -o DAS_Tool
 ```
 
 ---
@@ -147,7 +169,6 @@ LC_0.1_DAS_DASTool.log                     LC_0.1_DAS_proteins.faa.archaea.scg
 LC_0.1_DAS_DASTool_scaffolds2bin.txt       LC_0.1_DAS_proteins.faa.bacteria.scg
 LC_0.1_DAS_DASTool_scores.pdf              LC_0.1_DAS.seqlength
 LC_0.1_DAS_DASTool_summary.txt             LC_0.1_DAS_vamb.scaffolds2bin.tsv.eval
-LC_0.1_DAS_maxbin.scaffolds2bin.tsv.eval   
 LC_0.1_DAS_metabat.scaffolds2bin.tsv.eval
 ```
 
@@ -185,4 +206,4 @@ Now, select 'Add file', upload that file, and press 'Upload and Rebin'. Wait a m
 
 2. What is the taxonomy of that organism?
 
-3. Which of the two automatic binners performed better on your sample? (See the `hqBins.pdf` file generated by DASTool) If the answer is not immediately clear, describe the distribution of genome quality you see.
+3. How do the genomes generated by manual binning on ggkbase compare to the automatically generated bins in terms of quality? How about the DAS_Tool generated bins?
