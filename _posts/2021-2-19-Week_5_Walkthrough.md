@@ -115,11 +115,21 @@ Great! Now that you have all your files set up, let's go take a look at all the 
 
 ## Input
 
-
-Now, given these files, you would provide the following as `-i` for `DAS_Tool`:
+Your new directory (`~/DAS_Tool`) should look something like this:
 
 ```
--i metabat.scaffolds2bin.tsv,ggKbase.scaffolds2bin.tsv
+JS_HA1_S131_scaffold_min1000.fa   maxbin.scaffolds2bin.tsv
+JS_HA1_S131.scaffolds_to_bin.tsv  metabat.scaffolds2bin.tsv
+```
+
+You have one fasta format file here (`JS_HA1_S131_scaffold_min1000.fa`) containing your DNA from your assembly, and three `scaffolds2bin.tsv` files containing the information on which scaffolds belong to which bins.
+
+The fasta file you will provide to DAS_Tool with the `-c` flag, and the scaffolds2bin files you will provide together, as a comma-separated list, with the `-i` flag.
+
+Now, given these three `scaffolds2bin.tsv` files, you would provide the following as `-i` for `DAS_Tool`:
+
+```
+-i metabat.scaffolds2bin.tsv,ggKbase.scaffolds_to_bin.tsv
 ```
 
 And for our contigs file, we provide the path:
