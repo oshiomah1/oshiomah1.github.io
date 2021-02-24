@@ -52,7 +52,7 @@ Log in to class.ggkbase.berkeley.edu on your browser, navigate to your baby's pr
 
 <img src="/assets/img/ggkbase_rps3.png" width=250>
 
-Click "DNA" and a file will be generated and downloaded to your computer. Now you're going to want to put that file on the cluster with scp. If you don't remember how to do that, call me over- otherwise I leave this as an exercise for the reader. Enjoy.
+Click "DNA" and a file will be generated and downloaded to your computer. Now you're going to want to put that file on the cluster with cyberduck or scp. If you don't remember how to do that, call me over- otherwise I leave this as an exercise for the reader. Enjoy.
 
 ---
 
@@ -60,7 +60,7 @@ Click "DNA" and a file will be generated and downloaded to your computer. Now yo
 
 Now log in to class.ggkbase.berkeley.edu on the terminal. You're going to use one of two programs to align these sequences, but let's look at some aspects of these programs first.
 
-Mafft is a popular aligner renowned for its accuracy and thoroughness when creating alignments. It takes a while, though, since it was written with accuracy in mind. Try aligning it with `mafft`:
+Mafft is a popular aligner renowned for its accuracy and thoroughness when creating alignments. It takes a while, though, since it was written with accuracy in mind. Try aligning your sequences with `mafft`:
 
 `mafft --localpair --maxiterate 1000 --reorder --thread 4 [YOUR INPUT DNA SEQUENCES] > [SAMPLE].mafft.mfna`
 
@@ -76,13 +76,15 @@ On your local computer, install Aliview, which we'll be using to view your align
 
 Now use cyberduck or SCP to download your multiple sequence alignment to your computer. Open Aliview, and use it to open this multiple sequence alignment file. What do you see? Are there regions of conservation? Is it particularly gappy? This is just to give you an idea of what your data looks like and what you're actually working with.
 
+It's common practice to trim your alignment before building a phylogenetic tree- that is, to remove columns from your alignment that consist primarily of gaps. This often helps to construct more reliable and robust trees, but the best way to do this is subject of debate within the field. It's also quite common to trim specifically at the beginning and end of the alignment.
+
 ---
 
 # Creating a phylogenetic tree (back on the cluster)
 
 Now that you're back on the cluster, make a folder to do your tree analysis in. Phylogenetic tree building software gets a little messy sometimes and we don't want to get confused about what files go where. It's good to keep your home directory tidy.
 
-Make a directory for this analysis (with `mkdir`) and copy (`cp`) your DNA alignment into this folder. Now navigate in there (`cd`).
+Make a directory for this analysis (with `mkdir`) and move (`mv`) your DNA alignment into this folder. Now navigate in there (`cd`).
 
 You're going to be using FastTree as your tree building software today- here's an example command.
 
@@ -126,7 +128,7 @@ Find a branch that particularly interests you- I pick  the longest branches, bec
 
 Click on the branch you'd like to investigate, or the text label for that branch (call me over if you have trouble with this), and click the blue text at the bottom of the resulting window, like so:
 
-<img src='/assets/itol_copy.png' width=250>
+<img src='/assets/img/itol_copy.png' width=250>
 
 As an example, the branch I copied looks like this:
 
