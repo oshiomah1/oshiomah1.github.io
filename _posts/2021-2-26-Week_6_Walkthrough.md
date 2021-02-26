@@ -52,21 +52,38 @@ Log in to class.ggkbase.berkeley.edu on your browser, navigate to your baby's pr
 
 <img src="/assets/img/ggkbase_rps3.png" width=250>
 
-Click "DNA" and a file will be generated and downloaded to your computer. Now you're going to want to put that file on the cluster with cyberduck or scp. If you don't remember how to do that, call me over- otherwise I leave this as an exercise for the reader. Enjoy.
+Click "Protein" and a file will be generated and downloaded to your computer. Now you're going to want to put that file on the cluster with cyberduck or scp.
 
 ---
 
 # Aligning your sequences
 
-Now log in to class.ggkbase.berkeley.edu on the terminal. You're going to use one of two programs to align these sequences, but let's look at some aspects of these programs first.
+Now log in to class.ggkbase.berkeley.edu on the terminal. Again, make sure you've put your sequence file you've downloaded from ggKbase onto the class server!
+
+We've got a bunch of reference sequences for you to include on your phylogenetic tree; what we're going to do is combine the rps3 file for your sample with this reference file. This is done by concatenating, using the command `cat`.
+
+### `cat`
+
+The `cat` command is very useful, and good to be familiar with. `cat` literally means `concatenate`; it's meant to stick one or more files together into a single, bigger file, which is just what you're going to be doing with it.
+
+However, it's important to point out that `cat` also prints the entire text of a file to terminal. Not always ideal- most of the time you'd rather use `head` to view just the first 5 lines of a file (or `tail` to view the last 5). However, you can use this in combination with other bash commands to perform more complex tasks, so it's good to know going forward.
+
+ Here's how to concatenate your rps3 file with our reference:
+
+ ```
+ #This creates a file called 'rps3_wRef.faa' by combining your ggKbase rps3 file and the reference Bacteroidetes.faa
+cat [YOUR RPS3 FILENAME] /class_data/Bacteroidetes.faa > rps3_wRef.faa
+ ```
+
+
 
 Mafft is a popular aligner renowned for its accuracy and thoroughness when creating alignments. It takes a while, though, since it was written with accuracy in mind. Try aligning your sequences with `mafft`:
 
-`mafft --localpair --maxiterate 1000 --reorder --thread 4 [YOUR INPUT DNA SEQUENCES] > [SAMPLE].mafft.mfna`
+`mafft --localpair --maxiterate 1000 --reorder --thread 4 rps3_wRef.faa > rps3_wRef.mafft.mfaa`
 
 This alignment should take around 4-5 minutes; if it runs longer, don't be too concerned.
 
-Remember to choose a name for your alignment and to end that filename with `.fna` or `.mfna`. I prefer to use `.mfna` because that means (to me) that it's a multiple sequence alignment (`m` for multiple) of nucleotide sequences (`fna` for **f**asta **n**ucleic **a**cid). Just makes things easier later. A protein multiple sequence alignment, for example, would be `.mfaa`. It makes it easier to identify what's in your files, since a FASTA file can be DNA, RNA or protein!
+Remember to choose a name for your alignment and to end that filename with `.fna` or `.mfna`. I prefer to use `.mfna` because that means (to me) that it's a multiple sequence alignment (`m` for multiple) of nucleotide sequences (`fna` for **f**asta **a**mino **a**cid). Just makes things easier later. A protein multiple sequence alignment, for example, would be `.mfaa`. It makes it easier to identify what's in your files, since a FASTA file can be DNA, RNA or protein!
 
 ---
 
@@ -75,6 +92,8 @@ Remember to choose a name for your alignment and to end that filename with `.fna
 On your local computer, install Aliview, which we'll be using to view your alignment: https://ormbunkar.se/aliview/
 
 Now use cyberduck or SCP to download your multiple sequence alignment to your computer. Open Aliview, and use it to open this multiple sequence alignment file. What do you see? Are there regions of conservation? Is it particularly gappy? This is just to give you an idea of what your data looks like and what you're actually working with.
+
+You may want to delete partial sequences- i.e. rows that are comprised primarily of gaps- before building your tree.
 
 It's common practice to trim your alignment before building a phylogenetic tree- that is, to remove columns from your alignment that consist primarily of gaps. This often helps to construct more reliable and robust trees, but the best way to do this is subject of debate within the field. It's also quite common to trim specifically at the beginning and end of the alignment.
 
@@ -88,11 +107,11 @@ Make a directory for this analysis (with `mkdir`) and move (`mv`) your DNA align
 
 You're going to be using FastTree as your tree building software today- here's an example command.
 
-`fasttree -nt [SAMPLE].mafft.mfna > [SAMPLE].treefile`
+`fasttree rps3_wRef.mafft.mfaa > rps3_wRef.mafft.mfaa.treefile`
 
 This should be very fast- less than a minute.
 
-Now remember, when you use `>`, you're creating a new file! So the above command is creating a file called `[SAMPLE].treefile`. (You can name that file whatever you want, by the way, I just want to be consistent for the  purposes of the tutorial.)
+Now remember, when you use `>`, you're creating a new file! So the above command is creating a file called `rps3_wRef.mafft.mfaa.treefile`. (You can name that file whatever you want, by the way, I just want to be consistent for the  purposes of the tutorial.)
 
 ---
 
@@ -124,7 +143,7 @@ Select "Unrooted" (as in the example above) and the tree should look like this:
 
 ## Finding cool stuff in your tree
 
-Find a branch that particularly interests you- I pick  the longest branches, because long branches indicate highly divergent sequences. The vast majority of your sequences will be from bacteria, which shouldn't surprise you- but there's more than just bacteria in here.
+Find a branch that particularly interests you- I pick from clades with the longest branches, because long branches indicate highly divergent sequences. The vast majority of your sequences will be from bacteria, which shouldn't surprise you- but there's more than just bacteria in here.
 
 Click on the branch you'd like to investigate, or the text label for that branch (call me over if you have trouble with this), and click the blue text at the bottom of the resulting window, like so:
 
@@ -145,6 +164,10 @@ scaffold_383062_77
 Go back to class.ggkbase.berkeley.edu, and in the top left search bar, paste that sequence ID.... what's the taxonomy for that protein? Go to the contig- is it in a bin?
 
 See if you can find an archaeon among one of your longest branches. There are archaea in gut microbiomes- they're just not abundant!
+
+---
+
+
 
 ---
 
