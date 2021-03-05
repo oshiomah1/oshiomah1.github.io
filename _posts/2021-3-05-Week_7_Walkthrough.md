@@ -11,7 +11,7 @@ comments: true
 
 
 ``
-<h1>Hello and welcome to week 6 of ESPM 112L-</h1>
+<h1>Hello and welcome to week 7 of ESPM 112L-</h1>
 
 <h1>Metagenomic Data Analysis Lab!</h1>
 
@@ -19,12 +19,9 @@ comments: true
 {:toc}
 
 
-
-# Hello again and welcome to Metagenomics Data Analysis Lab, Week 9!
-
 This week we're going to be looking at methods of dereplication of metagenomic bins. We often sequence environments that contain lots of very similar microorganisms (E. faecalis, anyone?) and it becomes less than desirable to spend time and effort analyzing a bunch of extremely closely related genomes instead of looking at the general population.
 
-For this and other reasons, which I'll discuss in much more detail in today's lecture/demo video, we use a program called dRep (https://github.com/MrOlm/drep) designed by the inimitable Dr. Matt Olm, a former ESPM 112L GSI and Ph.D. student in the Banfield lab.
+For this and other reasons, which I'll discuss in much more detail in today's lecture/demo video, we use a program called dRep ![https://github.com/MrOlm/drep](https://github.com/MrOlm/drep) designed by the inimitable Dr. Matt Olm, a former ESPM 112L GSI and Ph.D. student in the Banfield lab.
 
 Today's lab primarily involves analyzing the output of dRep and interpreting it; this can help give you an idea of which closely-related organisms are present in multiple samples across your dataset.
 
@@ -34,16 +31,9 @@ dRep is a program that utilizes genome wide average nucleotide identity (ANI) to
 
 If you want to run dRep on your own, the documentation is here: ![https://readthedocs.org/projects/drep/](https://readthedocs.org/projects/drep/)
 
-I highly recommend looking through this anyway regardless of whether or not you plan to run dRep on your own. You'll get a great idea of all the functionality in dRep, straight from the source.
-
-dRep is great and worth using, but we can't have all of you run it all at once, so  I've already run dRep for you. You can go ahead and look at the output and analyze it.
-
-
 ---
 
 # How to run dRep (for your reference)
-
-Remember- you don't need to do this part today! Read through it for your reference if you intend to run dRep in the future (i.e. as part of your project at the end of the semester).
 
 dRep uses DNA-DNA comparisons to find very closely related genomes in your dataset. This is performed using MASH, a fast alignment algorithm that gives approximate (i.e. not entirely perfect) comparisons between two genome-size chunks of DNA in a reasonable period of time. This is a really hard task, and takes a very long time if you do it exactly!
 
@@ -73,17 +63,15 @@ Download the files `Primary_clustering_dendrogram.pdf` and `Secondary_clustering
 
 The primary clustering dendrogram is a clustering of the bins based off of MASH. It should look something like the following and have every bin from every sample in a single dendrogram:
 
-<img src="/assets/img/mash_primary_clustering.png width=250>
-
-dRep uses MASH clustering, which is a very fast form of clustering that estimates ANI but is not as accurate as true ANI. dRep uses MASH clustering to find initial clusters of pretty similar bins (sharing 90% or greater estimated ANI) on which it can then perform the more computationally expensive true ANI clustering.
+<img src="/assets/img/mash_primary_clustering.png" width=250>
 
 The secondary clustering dendrogram is the ANI clustering performed on each of the identified MASH clusters. This file should contain quite a few different dendrograms, each relating to a different MASH cluster and should look something like the following for a single cluster:
 
-<img src="/assets/img/second_dendrogram.png width=250>
+<img src="/assets/img/second_dendrogram.png" width=250>
 
 We generally consider bins that share 99% or greater ANI to be from very closely related organisms. In the above secondary clustering example, all of those bins would be considered to be from the same set of closely related organisms. In the below example, there are bins from two different organisms present:
 
-<img src="/assets/img/third_dendrogram.png width=250>
+<img src="/assets/img/third_dendrogram.png" width=250>
 
 If you don’t understand why there are two groups in this clustering please ask me. This is an important concept to understand. The important part is being able to read a dendrogram- the vertical line at 99% ANI indicates a dividing line between the two groups (on top, the Lentimicrobium group and on bottom, the Bacteroidetes group).
 
