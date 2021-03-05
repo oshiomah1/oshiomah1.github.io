@@ -126,7 +126,7 @@ cd ~/orthologer
 /home/jwestrob/.pyenv/shims/python /home/jwestrob/bin/bioscripts/ctbBio/orthologer.py reference [FASTA1] [FASTA2] > genome_comparison.tsv
 ```
 
-Now you have a file called `genome_comparison.tsv` that you can download and open up in excel/google sheets. Give it a look- see how large the syntenic blocks are that these two genomes share. Remember, you can look up gene names in ggkbase and see what they do.
+Now you have a file called `genome_comparison.tsv` that you can download and open up in excel/google sheets. Give it a look- see how large the syntenic blocks are that these two genomes share. Remember, you can look up gene names in ggkbase and see what they do. (I will give a quick demo on this at the beginning of class.)
 
 ---
 
