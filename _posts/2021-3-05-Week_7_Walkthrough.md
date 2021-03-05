@@ -69,7 +69,7 @@ The secondary clustering dendrogram is the ANI clustering performed on each of t
 
 <img src="/assets/img/second_dendrogram.png" width=250>
 
-We generally consider bins that share 99% or greater ANI to be from very closely related organisms. In the above secondary clustering example, all of those bins would be considered to be from the same set of closely related organisms. In the below example, there are bins from two different organisms present:
+We generally consider bins that share 99% or greater ANI to be from very closely related organisms (i.e. same species). In the above secondary clustering example, all of those bins would be considered to be from the same set of closely related organisms. In the below example, there are bins from two different organisms present:
 
 <img src="/assets/img/third_dendrogram.png" width=250>
 
@@ -85,9 +85,9 @@ This dereplicated bin set will be useful for future analyses, but we will not be
 
 # Comparing synteny between bins with at least 99% ANI
 
-Synteny is the order of genes in an organism. `Orthologer` is a program that takes two ordered lists of **protein sequences**, compares them to each other, and displays genes in the first organism that are reciprocal BLAST best hits in the other. While this program can accept multiple genomes as an input, I recommend only two genomes at a time.
+Synteny is the shared order of genes among two or more organisms - essentially, a syntenic block is a group of genes in the same arrangement in multiple organisms. `Orthologer` is a program that takes two ordered lists of **protein sequences**, compares them to each other, and displays genes in the first organism that are reciprocal BLAST best hits in the other. While this program can accept multiple genomes as an input, I recommend only two genomes at a time.
 
-Look at your file `Secondary_clustering_dendrograms.pdf`. Each cluster has a separate dendrogram- choose one containing a genome from your sample. (All the file names start with the sample the bin was obtained from!)
+Look at your file `Secondary_clustering_dendrograms.pdf`. Each cluster has a separate dendrogram- choose one containing a genome from your sample- we are going to analyze two genomes from this cluster in the following section of this lab. (All the file names start with the sample the bin was obtained from!)
 
 ## Important note about file names
 
@@ -101,8 +101,10 @@ I like to make directories before I run analyses, so let's make one in our home 
 
 ```
 mkdir ~/orthologer
-#Remember to do this for each of your two chosen bins!
-cp /class_data/sample_bins/all_proteins/[YOUR CHOSEN BIN] ~/orthologer/
+
+cp /class_data/sample_bins/all_proteins/[YOUR FIRST CHOSEN BIN] ~/orthologer/
+cp /class_data/sample_bins/all_proteins/[YOUR SECOND CHOSEN BIN] ~/orthologer/ 
+
 ```
 
 Now you've got those two (**protein**) fasta files in your `orthologer` directory, let's go ahead and run `orthologer.py` to compare them. You're going to have to use my installation of python, which is why I have those huge paths down below- just roll with it.
