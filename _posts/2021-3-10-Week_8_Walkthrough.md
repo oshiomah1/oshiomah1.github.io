@@ -1,10 +1,11 @@
 ---
 layout: post
 title:  "Week 8 Walkthrough- ORF Prediction and Basic Annotation"
-date:   2021-01-10
+date:   2021-03-04
 excerpt: "ORF Prediction!"
 project: "ESPM_112L"
-
+tag:
+  - test
 comments: true
 ---
 
@@ -47,7 +48,7 @@ BLASTp draws on the strength of the NCBI's public sequence database, as well as 
 
 - HMMscan (HMM-based, very fast)
 
-<img src="https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan">https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan</a>
+<a href="https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan">https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan</a>
 
 HMMscan allows you to search against a suite of domain-level HMMs, which can tell you a lot about what your protein does, and how it functions. Its companion program, pHMMer, gives you similar results along with a list of similar sequences from the EMBL-EBI's public database, although this approach yields many fewer hits than running BLASTp and I would recommend using BLAST instead of pHMMer unless you're pressed for time. It's really fast, though, and if you're doing tons of these searches, as I often am in the course of my research, it can be a real time saver.
 
@@ -82,7 +83,7 @@ BLASTp is a piece of software that will take a protein sequence and search a dat
 
 Verify that your selected protein is real by clicking on it, like in the image below, scrolling down to the bottom left of the page and selecting "BLAST". If your results show a bunch of other proteins with high sequence identity and defined function, congratulations! You got a nice protein. Keep working with it. Otherwise, find another one, rinse and repeat. The best candidates will have relatively little overlap with other predicted ORFs. All the standard parameters are just fine, so don't worry about changing anything once you see the page shown in the image below- just scroll down and click BLAST.
 
-<img src="blastp.png" width=250>
+<img src="/assets/img/blastp.png" width=250>
 
 How well do the results cover your query?  Look at the colored bars in the top box to visualize this.  Do you get results in the description box that agree on what this protein might be?  Do the results have a functional annotation (some kind of specific protein) or does it simply say “hypothetical protein” or “unknown”?
 
