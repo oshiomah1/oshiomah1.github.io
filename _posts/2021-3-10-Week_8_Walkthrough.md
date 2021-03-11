@@ -133,7 +133,6 @@ Notice near the top of the page the KO number (K22898) which is a good way of ke
   - Which, if any, HMM models hit this protein on HMMscan?
 
 2. Return to the operon you identified last week by comparing two genomes using `orthologer.py`. (If you deleted or otherwise lost your output from last week, let me know and I can help you.)
-
   - Navigate to that contig on class.ggkbase.berkeley.edu. (If you don't remember how to do this ask me for help!)
   - Find a protein in this operon (or nearby) with a good annotation. (Not "hypothetical protein" or similar.)
   - Look that gene up on KEGG; does this gene belong to a module or pathway? (You can use ctrl/apple+F to look for 'pathway' or 'module' to check.)
