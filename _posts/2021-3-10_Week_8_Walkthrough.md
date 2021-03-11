@@ -82,7 +82,7 @@ BLASTp is a piece of software that will take a protein sequence and search a dat
 
 Verify that your selected protein is real by clicking on it, like in the image below, scrolling down to the bottom left of the page and selecting "BLAST". If your results show a bunch of other proteins with high sequence identity and defined function, congratulations! You got a nice protein. Keep working with it. Otherwise, find another one, rinse and repeat. The best candidates will have relatively little overlap with other predicted ORFs. All the standard parameters are just fine, so don't worry about changing anything once you see the page shown in the image below- just scroll down and click BLAST.
 
-<a href="blastp.png" width=250>
+<img src="blastp.png" width=250>
 
 How well do the results cover your query?  Look at the colored bars in the top box to visualize this.  Do you get results in the description box that agree on what this protein might be?  Do the results have a functional annotation (some kind of specific protein) or does it simply say “hypothetical protein” or “unknown”?
 
