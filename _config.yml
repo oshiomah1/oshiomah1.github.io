@@ -10,6 +10,7 @@ tiled_bg:           false   # Set this true if you want to tile your background 
 locale:             en_US
 baseurl:            "/" # the subpath of your site, e.g. /blog
 url:                "" # the base hostname & protocol for your site
+future:             true
 
 # Jekyll
 permalink:          /:title/
