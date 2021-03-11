@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Week 8 Walkthrough- ORF Prediction and Basic Annotation"
-date:   2021-03-12
+date:   2021-03-10
 excerpt: "ORF Prediction!"
 project: "ESPM_112L"
 tag:
