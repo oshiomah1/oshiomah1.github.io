@@ -85,7 +85,16 @@ Verify that your selected protein is real by clicking on it, like in the image b
 
 <img src="/assets/img/blastp.png" width=250>
 
-How well do the results cover your query?  Look at the colored bars in the top box to visualize this.  Do you get results in the description box that agree on what this protein might be?  Do the results have a functional annotation (some kind of specific protein) or does it simply say “hypothetical protein” or “unknown”?
+How well do the results cover your query?  Look at the colored bars in the top box to visualize this.  Do you get results in the description box that agree on what this protein might be?  
+
+### Interpreting the graphic summary from Blastp
+
+One of the major strengths of BLAST is its integration with NCBI's metabolic models- they're very detailed and you can get a lot of unique info from them. Click the "Graphic summary" tab on the blastp output to see it, and it should display something like the following:
+
+<img src="/assets/img/blastp_graphic_summary.png" width=250>
+
+Where it shows the green bars that say, in this case, "RMtype1_S_TRD-CR-like_Superfamily", you can click to get more detailed information. The protein I was looking at here was part of a type I restriction modification (RMtype1) system; you will see something similar but with different annotations.
+
 
 ---
 
