@@ -1,11 +1,10 @@
 ---
 layout: post
 title:  "Week 8 Walkthrough- ORF Prediction and Basic Annotation"
-date:   2021-03-10
+date:   2021-01-10
 excerpt: "ORF Prediction!"
 project: "ESPM_112L"
-tag:
-- test
+
 comments: true
 ---
 
@@ -48,7 +47,7 @@ BLASTp draws on the strength of the NCBI's public sequence database, as well as 
 
 - HMMscan (HMM-based, very fast)
 
-<a href="https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan">https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan</a>
+<img src="https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan">https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan</a>
 
 HMMscan allows you to search against a suite of domain-level HMMs, which can tell you a lot about what your protein does, and how it functions. Its companion program, pHMMer, gives you similar results along with a list of similar sequences from the EMBL-EBI's public database, although this approach yields many fewer hits than running BLASTp and I would recommend using BLAST instead of pHMMer unless you're pressed for time. It's really fast, though, and if you're doing tons of these searches, as I often am in the course of my research, it can be a real time saver.
 
@@ -61,20 +60,20 @@ HMMscan allows you to search against a suite of domain-level HMMs, which can tel
 
 Go ahead and go over to <a href="class.ggkbase.berkeley.edu">class.ggkbase.berkeley.edu</a> and log in. Select one of your organisms, and click on it to get a list of the scaffolds in that bin. Select a relatively large scaffold (more than ~20kbp) and click on it. A good way to do this is to sort the sequences by '# features' and find a scaffold with more than 10 genes.
 
-<a href="/assets/img/get_big_scaffold.png" width=250>
+<img src="/assets/img/get_big_scaffold.png" width=250>
 
 ## Performing prediction on NCBI ORF Finder
 
 Click on the link to this contig and download the DNA sequence for this contig.  Open the fasta file in a plain text editor; select all (cmd+a on Mac or ctrl+a on Windows/Linux), and copy the sequence.  Go to NCBI ORF finder (<a href="https://www.ncbi.nlm.nih.gov/orffinder">https://www.ncbi.nlm.nih.gov/orffinder</a>) and paste the sequence into the Query box.
 
-<a href="/assets/img/paste_in_sequence.png" width=250>
+<img src="/assets/img/paste_in_sequence.png" width=250>
 
 You will want to use the standard bacterial genetic code, referred to here as "Bacterial, Archaeal, and Plant Plasmid (11)".  A reasonable minimum ORF length is 300, but feel free to try other cutoffs.  Hit the submit button to see your potential ORFs.
 
 The results show all of the possible genes in all reading frames.  You can click on a gene in the viewer or in the list to get its particular sequence. Note: this is ALL of the possibilities across multiple reading frames, some of the resulting proteins are likely not real proteins.
 
 
-<a href="/assets/img/orf_finder.png" width=250>
+<img src="/assets/img/orf_finder.png" width=250>
 
 
 ## Verifying proteins with BLASTp
@@ -99,18 +98,18 @@ Below is a run down of the kinds of information interpro will display for you:
 
 ---
 
-<a href="/assets/img/F.png" width=250>
+<img src="/assets/img/F.png" width=250>
 
 Protein family: in InterPro a protein family is a group of proteins that share a common evolutionary origin, reflected by their related functions and similarities in sequence or structure.  (The inclusion of protein structure is one of the differences between the general search in NCBI, that only considered sequence homology, and this search against InterPro)
 
-<a href="/assets/img/D.png width=250>
+<img src="/assets/img/D.png" width=250>
 
 Protein domain: distinct functional and/or structural units in a protein.  Usually they are responsible for particular functions or interaction, contributing to the overall role of a protein.  Domains may exist in a variety of biological contexts, where similar domains can be found in proteins with different functions.  
 
-<a href="/assets/img/R.png" width=250>
+<img src="/assets/img/R.png" width=250>
 
 Repeats are typically short amino acid sequences that are repeated within a protein, and may confer binding or structural properties upon it.  
 
-<a href="/assets/img/S.png" width=250>
+<img src="/assets/img/S.png" width=250>
 
 Sites: groups of amino acids that confer certain characteristics upon a protein, and may be important for its overall function.  Sites are usually rather small (only a few amino acids long).  Some types of sites in InterPro are active sites (involved in catalytic activity, binding sites (bind molecules or ions), post-translational modification sites (chemically modified after the protein is translated), and conserved sites (found in specific types of proteins, but whose function is unknown)
