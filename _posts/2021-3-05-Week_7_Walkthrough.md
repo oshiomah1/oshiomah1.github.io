@@ -97,13 +97,13 @@ I forgot to rename the protein fastas from `.fasta` to `.faa` before running dRe
 
 Choose two genomes that are in this same primary cluster. Now, get the *protein* fasta files for those bins from the folder `/class_data/sample_bins/all_proteins/` and copy them into your home directory.
 
-I like to make directories before I run analyses, so let's make one in our home directory and copy these bins into it:
+I like to make directories before I run analyses, so let's make one in our home directory (`mkdir ~/orthologer`) and copy these bins into it:
 
 ```
 mkdir ~/orthologer
 
 cp /class_data/sample_bins/all_proteins/[YOUR FIRST CHOSEN BIN] ~/orthologer/
-cp /class_data/sample_bins/all_proteins/[YOUR SECOND CHOSEN BIN] ~/orthologer/ 
+cp /class_data/sample_bins/all_proteins/[YOUR SECOND CHOSEN BIN] ~/orthologer/
 
 ```
 
