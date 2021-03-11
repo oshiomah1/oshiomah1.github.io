@@ -114,3 +114,11 @@ Repeats are typically short amino acid sequences that are repeated within a prot
 <img src="/assets/img/S.png" width=250>
 
 Sites: groups of amino acids that confer certain characteristics upon a protein, and may be important for its overall function.  Sites are usually rather small (only a few amino acids long).  Some types of sites in InterPro are active sites (involved in catalytic activity, binding sites (bind molecules or ions), post-translational modification sites (chemically modified after the protein is translated), and conserved sites (found in specific types of proteins, but whose function is unknown)
+
+
+# Turn-in for today:
+
+1. Find a protein that has an informative annotation. (This is subjective- you decide whether it's informative or not. Do the annotations give you any helpful clues?)
+  - Are there highly related blastp hits? If so, do they come from the same type of organism? (The organism taxonomy is in the sequence names.)
+  - What is the suggested function for that protein from interproscan? (You can find this at the bottom of the interpro results page.)
+  - Which, if any, HMM models hit this protein on HMMscan?
