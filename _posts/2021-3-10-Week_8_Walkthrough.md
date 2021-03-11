@@ -115,6 +115,15 @@ Repeats are typically short amino acid sequences that are repeated within a prot
 
 Sites: groups of amino acids that confer certain characteristics upon a protein, and may be important for its overall function.  Sites are usually rather small (only a few amino acids long).  Some types of sites in InterPro are active sites (involved in catalytic activity, binding sites (bind molecules or ions), post-translational modification sites (chemically modified after the protein is translated), and conserved sites (found in specific types of proteins, but whose function is unknown)
 
+# KEGG
+
+Once you have a relatively interesting protein, the best way to dig further into it and find out what its role is in the cell is to look it up on KEGG. Just google "kegg" + the name of your gene, and you'll generally see a few results that line up with what you're looking for. (This will be part of the demo at the beginning of class.)
+
+One of the greatest things about KEGG is the fact that it provides information on publications related to that gene where you can read about the gene's function, and also (not always, but often) links to "pathways" and "modules" containing that gene. Pathways and modules are groups of genes that work in sequence to perform a given task - fixation of nitrogen, for instance, is a good example of a module; photosynthesis, being much broader and involving many more genes, is classified as a pathway.
+
+Here's an example of an important gene, Nitrogenase, involved in the fixation of atmospheric Nitrogen by bacteria: <a href="https://www.genome.jp/dbget-bin/www_bget?K22898">https://www.genome.jp/dbget-bin/www_bget?K22898</a>
+
+Notice near the top of the page the KO number (K22898) which is a good way of keeping track of individual genes, the pathway number (ko00910) which contains many other nitrogen metabolism genes, and the module number (M00175) which indicates that this gene is involved in nitrification, the process of converting atmospheric N2 to ammonia, NH3.
 
 # Turn-in for today:
 
@@ -122,3 +131,9 @@ Sites: groups of amino acids that confer certain characteristics upon a protein,
   - Are there highly related blastp hits? If so, do they come from the same type of organism? (The organism taxonomy is in the sequence names.)
   - What is the suggested function for that protein from interproscan? (You can find this at the bottom of the interpro results page.)
   - Which, if any, HMM models hit this protein on HMMscan?
+
+2. Return to the operon you identified last week by comparing two genomes using `orthologer.py`. (If you deleted or otherwise lost your output from last week, let me know and I can help you.)
+
+  - Navigate to that contig on class.ggkbase.berkeley.edu. (If you don't remember how to do this ask me for help!)
+  - Find a protein in this operon (or nearby) with a good annotation. (Not "hypothetical protein" or similar.)
+  - Look that gene up on KEGG; does this gene belong to a module or pathway? (You can use ctrl/apple+F to look for 'pathway' or 'module' to check.)
