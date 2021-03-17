@@ -38,7 +38,7 @@ In our lab, we use several popular tools to look at interesting proteins, which 
 
 <a href="https://www.ebi.ac.uk/interpro/search/sequence/">https://www.ebi.ac.uk/interpro/search/sequence/</a>
 
-This option is the best if you have a protein that's really unusual and you want to find out exactly what it is. Interproscan uses a large suite of HMMs (probabilistic models that we won't go over in detail today) to give you a wealth of information about the protein sequence you provide.
+This option is the best if you have a protein of interest and you want to find out exactly what it is. Interproscan uses a large suite of HMMs (probabilistic models that we won't go over in detail today) to give you a wealth of information about the protein sequence you provide.
 
 - Blastp (alignment-based)
 
@@ -69,7 +69,7 @@ Click on the link to this contig and download the DNA sequence for this contig. 
 
 <img src="/assets/img/paste_in_sequence.png" width=250>
 
-You will want to use the standard bacterial genetic code, referred to here as "Bacterial, Archaeal, and Plant Plasmid (11)".  A reasonable minimum ORF length is 300, but feel free to try other cutoffs.  Hit the submit button to see your potential ORFs.
+You will want to use the standard bacterial genetic code, referred to here as "Bacterial, Archaeal, and Plant Plasmid (11)".  A reasonable minimum ORF length is 150 Amino Acids, but feel free to try other cutoffs.  Hit the submit button to see your potential ORFs.
 
 The results show all of the possible genes in all reading frames.  You can click on a gene in the viewer or in the list to get its particular sequence. Note: this is ALL of the possibilities across multiple reading frames, some of the resulting proteins are likely not real proteins.
 
