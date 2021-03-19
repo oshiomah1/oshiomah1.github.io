@@ -65,30 +65,31 @@ The three search boxes use boolean logic. The first box produces genes that have
 
 <img src="/assets/img/list_menu.png" width=250>
 
-Let's try, as an example, making a list that just looks at Rubisco, the protein that fixes CO2 in the Calvin cycle. There's CO2 fixation going on in the human gut, too!
+Let's try, as an example, making a list that just looks at Nitrate reductase, a family of related genes that all reduce NO3 to NO2.
 
  - Go to "Lists" at the top of the page, title your list, give it a description and a color.
 
- - Scroll to the bottom, and you'll see the "List Keywords" menu. Type "Ribulose" and you'll see a bunch of options pop up; select "Ribulose-1,5-bisphosphate carboxylase" and then press the "Save list" button.
+ - Scroll to the bottom, and you'll see the "List Keywords" menu. Type "Nitrate reductase" and you'll see a bunch of options pop up; select "nitrate reductase" and then press the "Save list" button.
 
-Now you'll see a bunch of information on the next page. On the left-hand side of the page is a box that says "Projects"... next to that, click "Select all", then on the right of the page click the big blue button that says "Update". Now you're looking at all the projects you have access to, and you should see all the Rubisco proteins in that set!
+This list, when used, will search a set of gene annotations for everything containing the words "nitrate reductase".
 
-Now, there's one more thing to do. Rubisco is comprised of a large and a small subunit- for now, let's just look at the large subunit. In the search bar that says "**Exclude** these terms", type "small". Now your results are just for the large subunit of Rubisco!
+Now you'll see a bunch of information on the next page. On the left-hand side of the page is a box that says "Projects"... next to that, click "Select all", then on the right of the page click the big blue button that says "Update". Now you're looking at all the projects you have access to, and you should see all the nitrate reductase proteins in that set!
+
 
 # Optional: Download sequences for analysis
 
 This isn't necessary for today's lab, but will be useful if you want to analyze groups of sequences for your project at the end of the course.
 
-You can download a FASTA file (either DNA or protein) with all of these results by clicking "Download list" (near the top of the page) and selecting the type of FASTA you'd like to download. Feel free to do that with the Rubisco results to test it out.
+You can download a FASTA file (either DNA or protein) with all of these results by clicking "Download list" (near the top of the page) and selecting the type of FASTA you'd like to download. Feel free to do that with the nitrate reductase results to test it out.
 
 
 ## Investigating Metabolic Pathways
 
-You can pick any metabolism you are interested in for this lab.  As an example, click on Energy and then "Carbon Fixation Pathways in Prokaryotes".  Let’s say you are particularly interested in CO2 fixation in the gut.
+Let's now return to your genome summary.
 
-Click "Select lists", then navigate to "CO2 fixation" (if you can't find it, type it in to the search bar on the left). In the middle bar, right under the words "CO2 fixation", there's a blue button that says "select all". Click that, then click "Apply".
+You can pick any metabolism you are interested in for this lab.  As an example, click on "Select lists", then navigate to "Nitrogen cycle" (if you can't find it, type it in to the search bar on the left). In the middle bar, right under the words "NItrogen cycle", there's a blue button that says "select all". Click that, then click "Apply".
 
-Now you can see the genes predicted to be involved in CO2 fixation pathways across all your selected genomes! This includes the Rubisco genes we were investigating earlier.
+Now you can see the genes predicted to be involved in nitrogen transformation pathways across all your selected genomes! This includes the nitrate reductase genes we were investigating earlier.
 
 
 # Today's turn-in assignment:
@@ -112,4 +113,3 @@ Once you've done this, give me the following information for each genome:
 - What is the ggKbase taxonomic classification for this organism?
 - How many contigs is the genome in, and what is the total size of the genome bin?
 - What pathway did you investigate?
-- Is your genome missing any key genes for that pathway? E.g. if you looked up carbon fixation through the Calvin cycle, you'd want to make sure that genome has Rubisco.
