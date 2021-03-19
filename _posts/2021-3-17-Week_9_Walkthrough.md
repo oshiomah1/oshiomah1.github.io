@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Week 8 Walkthrough- ggKbase annotations and lists!"
-date:   2021-03-04
+title:  "Week 9 Walkthrough- ggKbase annotations and lists!"
+date:   2021-03-18
 excerpt: "ggKbase lists!"
 project: "ESPM_112L"
 tag:
@@ -23,7 +23,7 @@ This week we're going to be investigating the metabolic capacities of the organi
 
 The main way we're going to be looking at this information this week is by using 'genome summaries', which are a tool included in the ggkbase platform.
 
-Genome summaries are an important part of the ggkbase platform that allow users to interrogate the metabolic potential of the bins they’ve created. To make a genome summary, first click on Genome Summary at the top of the page, then click Create Genome Summary.
+Genome summaries are an important part of the ggkbase platform that allow users to interrogate the metabolic potential of the bins they’ve created, and see what remains in the unbinned fraction. To make a genome summary, first click on Genome Summary at the top of the page, then click Create Genome Summary.
 
 At this point you are able to restrict genome summaries to certain projects. For the purposes of this assignment, select all projects you have access to and click "Go to  Genome Summary".
 
@@ -33,7 +33,7 @@ First, we've recently added a new system that uses HMMs to detect genes, but it'
 
 <img src="/assets/img/HMM_menu.png" width=250>
 
-Now click "Select lists". A screen now pops up showing you all of the “universal lists” which are available to all members of ggkbase. They’re grouped first by category, and then by smaller groups within each category. Pick some lists which interest you- some especially interesting lists are Immune system > Cas proteins, and Motility > select all. Once you’ve chosen your lists, click Apply at the top of the page.
+Now click "Select lists". A screen now pops up showing you all of the “universal lists” which are populated when the data are imported. They’re grouped first by category, and then by smaller groups within each category. Pick some lists which interest you- some especially interesting lists are Nitrogen cycle -> NitrogenFix_NifHDK, and Motility > select all. Once you’ve chosen your lists, click Apply at the top of the page.
 
 You should now see something like this:
 
@@ -41,13 +41,17 @@ You should now see something like this:
 
 This is your genome summary! It shows each organism you selected as rows, and the number of proteins in each organism that match the search terms in each list. So in the screen-shot above, I see that these Propionibacterium bins have about 7 Cas proteins each, making it highly likely that they all have functional CRISPR arrays.
 
-To save this summary you made, simply give it a name by clicking on Choose name (by “Untitled”). Now you can leave the page, and get back to this summary by clicking Genome Summary at the top of ggkbase again.
+To save this summary you made, simply give it a name by clicking on "Choose name" (by “Untitled”). Now you can leave the page, and get back to this summary by clicking Genome Summary at the top of ggkbase again.
 
 To investigate the proteins in each category, you can click on the numbers within the boxes. This will show the list of features which hit this list. From this list, you can find out which scaffold they’re on, they’re location, the sequence (for BLAST searches), the annotations, and more!
+
+
 
 ## What lists are for
 
 Genome summaries and lists are intended to make it easier to visualize metabolic capacities across a large number of organisms and to share these visualizations with other researchers. You can make custom lists, as you'll learn about shortly, and can create genome summaries for various groups of genomes, making this a wonderful tool not only for extracting insights from your data but also to convey these insights to others.
+
+Once you've given the genome summary a name and saved it, you can then share the link to other people with access to ggkbase, who can then view your summary. Very useful for group projects!
 
 ## Using Custom ggKbase Lists
 
@@ -80,19 +84,7 @@ You can download a FASTA file (either DNA or protein) with all of these results 
 
 ## Investigating Metabolic Pathways
 
-Go to the KEGG pathways page (this was in last week's lab as well).
-
-<a href=http://www.genome.jp/kegg/pathway.html>http://www.genome.jp/kegg/pathway.html</a>
-
-You’ll see a number of links to different types of metabolic categories:
-
-<img src="/assets/img/kegg_menu.png" width=250>
-
 You can pick any metabolism you are interested in for this lab.  As an example, click on Energy and then "Carbon Fixation Pathways in Prokaryotes".  Let’s say you are particularly interested in CO2 fixation in the gut.
-
-You can see all sorts of different reactions and compounds now- roll over any of them with your mouse to get a little extra information. Click on particular compounds if you'd like to see their structure, and click on reactions to see the product/reactant compounds as well as all the genes KEGG has identified which participate in that reaction (there may be many!).
-
-Now let's go back to your genome summary on ggkbase.
 
 Click "Select lists", then navigate to "CO2 fixation" (if you can't find it, type it in to the search bar on the left). In the middle bar, right under the words "CO2 fixation", there's a blue button that says "select all". Click that, then click "Apply".
 
@@ -101,7 +93,7 @@ Now you can see the genes predicted to be involved in CO2 fixation pathways acro
 
 # Today's turn-in assignment:
 
-This week each group member should select a genome from your team's sample and identify at least one pathway of interest using ggKbase lists.
+This week each group member should select a genome from your team's sample and identify at least one pathway or module of interest using ggKbase lists.
 
 What makes a good genome?
 
@@ -111,9 +103,13 @@ What makes a good genome?
 
 You don't have to each pick a different pathway to study, but you have to pick different genomes of interest for each group member.
 
+### Picking a pathway
+
+Some pathways are very difficult to
+
 Once you've done this, give me the following information for each genome:
 
 - What is the ggKbase taxonomic classification for this organism?
 - How many contigs is the genome in, and what is the total size of the genome bin?
 - What pathway did you investigate?
-- Is your genome missing any key genes for that pathway? E.g. if you looked up carbon fixation through the Calvin cycle, you'd want to make sure that genome has Rubisco. 
+- Is your genome missing any key genes for that pathway? E.g. if you looked up carbon fixation through the Calvin cycle, you'd want to make sure that genome has Rubisco.
