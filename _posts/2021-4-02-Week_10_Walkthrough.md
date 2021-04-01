@@ -104,4 +104,13 @@ What types of functions are present?
 
 Keep this data- many of you will likely choose to use these viruses as part of your projects, and it will be very valuable.
 
+
+## This week's turn-in
+
+This week, please provide the following:
+
+- The bin name, taxonomy, and scaffold ID where you found a CRISPR locus for at least one genome.
+
+- At least three scaffolds you think are viruses. (No pressure to be 100% right- this is tricky! Give it a shot though, and feel free to check with me to verify.)
+
 You're done for this week! Congrats!
