@@ -32,11 +32,13 @@ Go ahead and look through all the genomes available to you, and find a genome th
 
 Double click on the name of that organism to go to its ggKbase page, and select 'Download -> Contigs (fasta)' to download these contigs to your computer.
 
-Next, we're going to use CRISPRCasFinder online to find CRISPR systems in your genome of choice. <a href=https://crisprcas.i2bc.paris-saclay.fr/CrisprCasFinder/Index>https://crisprcas.i2bc.paris-saclay.fr/CrisprCasFinder/Index</a>
+Next, we're going to use CRISPRCasFinder online to find CRISPR systems in your genome of choice.
+
+<a href=https://crisprcas.i2bc.paris-saclay.fr/CrisprCasFinder/Index> https://crisprcas.i2bc.paris-saclay.fr/CrisprCasFinder/Index </a>
 
 Go ahead and upload your file, as shown below.
 
-<img src="/assets/img/crisprcasfinder.png width=250>
+<img src="/assets/img/crisprcasfinder.png" width=250>
 
 You should have a little green box for each potential CRISPR Cas system. Click on it to expand it, and click on the details tab (or just click on the name of the query sequence, which should be a hyperlink).
 
