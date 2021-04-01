@@ -34,7 +34,7 @@ Double click on the name of that organism to go to its ggKbase page, and select 
 
 Next, we're going to use CRISPRCasFinder online to find CRISPR systems in your genome of choice.
 
-<a href=https://crisprcas.i2bc.paris-saclay.fr/CrisprCasFinder/Index> https://crisprcas.i2bc.paris-saclay.fr/CrisprCasFinder/Index </a>
+[CrisprCasFinder](https://crisprcas.i2bc.paris-saclay.fr/CrisprCasFinder/Index)
 
 Go ahead and upload your file, as shown below.
 
