@@ -109,7 +109,7 @@ Keep this data- many of you will likely choose to use these viruses as part of y
 
 This week, please provide the following:
 
-- The bin name, taxonomy, and scaffold ID where you found a CRISPR locus for at least one genome.
+- The bin name, taxonomy, and scaffold ID where you found a CRISPR locus for at least one genome. (If you have trouble finding a CRISPR locus or the scaffold ID that's fine- you won't lose points.s)
 
 - At least three scaffolds you think are viruses. (No pressure to be 100% right- this is tricky! Give it a shot though, and feel free to check with me to verify.)
 
