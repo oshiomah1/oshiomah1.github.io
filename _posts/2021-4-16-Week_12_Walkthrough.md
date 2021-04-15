@@ -116,6 +116,50 @@ Zoom in (scroll as you would on a browser, or use `ctrl` + `+`) and you  can see
 
 <img src="/assets/img/zoomy_coverage.png" width=250>
 
-See now how there are highlighted nucleotides? These indicate positions in the reads which **disagree** with your reference genome. (e.g. Your reference genome says GATTACA and the read might say GATAACA; the fourth nucleotide is different between the two.)
+See now how there are highlighted nucleotides? These indicate positions in the reads which **disagree** with your reference genome. (e.g. Your reference genome says GATTACA and the read might say GATAACA; the fourth nucleotide is different between the two.) These are SNPs; **S**ingle **N**ucleotide **P**olymorphisms; positions where a single nucleotide mutation has occurred.
 
 Also note that if you roll your cursor over a given read, that read's mate pair will be highlighted.
+
+3. Make a more stringent mapping
+
+Have you noticed that there's a ton of mutations around? We generally don't want to see all of the low-identity reads, since they may really belong to other assembled contigs rather than the one you're interested in. So let's go ahead and change that.
+
+First, we want to make separate geneious files for A. the contig of interest, and B. the reads which align to that contig. We're only re-aligning the reads which already map to this contig, so it's much easier computationally. You can do it easily on your laptop in probably around a minute!
+
+- Making separate geneious files
+
+First, make sure you're zoomed in to the point that you can see the names of individual reads (like the below example)
+
+<img src="/assets/img/pre_selection.png" width=250>
+
+Click on the name of your contig - in my example, it says 'scaffold_17' near the top left corner- and then navigate to the 'extract' button on the top right. Click on that and choose a name (the default is fine), then press 'OK'. In your top menu, where you see a bunch of file names, you should now see a file for that scaffold.
+
+## Interlude: Predicting ORFs (make sure to do this before continuing!)
+
+It's very useful to be able to see where the genes are along a contig when visualizing an alignment. In order to predict genes, we're going to need to install a plugin for geneious (don't worry, it's easy). Go to the top menu, select 'Tools', then click 'Plugins'. Scroll down in the resulting menu until you find 'Glimmer', then click 'install'. Go to the bottom of the menu and press 'OK'!
+
+Now, go to the file for your contig, and select 'Annotate and Predict', just above where your sequence is displayed. Click the very bottom option- 'Predict genes with Glimmer'- and press OK.
+
+## Back to mapping
+
+Now that you've done that, let's make a separate file for our reads! Go back to your mapping file - now we want to select just the reads. Click on one of the names of the reads (below the scaffold name, they all say `FWD` and `REV`), then press `Ctrl+A` (PC/linux) or `Cmd+A` (Mac) to select them all. (If you see the scaffold name and/or anything above highlighted, you can de-select them by holding `ctrl` (PC/linux) or `cmd` (mac) and clicking the things you don't want highlighted) After you've done this, click 'extract' like you did before, and make a new geneious file for just your reads! (Name it "reads" or something easily identifiable)
+
+- Making a new, more stringent mapping
+
+Now select both of these newly created files - the one for just your scaffold and its proteins, and the one for your reads. Go to the top, click 'Align/Assemble', and then 'Map to Reference'.
+
+<img src="/assets/img/pre_mapping.png" width=250>
+
+Now, before you do anything else, we want to make sure that this mapping is more stringent, so you can see the difference between a standard mapping and one done with more stringent parameters. In the box that comes up once you've clicked 'Map to Reference' (see below), there's a field that says 'Sensitivity'; click on it and select 'Custom'. Now, go to the bottom of the box, and click where it says 'More options'. You should now see all the fields in the below example. Set 'Maximum mismatches per read' to 3%, then press OK to begin your new alignment!
+
+<img src="/assets/img/mapping_parameters.png" width=250>
+
+
+# Turn-in assignment
+
+1. On the scaffold you've re-made the alignment for, what is the maximum coverage value for A. the original mapping, and B. the more stringent mapping?
+  - You can find this by looking at your coverage graph and zooming in to the peaks. The legend should also go from 0 to the maximum coverage value to make things easier.
+
+2. Take a screenshot of at least three SNPs that A. occur in more than one read, and B. occur in the coding sequence of a gene.
+
+3. What gene on your contig has the highest coverage? Click on the orange symbol representing that gene, which will show you the amino acid translation, then put that sequence into <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins">blastp</a>. What is this gene- does it have any informative annotations?
