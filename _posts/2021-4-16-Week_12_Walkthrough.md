@@ -2,7 +2,7 @@
 layout: post
 title:  "Week 12 Walkthrough- Population Dynamics!"
 date:   2021-04-09
-excerpt: "iRep!"
+excerpt: "Read Mapping and Coverage!"
 project: "ESPM_112L"
 tag:
   - test
@@ -163,3 +163,5 @@ Now, before you do anything else, we want to make sure that this mapping is more
 2. Take a screenshot of at least three SNPs that A. occur in more than one read, and B. occur in the coding sequence of a gene.
 
 3. What gene on your contig has the highest coverage? Click on the orange symbol representing that gene, which will show you the amino acid translation, then put that sequence into <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins">blastp</a>. What is this gene- does it have any informative annotations?
+
+4. Projects are coming up - submit at least one idea for your group's project (or individual project, if you prefer) along with today's turn-in.
