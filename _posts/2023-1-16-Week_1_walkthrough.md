@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Week 1 Walkthrough- Intro to Bash"
-date:   2020-02-17
+date:   2023-01-16
 excerpt: "Introducing the Command Line!"
 project: "ESPM_112L_2021"
 tag:
