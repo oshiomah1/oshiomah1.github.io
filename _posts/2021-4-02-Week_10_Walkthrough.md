@@ -3,7 +3,7 @@ layout: post
 title:  "Week 10 Walkthrough- CRISPR and Phage!"
 date:   2021-04-02
 excerpt: "CRISPR!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
   - test
 comments: true

@@ -3,7 +3,7 @@ layout: post
 title:  "Week 3 Walkthrough- Metagenomic Assembly"
 date:   2021-02-03
 excerpt: "Metagenomic Assembly!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
 - test
 comments: true

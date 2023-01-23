@@ -3,7 +3,7 @@ layout: post
 title:  "Week 6 Walkthrough- Phylogenetic Tree Building"
 date:   2021-02-29
 excerpt: "Phylogenetics!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
 - test
 comments: true

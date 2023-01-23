@@ -3,7 +3,7 @@ layout: post
 title:  "Week 12 Walkthrough- Population Dynamics!"
 date:   2021-04-09
 excerpt: "Read Mapping and Coverage!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
   - test
 comments: true

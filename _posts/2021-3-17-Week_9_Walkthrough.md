@@ -3,7 +3,7 @@ layout: post
 title:  "Week 9 Walkthrough- ggKbase annotations and lists!"
 date:   2021-03-18
 excerpt: "ggKbase lists!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
   - test
 comments: true

@@ -3,7 +3,7 @@ layout: post
 title:  "Week 2 Walkthrough- Read Quality and Trimming"
 date:   2020-02-29
 excerpt: "Read Trimming and Quality Control!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
 - test
 comments: true

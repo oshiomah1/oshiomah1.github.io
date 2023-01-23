@@ -3,7 +3,7 @@ layout: post
 title:  "Week 11 Walkthrough- iRep and Growth Rates!"
 date:   2021-04-09
 excerpt: "iRep!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
   - test
 comments: true

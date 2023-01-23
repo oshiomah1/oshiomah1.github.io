@@ -3,7 +3,7 @@ layout: post
 title:  "Week 5 Walkthrough- Automatic Binning"
 date:   2021-02-12
 excerpt: "Automatic binning!"
-project: "ESPM_112L"
+project: "ESPM_112L_2021"
 tag:
 - test
 comments: true
