@@ -52,27 +52,9 @@ Each group will be assigned a sample today, and starting this week you'll work w
 
 Make a folder in your home directory (use the `mkdir` command) called `raw.d`. This is how we designate the folders containing our raw sequencing data in the Banfield lab standard workflow. Then `cd` into that directory. Now let's fetch your sequence files.
 
-The reads are located at `/class_data/reads/`. I've sent out the full path to your reads for each group on Slack. Because these are large files, we can't just copy them over to all your home directories- that would instantly use tons of disk space! Instead we're going to make what are called 'symbolic links' of your read files. They look, act and are identical in every way to the original files; luckily, though, they don't take up any space on the hard drive! They'll show up as light blue instead of white like other normal files.
+The reads are located at `/class_data/reads/Cow_8_31/raw.d/Cow_8_31_trim_clean.PE.1.fastq.gz` and `/class_data/reads/Cow_8_31/raw.d/Cow_8_31_trim_clean.PE.2.fastq.gz`. These are called the "Forward" and "Reverse" reads, and should (almost always) be used together.
 
-Here's how you make a symbolic link to your reads- remember you'll need to do this for both your forward and reverse reads.
-
-```
-ln -s [EXAMPLE FILENAME] .
-```
-
-This creates a link - you can modify the file as normal, but it won't take up any extra disk space and will let you modify it without providing the full PATH. Otherwise, you'd have to type `/class_data/reads/[SAMPLE NAME]/` every time you wanted to access your files. (Which you can still do! I guess. Live your best life.)
-
-Here I'll use an example set of reads. Make sure to use your own set of reads which I provided to your group on Slack. Here's an example of what to do:
-```
-cd ~
-mkdir raw.d
-cd raw.d
-#Remember to use reads from your sapmle instead of these example files!
-ln -s /class_data/reads/JS_WN1_S130/JS_WN1_S130.1.fastq.gz .
-ln -s /class_data/reads/JS_WN1_S130/JS_WN1_S130.2.fastq.gz .
-```
-
-Now that you've got the data loaded, let's run our QC program, fastqc! I highly recommend one person per group do this, since it can take quite a while; this way you can get started on the rest of the lab while it's running. ()
+Now that you've got the data loaded, let's run our QC program, fastqc! I highly recommend one person per group do this, since it can take quite a while; this way you can get started on the rest of the lab while it's running.
 
 ### Running FastQC
 
@@ -125,7 +107,7 @@ mkdir fastQC_output
 fastqc -o fastQC_output [forward_reads] [reverse_reads]
 ```
 
-This took about 15 minutes running it on the data I use for my research- I would say you should expect it to take about as long on your samples.
+This took about 10 minutes to run, and you should expect it to take about that long. PLEASE do not use more than one thread (the `-t` option in fastqc) because we do not have the resources to support everyone doing this simultaneously.
 
 Once this is done, you're going to have an output .html file (either in your current directory or in the output directory you specified with `-o`). We're going to want to download it! This file is an .html file, so you want to open it in a web browser- Firefox, Chrome, Safari, Internet Explorer 6, Netscape, whatever you want.
 
@@ -199,7 +181,7 @@ Usage: sickle pe [options] -f <paired-end forward fastq file> -r <paired-end rev
 Here's an example, again using the example dataset. Remember not to copy paste this, because your sample name will be different!
 
 ```
-sickle pe -t sanger -f JS_WN1_S130.1.fastq.gz -r JS_WN1_S130.2.fastq.gz -o JS_WN1_S130.trimmed.1.fastq.gz -p JS_WN1_S130.trimmed.2.fastq.gz -s JS_WN1_S130.trimmed.single.fastq.gz
+sickle pe -t sanger -f [FORWARD READS] -r [REVERSE READS] -o Cow_8_31_trim_clean.trimmed.1.fastq.gz -p Cow_8_31_trim_clean.trimmed.2.fastq.gz -s Cow_8_31_trim_clean.trimmed.single.fastq.gz
 ```
 
 Notice the flag `-t sanger`; this indicates the way the per-base quality scores are formatted. This should take a couple more minutes. Also, make sure the output filenames (`-o`, `-p`, and `-s`) are different than the input filenames, so you don't accidentally overwrite your files. (If you do, just let me know and I'll get you the original data back.)
