@@ -5,7 +5,7 @@ date:   2020-02-17
 excerpt: "Introducing the Command Line!"
 project: "ESPM_112L_2021"
 tag:
-- test
+- intro
 comments: true
 ---
 

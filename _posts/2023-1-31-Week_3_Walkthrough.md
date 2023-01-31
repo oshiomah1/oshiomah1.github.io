@@ -38,7 +38,8 @@ For a nice example, see the image below from the paper mentioned above:
 
 <img src="https://journals.plos.org/plosone/article/figure/image?size=large&id=info:doi/10.1371/journal.pone.0169662.g002" width=250>
 
-As you can see, different assemblers win out over others when looking at particular metrics, but none is consistently better than all the others based on all metrics across different sample types.
+As you can see, different assemblers win out over others when looking at particular metrics, but none is consistently better every time on all metrics. Different scenarios call for different assembly software. MEGAHIT, for example, is quite memory efficient. If your computer is lacking in RAM, or your data is quite large, MEGAHIT can make assembly possible where it was previously infeasible due to memory constraints.
+
 It's up to you to decide which one is best for your particular situation, based on the particular traits of each assembler (which are well described in the Vollmers et al. paper above).
 
 We can see the effect of using different assemblers on our data, too. I ran `megahit` and `metaSPAdes` for one of our class samples, `Cow_8_05`. Here's what the stats look like in comparison:
@@ -210,11 +211,13 @@ Important stats to remember are:
 
 # Questions for today's turn-in:
 
-1. What is the N50 of the contigs (*not* the scaffolds) from the example assembly? (Go back and repeat the procedure to run `contig_stats.pl` on the scaffolds from the example assembly, but choose `contigs.fasta` instead of `scaffolds.fasta`)
+1. What is the N50 of the contigs (*not* the scaffolds) from the example assembly? (Go back and repeat the procedure to run `contig_stats.pl` on the scaffolds from the example assembly, but choose `contigs.fasta` instead of `scaffolds.fasta`) *5pts*
 
-2. What differentiates contigs from scaffolds? Should an assembly yield more scaffolds than contigs, or vice versa?
+2. What differentiates contigs from scaffolds? Should an assembly yield more scaffolds than contigs, or vice versa? *3pts*
 
-3. What is the length of the largest contig in your sample's assembly?
+3. What is the length of the largest contig in your sample's assembly? *2pts*
+
+4. Provide the path (file location) of your example assembly output. *10pts*
 
 
 ---

@@ -5,7 +5,7 @@ date:   2021-02-12
 excerpt: "Automatic binning!"
 project: "ESPM_112L_2021"
 tag:
-- test
+- Autobinning
 comments: true
 ---
 

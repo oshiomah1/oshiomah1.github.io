@@ -5,7 +5,7 @@ date:   2021-02-12
 excerpt: "ggKbase binning!"
 project: "ESPM_112L_2021"
 tag:
-- test
+- Manual Binning
 comments: true
 ---
 

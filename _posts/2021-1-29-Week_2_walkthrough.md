@@ -5,7 +5,7 @@ date:   2020-02-29
 excerpt: "Read Trimming and Quality Control!"
 project: "ESPM_112L_2021"
 tag:
-- test
+- Read Quality
 comments: true
 ---
 
