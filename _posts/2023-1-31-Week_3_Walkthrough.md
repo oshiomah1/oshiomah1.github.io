@@ -19,6 +19,8 @@ comments: true
 {:toc}
 
 
+Everybody, including (and especially) auditors, please join the lab slack [here](https://join.slack.com/t/espm112l2023/shared_invite/zt-1nqm83qn6-pJ9~hBwhdm_1U54zaU2blw)!! This will make it so much easier for me to get info, bug fixes, etc. out to you all at once.
+
 This week we're going to be looking at metagenome assembly- what it is, how to do it, and best practices.
 
 Your samples are enormous (some of the uncompressed .fastq files are >65GB!) so we're not going to be able to do metagenome assembly on all of these today.
@@ -215,7 +217,7 @@ Important stats to remember are:
 
 2. What differentiates contigs from scaffolds? Should an assembly yield more scaffolds than contigs, or vice versa? *3pts*
 
-3. What is the length of the largest contig in your sample's assembly? *2pts*
+3. What is the length of the largest contig in your sample's idba_ud assembly? *2pts*
 
 4. Provide the path (file location) of your example assembly output. *10pts*
 
