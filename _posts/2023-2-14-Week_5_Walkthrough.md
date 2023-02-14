@@ -149,6 +149,9 @@ Now specify the prefix of your output. All the files DAS_Tool makes will start w
 
 ## The Final Dastool Command
 
+When you run DAS_Tool, you need to use the version I've installed locally. There's some funny stuff going on with the cluster software.
+Make sure you point to `/home/jwestrob/DAS_Tool` instead of just typing `DAS_Tool`.
+
 ```
 cd /class_data/assemblies/Cow_8_s24/
 
@@ -159,7 +162,7 @@ cp *scaffold_min1000.fa *.tsv ~/DAS_Tool
 #Navigate there and run the command
 #I did not!! Provide the correct file names! Don't copy paste this!!
 cd ~/DAS_Tool
-DAS_Tool -i maxbin2.scaffolds2bin.tsv,metabat.scaffolds2bin.tsv,JS_HF3_S142_scaffolds2bin.tsv -c Cow_8_s24scaffold_min1000.fa -o DAS_Tool
+/home/jwestrob/DAS_Tool -i maxbin2.scaffolds2bin.tsv,metabat.scaffolds2bin.tsv,JS_HF3_S142_scaffolds2bin.tsv -c Cow_8_s24scaffold_min1000.fa -o DAS_Tool
 ```
 
 ---
