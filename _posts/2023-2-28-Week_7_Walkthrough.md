@@ -105,12 +105,11 @@ What makes a good genome?
 
 You don't have to each pick a different pathway to study, but you have to pick different genomes of interest for each group member.
 
-### Picking a pathway
+### Picking a pathway/list
 
-Some pathways are very difficult to
 
 Once you've done this, give me the following information for each genome:
 
 - What is the ggKbase taxonomic classification for this organism?
 - How many scaffolds does the genome contain, and what is the total size of the genome bin?
-- What pathway did you investigate?
+- What pathway (which list) did you investigate?
