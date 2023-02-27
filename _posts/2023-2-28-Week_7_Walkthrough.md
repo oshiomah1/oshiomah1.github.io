@@ -88,7 +88,7 @@ You can download a FASTA file (either DNA or protein) with all of these results 
 
 Let's now return to your genome summary.
 
-You can pick any metabolism you are interested in for this lab.  As an example, click on "Select lists", then navigate to "Nitrogen cycle" (if you can't find it, type it in to the search bar on the left). In the middle bar, right under the words "Nitrogen cycle", there's a blue button that says "select all". Click that, then click "Apply".
+You can pick any metabolism you are interested in for this lab.  As an example, click on "Select lists", then navigate to "Nitrogen cycle" (if you can't find it, type it in to the search bar on the left). In the middle bar, right under the words "Nistrogen cycle", there's a blue button that says "select all". Click that, then click "Apply".
 
 Now you can see the genes predicted to be involved in nitrogen transformation pathways across all your selected genomes! This includes the nitrate reductase genes we were investigating earlier.
 
