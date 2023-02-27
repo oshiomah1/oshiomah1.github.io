@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Week 7 Walkthrough- ggKbase annotations and lists!"
-date:   2023-02-28
+date:   2023-02-26
 excerpt: "ggKbase lists!"
 project: "ESPM_112L"
 tag:
