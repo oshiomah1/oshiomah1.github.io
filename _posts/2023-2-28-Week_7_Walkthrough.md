@@ -107,6 +107,15 @@ You don't have to each pick a different pathway to study, but you have to pick d
 
 ### Picking a pathway/list
 
+Examples of pathways to consider looking into:
+
+- Methane metabolism
+  - (Look for _mcrA_)
+- Cellulose degradation
+- Aerobic or anaerobic metabolism markers
+  - Can they utilize oxygen? How do you know?
+- Hydrogen utilization
+  - Look for the hydrogenase large subunit
 
 Once you've done this, give me the following information for each genome:
 
