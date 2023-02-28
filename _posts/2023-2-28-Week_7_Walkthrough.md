@@ -12,7 +12,7 @@ comments: true
 
 
 ``
-<h1>Hello and welcome to week 9 of ESPM 112L-</h1>
+<h1>Hello and welcome to week 7 of ESPM 112L-</h1>
 
 <h1>Metagenomic Data Analysis Lab!</h1>
 
@@ -34,13 +34,12 @@ First, we've recently added a new system that uses HMMs to detect genes, but it'
 
 <img src="/assets/img/HMM_menu.png" width=250>
 
-Now click "Select lists". A screen now pops up showing you all of the “universal lists” which are populated when the data are imported. They’re grouped first by category, and then by smaller groups within each category. Pick some lists which interest you- some especially interesting lists are Nitrogen cycle -> NitrogenFix_NifHDK, and Motility > select all. Once you’ve chosen your lists, click Apply at the top of the page.
+Now click "Select lists". A screen now pops up showing you all of the “universal lists” which are populated when the data are imported. They’re grouped first by category, and then by smaller groups within each category. Pick some lists which interest you- some especially interesting ones to look at are the electron transport chain (complexes I-IV), fermentative metabolism, and important biogeochemical cycles of hydrogen, sulfur, and nitrogen. Some (not all!) of the genes involved in these pathways are shown below:
 
-You should now see something like this:
 
-<img src="/assets/img/initial_summary.png" width=250>
+<img src="/assets/img/genome_summary.png" width=250>
 
-This is your genome summary! It shows each organism you selected as rows, and the number of proteins in each organism that match the search terms in each list. So in the screen-shot above, I see that these Propionibacterium bins have about 7 Cas proteins each, making it highly likely that they all have functional CRISPR arrays.
+This is your genome summary! It shows each organism you selected as rows, and the number of proteins in each organism that match the search terms in each list. So in the screen-shot above, you can see that many organisms in your sample have fermentative genes (pink) and lack many electron transport chains (brown), suggesting that these are probably anaerobes. As you might expect, being that they live inside a cow gut!
 
 To save this summary you made, simply give it a name by clicking on "Choose name" (by “Untitled”). Now you can leave the page, and get back to this summary by clicking Genome Summary at the top of ggkbase again.
 
