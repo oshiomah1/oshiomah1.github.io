@@ -146,4 +146,4 @@ Notice near the top of the page the KO number (K22898) which is a good way of ke
 
 2. Return to the pathway you investigated last week using genome summaries. Can you find that pathway on KEGG?
   - Can you identify in your genome a key gene in your selected pathway (e.g. _mcrA_ for methanogenesis?)
-  - Choose one other gene in this pathway from KEGG that is *not* immediately next to the gene you chose in the previous part of this question. Can you find it with a genome summary? If not, create a custom list and look for it in your genomes. Send me the custom list if you created one, and tell me which gene(s) you chose to search for. 
+  - Choose one other gene in this pathway from KEGG (as described in the demo at the beginning of class) that is *not* immediately next to the gene you chose in the previous part of this question. Can you find it with a genome summary? If not, create a custom list and look for it in your genomes. Send me the custom list if you created one, and tell me which gene(s) you chose to search for. 
