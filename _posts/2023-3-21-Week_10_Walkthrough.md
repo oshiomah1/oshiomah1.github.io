@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Week 10 Walkthrough- Dereplication and Genome Comparison"
-date:   2021-03-21
+date:   2023-03-21
 excerpt: "dRep!"
 project: "ESPM_112L"
 tag:
