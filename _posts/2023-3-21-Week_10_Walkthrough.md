@@ -48,6 +48,7 @@ The `-p` flag refers to the number of threads you're using- be careful not to us
 Here's the final command:
 
 ```
+# DO NOT RUN ME PLEASE! THIS IS JUST A DEMO!
 dRep dereplicate dRep_output -g all_contigs/*.fasta -p 24
 ```
 
@@ -89,13 +90,13 @@ Synteny is the shared order of genes among two or more organisms - essentially, 
 
 Look at your file `Secondary_clustering_dendrograms.pdf`. Each cluster has a separate dendrogram- choose one containing a genome from your sample- we are going to analyze two genomes from this cluster in the following section of this lab. (All the file names start with the sample the bin was obtained from!)
 
-## Important note about file names
+## Important note about file locations and names
 
-I forgot to rename the protein fastas from `.fasta` to `.faa` before running dRep, so the clustering dendrograms are going to have file names that end in `.fasta`. I've since named them to prevent confusion: The DNA sequence files are in `/class_data/sample_bins/all_contigs/` and end in `.fna`; the protein/AA sequence files are in `/class_data/sample_bins/all_proteins/` and end in `.faa`.
+The DNA sequence files are in `/class_data/dRep_output/dereplicated_genomes` and end in `.fna`; the protein/AA sequence files are in `/class_data/dRep_output/dereplicated_proteins/` and end in `.faa`.
 
 ## Running orthologer
 
-Choose two genomes that are in this same primary cluster. Now, get the *protein* fasta files for those bins from the folder `/class_data/sample_bins/all_proteins/` and copy them into your home directory.
+Choose two genomes that are in this same primary cluster. Now, get the *protein* fasta files for those bins from the folder `/class_data/dRep_output/dereplicated_proteins` and copy them into your home directory.
 
 I like to make directories before I run analyses, so let's make one in our home directory (`mkdir ~/orthologer`) and copy these bins into it:
 
@@ -113,7 +114,7 @@ Now take your two protein fastas (should end in `.faa`), which we'll call `[FAST
 
 ```
 cd ~/orthologer
-/home/jwestrob/.pyenv/shims/python /home/jwestrob/bin/bioscripts/ctbBio/orthologer.py reference [FASTA1] [FASTA2] > genome_comparison.tsv
+python3 /home/jwestrob/bin/bioscripts/ctbBio/orthologer.py reference [FASTA1] [FASTA2] > genome_comparison.tsv
 ```
 
 Now you have a file called `genome_comparison.tsv` that you can download and open up in excel/google sheets. Give it a look- see how large the syntenic blocks are that these two genomes share. Remember, you can look up gene names in ggkbase and see what they do. (I will give a quick demo on this at the beginning of class.)
@@ -124,6 +125,6 @@ Now you have a file called `genome_comparison.tsv` that you can download and ope
 
 1. Can you find any operons that these two genomes share? (From your orthologer output) What genes are encoded in these operons?
 
-2. What is the taxonomy of the two genomes you chose?
+2. What is the taxonomy of the two genomes you chose? (Look them up on ggkbase)
 
 3. Can you find any particularly large clusters in the primary clustering dendrogram? (`Primary_clustering_dendrogram.pdf`)Give the name of at least one bin from this cluster and look up its taxonomy on ggkbase.
