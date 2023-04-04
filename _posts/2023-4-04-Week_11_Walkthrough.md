@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Week 12 Walkthrough- Population Dynamics!"
-date:   2021-04-09
+date:   2023-04-04
 excerpt: "Read Mapping and Coverage!"
 project: "ESPM_112L"
 tag:
@@ -54,16 +54,16 @@ ln -s /class_data/reads/[SAMPLE NAME]/raw.d/*trim_clean.PE.*.fastq.gz .
 
 Awesome- now that you've done that, let's go ahead and run your alignment. You don't have to generate the index in a separate step like you did last week with `bowtie2`, so that saves you a step here!
 
-Importantly, make sure to specify `threads=6` when you run this; otherwise `bbmap.sh` will take all the available threads and make it difficult for everyone to run their alignments!
+Importantly, make sure to specify `threads=4` when you run this; otherwise `bbmap.sh` will take all the available threads and make it difficult for everyone to run their alignments!
 
 ```
 #Remember you're now located in ~/Lab12
 
-bbmap.sh pigz=t unpigz=t threads=6 ref=[bin contigs file].fna in1=[FORWARD READS FILE].fastq.gz in2=[REVERSE READS FILE].fastq.gz out=stdout.sam | shrinksam | sambam > [genome name].shrink.sort.bam
+bbmap.sh pigz=t unpigz=t ambiguous=random threads=4 ref=[bin contigs file].fna in1=[FORWARD READS FILE].fastq.gz in2=[REVERSE READS FILE].fastq.gz out=stdout.sam | shrinksam | sambam > [genome name].shrink.sort.bam
 ```
-Just put in values for `[bin contigs file]`, the forward and reverse reads files, and name the final output (`[genome name].shrink.sort.bam`) what you'd like- I would name it based on the name of the genome you're looking at. Say we're using `JS_HB1_S134_bin_31.fna`; in that case I would name the final output `JS_HB1_S134_bin_31.shrink.sort.bam`.
+Just put in values for `[bin contigs file]`, the forward and reverse reads files, and name the final output (`[genome name].shrink.sort.bam`) what you'd like- I would name it based on the name of the genome you're looking at. Say we're using `Cow_8_31_maxbin.scaffolds2bin.tsv_bin_126.fa`; in that case I would name the final output `Cow_8_31_maxbin.scaffolds2bin.tsv_bin_126.shrink.sort.bam` or something similar.
 
-This process should only take a few minutes. `bbmap.sh` is generally much faster than `bowtie2`. Note that this is, of course, dependent on both the size of the genome you've chosen and the number of reads in your dataset that you're aligning to the reference genome.
+This process should only take a few minutes. `bbmap.sh` is generally much faster than `bowtie2`, one of the most commonly used alternatives. Note that this is, of course, dependent on both the size of the genome you've chosen and the number of reads in your dataset that you're aligning to the reference genome.
 
 
 
@@ -96,7 +96,7 @@ Now that you've finished generating this alignment, let's download both the alig
 
 Geneious is a versatile platform for doing genomics analysis in a GUI (Graphical User Interface)-based environment. It's especially great for viewing alignments between reads and reference fasta files to see coverage patterns and SNP microdiversity, both of which we're going to do today.
 
-If you haven't already, please download geneious and activate the free trial, which will last two weeks (plenty of time for you to use it for your projects, if you wish). <a href="https://www.geneious.com/free-trial/">https://www.geneious.com/free-trial/</a>
+If you haven't already, please download geneious and activate the free trial, which will last 30 days (plenty of time for you to use it for your projects, if you wish). <a href="https://www.geneious.com/free-trial/">https://www.geneious.com/free-trial/</a>  
 
 Before you do anything else, make sure your `.bam` and `.fasta` files are both downloaded from the cluster!
 
