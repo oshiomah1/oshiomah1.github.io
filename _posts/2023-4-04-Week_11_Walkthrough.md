@@ -29,7 +29,7 @@ Let's get to it!
 
 This week, making your alignment is going to be a bit easier than last week, since we're going to use a different aligner, called `bbmap.sh`. Don't worry- even though it's a different tool, it's actually much easier to use, and it will generate your alignment much faster!
 
-First, make a folder in your home directory (call it `Lab12` or whatever you'd prefer.) Then, as we did last week, copy in a bin of your choice (from your sample!) to this directory.
+First, make a folder in your home directory (call it `Lab11` or whatever you'd prefer.) Then, as we did last week, copy in a bin of your choice (from your sample!) to this directory.
 
 Remember to make sure the genome you choose is of generally good quality- at least 1.5Mbp, and the fewer contigs the better!
 
@@ -44,7 +44,7 @@ mkdir ~/Lab11
 cp /class_data/assemblies/[YOUR COW]/[bin contigs file].fna ~/Lab11
 
 #Go to that directory
-cd ~/Lab12
+cd ~/Lab11
 
 #Make symbolic links to reads
 #This takes the QC'd read files and makes links to them in your directory
@@ -57,7 +57,7 @@ Awesome- now that you've done that, let's go ahead and run your alignment. You d
 Importantly, make sure to specify `threads=4` when you run this; otherwise `bbmap.sh` will take all the available threads and make it difficult for everyone to run their alignments!
 
 ```
-#Remember you're now located in ~/Lab12
+#Remember you're now located in ~/Lab11
 
 bbmap.sh pigz=t unpigz=t ambiguous=random threads=4 ref=[bin contigs file].fna in1=[FORWARD READS FILE].fastq.gz in2=[REVERSE READS FILE].fastq.gz out=stdout.sam | shrinksam | sambam > [genome name].shrink.sort.bam
 ```
