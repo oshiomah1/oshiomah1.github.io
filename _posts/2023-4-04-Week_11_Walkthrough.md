@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Week 12 Walkthrough- Population Dynamics!"
+title:  "Week 11 Walkthrough- Population Dynamics!"
 date:   2023-04-04
 excerpt: "Read Mapping and Coverage!"
 project: "ESPM_112L"
