@@ -78,7 +78,7 @@ Here's how to do the alignment:
 #Remember, you're in the directory ~/iRep.
 
 #Actually perform the alignment. This should take ~6-10 minutes.
-bbmap.sh  in1=[FORWARD READ FILE] in2=[REVERSE READ FILE] threads=4 pigz=t unpigz=t ambiguous=random out=stdout.sam | shrinksam > genome_alignment.sam
+bbmap.sh ref=[GENOME FASTA FILE] in1=[FORWARD READ FILE] in2=[REVERSE READ FILE] threads=4 pigz=t unpigz=t ambiguous=random out=stdout.sam | shrinksam > genome_alignment.sam
 ```
 
 Which files are the forward and reverse read files, I hear you asking? Well, you should see two `.fastq.gz` files; one ends in `.1.fastq.gz`, and is your forward reads file; the other ends in `.2.fastq.gz` and is the reverse reads file.
