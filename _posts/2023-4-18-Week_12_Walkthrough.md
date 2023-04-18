@@ -42,7 +42,7 @@ Go to class.ggkbase.berkeley.edu and log in; find a nicely sized genome (i.e. >=
 
 <img src="/assets/img/example_genome.png" width=250>
 
-Now you can find that bin at `/class_data/sample_bins/[YOUR SAMPLE ID]/[BIN NAME].fasta`. Copy that to your home directory.
+Now you can find that bin at `/class_data/assemblies/cow_bins/[YOUR SAMPLE ID]/[BIN NAME].fasta`. Copy that to your home directory.
 
 ## Second step: Making a directory to perform your alignment
 
