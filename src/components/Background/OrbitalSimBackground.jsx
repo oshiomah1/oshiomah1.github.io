@@ -81,8 +81,8 @@ const OrbitalSimBackground = () => {
     rendererRef.current.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // ============== 2. LIGHTS ==============
-    // Low ambient + separate point lights for each star.
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    // Increased ambient light intensity for overall brightness
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     sceneRef.current.add(ambientLight);
 
     // ============== 3. BINARY STARS ==============
@@ -94,7 +94,7 @@ const OrbitalSimBackground = () => {
       const starMat = new THREE.MeshStandardMaterial({
         color: star.color,
         emissive: star.emissive,
-        emissiveIntensity: 0.5,
+        emissiveIntensity: 0.8,
         metalness: 0.7,
         roughness: 0.3,
       });
@@ -104,8 +104,8 @@ const OrbitalSimBackground = () => {
       sceneRef.current.add(starMesh);
       starMeshes.push(starMesh);
 
-      // Light
-      const starLight = new THREE.PointLight(0xffffff, 1.5, 1000);
+      // Light with increased intensity
+      const starLight = new THREE.PointLight(0xffffff, 2.0, 1000);
       sceneRef.current.add(starLight);
       starLights.push(starLight);
     });
@@ -118,11 +118,11 @@ const OrbitalSimBackground = () => {
     const planetGeo = new THREE.SphereGeometry(1, 16, 16);
 
     planetData.forEach((planet) => {
-      // Planet mesh
+      // Planet mesh with increased brightness
       const planetMat = new THREE.MeshStandardMaterial({
         color: 0xffd700,
-        metalness: -1,
-        roughness: 0,
+        metalness: 0.3,
+        roughness: 0.2,
       });
       const mesh = new THREE.Mesh(planetGeo, planetMat);
       mesh.scale.set(planet.size, planet.size, planet.size);
@@ -156,7 +156,7 @@ const OrbitalSimBackground = () => {
     const asteroidGeometry = new THREE.SphereGeometry(0.16, 8, 8); // small rock
     const asteroidMaterial = new THREE.MeshStandardMaterial({
         color: 0xffd700,
-        metalness: 0,
+        metalness: 0.3,
         roughness: 0.2,
       });
 
