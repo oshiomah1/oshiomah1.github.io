@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "gray-matter": "^4.0.3",
     "p5": "^1.11.3",
     "react": "^19.0.0",

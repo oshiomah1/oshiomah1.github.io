@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Background from './components/Background/Background';
@@ -43,19 +43,19 @@ function App() {
         <Header />
         <main>
           <Routes>
-            <Route path="/" element={
+            <Route path="" element={
               <>
                 <Home />
                 <CV />
               </>
             } />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/espm112l" element={<ESPM112L />} />
-            <Route path="/espm112l-2021" element={<ESPM112L2021 />} />
-            <Route path="/espm112l-2023" element={<ESPM112L2023 />} />
-            <Route path="/posts/:slug" element={<PostView />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="espm112l" element={<ESPM112L />} />
+            <Route path="espm112l-2021" element={<ESPM112L2021 />} />
+            <Route path="espm112l-2023" element={<ESPM112L2023 />} />
+            <Route path="posts/:slug" element={<PostView />} />
           </Routes>
         </main>
         <BackgroundSelector />

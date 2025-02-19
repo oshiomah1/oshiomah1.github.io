@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './Contact.module.css';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -13,12 +15,22 @@ const Contact = () => {
           </p>
           <div className={styles.contactInfo}>
             <h3>Get in Touch</h3>
-            <p>Email: your.email@example.com</p>
-            <p>Location: Berkeley, CA</p>
+            <p>Email: jacobwestroberts@gmail.com</p>
+            <p>Location: Foster City, CA</p>
           </div>
           <div className={styles.contactForm}>
             <h3>Send a Message</h3>
-            <form>
+            <form ref={form} onSubmit={(e) => {
+              e.preventDefault();
+              emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+                .then((result) => {
+                    alert('Message sent successfully!');
+                    form.current.reset();
+                }, (error) => {
+                    alert('Failed to send message. Please try again.');
+                    console.error('Error:', error);
+                });
+            }}>
               <div className={styles.formGroup}>
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" name="name" required />
