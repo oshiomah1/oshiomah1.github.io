@@ -1,6 +1,4 @@
-# Personal Website - Jacob Westbrook
-
-> **⚠️ Note:** The ESPM 112L walkthroughs section is currently undergoing maintenance and is temporarily unavailable. We are working to restore access as soon as possible.
+# Personal Website - Jacob West-Roberts
 
 ## Overview
 
