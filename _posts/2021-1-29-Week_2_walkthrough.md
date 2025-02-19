@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Week 2 Walkthrough- Read Quality and Trimming"
-date:   2020-02-29
+date:   2021-02-29
 excerpt: "Read Trimming and Quality Control!"
 project: "ESPM_112L_2021"
 tag:
@@ -9,14 +9,11 @@ tag:
 comments: true
 ---
 
+# Hello and welcome to week 2 of ESPM 112L-
 
+# Metagenomic Data Analysis Lab!
 
-<h1>Hello and welcome to week 2 of ESPM 112L-</h1>
-
-<h1>Metagenomic Data Analysis Lab!</h1>
-
-* TOC
-{:toc}
+[TOC]
 
 ### Tasks for Today
 
@@ -79,7 +76,7 @@ fastqc seqfile1 seqfile2 .. seqfileN
 
 fastqc [-o output dir] [--(no)extract] [-f fastq|bam|sam]
 [-c contaminant file] seqfile1 .. seqfileN
-
+```
 DESCRIPTION
 
 FastQC reads a set of sequence files and produces from each one a quality
@@ -94,7 +91,7 @@ required.  In this mode it is suitable for inclusion into a standardised
 analysis pipeline.
 
 The options for the program as as follows:
-
+```
 -h --help       Print this help file and exit
 
 -v --version    Print the version of the program and exit
@@ -123,9 +120,9 @@ Once this is done, you're going to have an output .html file (either in your cur
 
 This is a very important skill, and one that will come up many times throughout the semester. Historically, it's been a bit tricky, so I want to devote some time to it.
 
-You have two options. The easiest of these by far if you're on Mac or Windows is to use <a href="https://cyberduck.io/">Cyberduck</a>:
+You have two options. The easiest of these by far if you're on Mac or Windows is to use [Cyberduck](https://cyberduck.io/):
 
- - Download using a GUI program like <a href="https://winscp.net/eng/download.php">WinSCP</a> for Windows, <a href="https://cyberduck.io/">Cyberduck</a> for Windows or Mac OSX, or Filezilla, I guess, if you're using Linux. (Instructions on how to use Filezilla for this purpose are <a href="https://stackoverflow.com/questions/299412/is-there-any-winscp-equivalent-for-linux">here</a> although I really recommend you just use SCP if you're on linux.)
+ - Download using a GUI program like [WinSCP](https://winscp.net/eng/download.php) for Windows, [Cyberduck](https://cyberduck.io/) for Windows or Mac OSX, or Filezilla, I guess, if you're using Linux. (Instructions on how to use Filezilla for this purpose are [here](https://stackoverflow.com/questions/299412/is-there-any-winscp-equivalent-for-linux) although I really recommend you just use SCP if you're on linux.)
 
  GUI-based SCP applications are pretty straightforward. If you have questions about them ask me in class or on slack.
 

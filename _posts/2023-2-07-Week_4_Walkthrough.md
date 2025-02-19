@@ -9,11 +9,11 @@ tag:
 comments: true
 ---
 
+# Hello and welcome to week 4 of ESPM 112L-
 
-``
-<h1>Hello and welcome to week 4 of ESPM 112L-</h1>
+# Metagenomic Data Analysis Lab!
 
-<h1>Metagenomic Data Analysis Lab!</h1>
+## Table of Contents
 
 * TOC
 {:toc}
@@ -43,7 +43,7 @@ ggKbase is our lab's platform for metagenomic data analysis. Head on over to htt
 
 When you get to the homepage, go to the top right and click "Create an account". (Ctrl+F if you can't find it.) Here's what you should see:
 
-<img src="/assets/img/ggkbase_create_account.png" width=250>
+![ggKbase create account](/assets/img/ggkbase_create_account.png)
 
 Please sign up with your first initial and your last name so I can find you, since I need to give you each access to your sample individually (and I need to find your name!).
 
@@ -55,7 +55,7 @@ I'm going to start with an example project and show you how to bin it; we'll hav
 
 Let's start by going to the Projects page, which you can access with the button on the top left (ctrl+F "projects" if you can't find it) - you probably won't see anything until I give you access to your team's sample. Here's what I see (I have access to all the projects as the class instructor):
 
-<img src="/assets/img/Horse_Projects.png" width=250>
+![Horse Projects](/assets/img/Horse_Projects.png)
 
 Let's select our example project - this sample isn't assigned to any team, so don't get confused and try to find it! None of you will have access to this one.
 
@@ -63,11 +63,11 @@ Let's select our example project - this sample isn't assigned to any team, so do
 
 Once you click on the name of the sample, you'll see this page:
 
-<img src="/assets/img/HF3_S142_UNKpage.png" width=250>
+![HF3 S142 UNK page](/assets/img/HF3_S142_UNKpage.png)
 
 Click "Bin organism" to get started.
 
-<img src="/assets/img/ggkbase_all_features.png" width=250>
+![ggKbase all features](/assets/img/ggkbase_all_features.png)
 
 Binning involves using all of this information to separate out genomes; here's what all of these features mean.
 
@@ -87,7 +87,7 @@ If you get an ideal bin, the taxonomy wheel should show a consistent color and y
 
 The Taxonomy wheel in this case displays the "consensus taxonomy" of a contig. It looks like this:
 
-<img src="/assets/img/taxonomywheel.png" width=250>
+![Taxonomy wheel](/assets/img/taxonomywheel.png)
 
 From the innermost ring, each ring represents, in order, Domain, Phylum, Class, Order, Family, Genus and Species. Each group is color-coded for easy navigation- as you get more used to it, you'll start finding this scheme very convenient to visualize who's living in your sample.
 
@@ -109,13 +109,13 @@ GC Content is one of the best ways to separate genomes from a sample. Here's wha
 
 Now, when you make a selection in other feature types (like coverage or taxonomy) you'll see the distribution change here; in this example I've selected all the contigs with a coverage value between 60 and 80.
 
-<img src="/assets/img/gc_content_spike.png" width=250>
+![GC content spike](/assets/img/gc_content_spike.png)
 
 Notice how the GC content now has a spike at around 47 and another at ~55? See also how the taxonomy wheel has changed; how it's mostly beige (the phylum Bacteroidetes) with a little bit of green (Firmicutes).
 
 Let's try selecting that second GC content spike and see what happens:
 
-<img src="/assets/img/firmicutes_gc.png" width=250>
+![Firmicutes GC](/assets/img/firmicutes_gc.png)
 
 Would you look at that! See how there's one copy of all those ribosomal proteins and single-copy genes? That's an indicator of a pretty good genome. This is a pretty good summary of what you need to do
 

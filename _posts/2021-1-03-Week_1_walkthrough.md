@@ -1,25 +1,27 @@
 ---
 layout: post
 title:  "Week 1 Walkthrough- Intro to Bash"
-date:   2020-02-17
+date:   2021-02-17
 excerpt: "Introducing the Command Line!"
 project: "ESPM_112L_2021"
 tag:
-- intro
+  - test
 comments: true
 ---
 
 
+# Hello and welcome to week 1 of ESPM 112L- Metagenomic Data Analysis Lab!
 
-<h1>Hello and welcome to week 1 of ESPM 112L-</h1>
+## Table of Contents
 
-<h1>Metagenomic Data Analysis Lab!</h1>
+- [Tasks for Today](#tasks-for-today)
+- [What is the command line?](#1-what-is-the-command-line)
+- [How do I access the command line?](#2-how-do-i-access-the-command-line)
+- [Basic Commands](#3-basic-commands)
+- [Connecting to the class server](#4-connecting-to-the-class-server)
+- [Creating, modifying, and moving files & directories](#5-creating-modifying-and-moving-files--directories)
 
-* TOC
-{:toc}
-
-This week's lab is going to be short and sweet, and include lots of links to external resources (for your reference now and after this class is done). There's a lot of writing here, but there's not too much actual work involved yet. That will come, don't worry!
-
+This week's lab is going to be short and sweet...
 
 Using the terminal (also called the command line) is crucial for bioinformatics, among many other things, and this lab will lay the foundation for you to become proficient in using tools on the terminal. Before we get into how to access it on various operating systems, let's discuss what it actually is.
 
@@ -31,10 +33,7 @@ To get your points for lab today, you're going to have to register for an accoun
 
 The command line is an interface designed for you to navigate directories and view files on a computer. This is also called the terminal; it looks like this.
 
-{% capture images %}
-  https://1.bp.blogspot.com/-y_Qcr6C4aTQ/UB5xcCxM3ZI/AAAAAAAABSk/29C-JeH68Nk/s1600/Pretty+Terminal+Mac.png
-{% endcapture %}
-{% include gallery images=images caption="Example Terminal with Color Formatting" cols=1 %}
+![Example Terminal with Color Formatting](https://1.bp.blogspot.com/-y_Qcr6C4aTQ/UB5xcCxM3ZI/AAAAAAAABSk/29C-JeH68Nk/s1600/Pretty+Terminal+Mac.png)
 
 In the above example, you can see multiple types of commands, such as `ls` and `cd`. These are programs, included by default with unix systems such as Linux or Mac OSX. These programs are included as part of something known as a `shell`; in Unix distributions (and when downloaded on Windows) this shell is named `bash`, and on Mac OSX this is generally `zsh`. (The difference between the two is unimportant for our purposes right now.) I'll refer to the shell as `bash` from here on out.
 
@@ -78,10 +77,7 @@ The two most important commands are the ones you can see used in the example pic
 
 `ls` is fundamental and super important. Short for the word 'list' (<a href="https://en.wikipedia.org/wiki/Ls#History">proof</a>), `ls` shows you the contents of a directory. Try it out!
 
-{% capture images %}
-  https://i.stack.imgur.com/k4EBH.png
-{% endcapture %}
-{% include gallery images=images caption="Example usage of ls that I grabbed from google" cols=1 %}
+![Example usage of ls that I grabbed from google](https://i.stack.imgur.com/k4EBH.png)
 
 - Advanced usage (not necessary, just fun)
 

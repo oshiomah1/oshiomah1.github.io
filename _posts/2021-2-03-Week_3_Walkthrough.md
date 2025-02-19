@@ -10,14 +10,11 @@ tag:
 comments: true
 ---
 
+# Hello and welcome to week 3 of ESPM 112L-
 
+# Metagenomic Data Analysis Lab!
 
-<h1>Hello and welcome to week 3 of ESPM 112L-</h1>
-
-<h1>Metagenomic Data Analysis Lab!</h1>
-
-* TOC
-{:toc}
+## Table of Contents
 
 
 This week we're going to be looking at metagenome assembly- what it is, how to do it, and best practices.
@@ -37,7 +34,7 @@ This is by no means a one-size-fits-all solution; different assemblers work to d
 
 For a nice example, see the image below from the paper mentioned above:
 
-<img src="https://journals.plos.org/plosone/article/figure/image?size=large&id=info:doi/10.1371/journal.pone.0169662.g002" width=250>
+![Assembly comparison](https://journals.plos.org/plosone/article/figure/image?size=large&id=info:doi/10.1371/journal.pone.0169662.g002)
 
 As you can see, different assemblers win out over others when looking at particular metrics, but none is consistently better than all the others based on all metrics across different sample types.
 It's up to you to decide which one is best for your particular situation, based on the particular traits of each assembler (which are well described in the Vollmers et al. paper above).
@@ -224,5 +221,4 @@ You did it!
 
 ![You get a genome!](https://i1.wp.com/i.imgflip.com/v80vq.jpg?resize=640%2C359&ssl=1)
 
-
-(PC: https://www.molecularecologist.com/2015/12/post-holiday-gift-ideas-a-draft-genome/)
+*Source: [The Molecular Ecologist](https://www.molecularecologist.com/2015/12/post-holiday-gift-ideas-a-draft-genome/)*
