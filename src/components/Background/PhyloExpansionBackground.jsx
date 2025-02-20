@@ -6,6 +6,10 @@ export default function PhyloExpansionBackground() {
   const sketchRef = useRef(null);
   const p5InstanceRef = useRef(null);
   const [quality, setQuality] = useState('high');
+  // Track stability between renders to prevent quality oscillation
+  const stabilityCounterRef = useRef(0);
+  const lastQualityChangeRef = useRef(Date.now());
+  const qualityLockTimerRef = useRef(null);
   
   useEffect(() => {
     // Detect device capabilities and set initial quality
@@ -46,10 +50,17 @@ export default function PhyloExpansionBackground() {
       const DAMPING = 0.90;
       const TIME_STEP = 0.2;
 
-      // Performance monitoring variables
+      // Performance monitoring variables with hysteresis
       let lastFrameTime = 0;
       let frameRateHistory = [];
       let frameRateUpdateCounter = 0;
+      let consistentLowFrameCount = 0;
+      let consistentHighFrameCount = 0;
+      const LOW_FRAME_THRESHOLD = 22;
+      const HIGH_FRAME_THRESHOLD = 50;
+      // Require more consecutive frames to trigger quality change
+      const DOWNGRADE_FRAMES_REQUIRED = 45; // ~1.5 seconds at 30fps
+      const UPGRADE_FRAMES_REQUIRED = 120; // ~4 seconds at 30fps
       
       // We'll store all nodes in an array with optimized data structure:
       // node = {
@@ -495,7 +506,7 @@ export default function PhyloExpansionBackground() {
         return pts;
       }
       
-      // Performance monitoring
+      // Performance monitoring with stability protection
       function monitorPerformance() {
         const currentTime = performance.now();
         
@@ -514,19 +525,65 @@ export default function PhyloExpansionBackground() {
             
             const avgFrameRate = frameRateHistory.reduce((a, b) => a + b, 0) / frameRateHistory.length;
             
-            // Adjust quality dynamically based on frame rate
-            if (avgFrameRate < 25 && quality === 'high') {
-              // Downgrade to medium
-              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'medium' }));
-            } else if (avgFrameRate < 20 && quality === 'medium') {
-              // Downgrade to low
-              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'low' }));
-            } else if (avgFrameRate > 55 && quality === 'low') {
-              // Upgrade to medium
-              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'medium' }));
-            } else if (avgFrameRate > 55 && quality === 'medium') {
-              // Upgrade to high
-              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'high' }));
+            // Check if quality change cooldown has elapsed
+            const now = Date.now();
+            const timeSinceLastChange = now - lastQualityChangeRef.current;
+            const qualityChangeCooldown = 10000; // 10 seconds cooldown
+            
+            if (timeSinceLastChange > qualityChangeCooldown) {
+              // Track consistent performance for hysteresis
+              if (avgFrameRate < LOW_FRAME_THRESHOLD) {
+                consistentLowFrameCount++;
+                consistentHighFrameCount = 0;
+              } else if (avgFrameRate > HIGH_FRAME_THRESHOLD) {
+                consistentHighFrameCount++;
+                consistentLowFrameCount = 0;
+              } else {
+                // Reset both counters in the middle range
+                consistentLowFrameCount = 0;
+                consistentHighFrameCount = 0;
+              }
+              
+              // Only change quality after sustained periods of performance
+              if (consistentLowFrameCount >= DOWNGRADE_FRAMES_REQUIRED) {
+                // Downgrade quality
+                if (quality === 'high') {
+                  window.dispatchEvent(new CustomEvent('adjustQuality', { 
+                    detail: 'medium',
+                    bubbles: true
+                  }));
+                  lastQualityChangeRef.current = now;
+                  stabilityCounterRef.current = 0;
+                  consistentLowFrameCount = 0;
+                } else if (quality === 'medium') {
+                  window.dispatchEvent(new CustomEvent('adjustQuality', { 
+                    detail: 'low',
+                    bubbles: true
+                  }));
+                  lastQualityChangeRef.current = now;
+                  stabilityCounterRef.current = 0;
+                  consistentLowFrameCount = 0;
+                }
+              } else if (consistentHighFrameCount >= UPGRADE_FRAMES_REQUIRED) {
+                // Upgrade quality (more cautiously)
+                if (quality === 'low') {
+                  window.dispatchEvent(new CustomEvent('adjustQuality', { 
+                    detail: 'medium',
+                    bubbles: true
+                  }));
+                  lastQualityChangeRef.current = now;
+                  stabilityCounterRef.current = 0;
+                  consistentHighFrameCount = 0;
+                } else if (quality === 'medium') {
+                  window.dispatchEvent(new CustomEvent('adjustQuality', { 
+                    detail: 'high',
+                    bubbles: true
+                  }));
+                  lastQualityChangeRef.current = now;
+                  stabilityCounterRef.current = 0;
+                  consistentHighFrameCount = 0;
+                }
+              }
             }
             
             frameRateUpdateCounter = 0;
@@ -535,15 +592,36 @@ export default function PhyloExpansionBackground() {
         
         lastFrameTime = currentTime;
       }
+      
+      // Handle resize for better responsiveness
+      p.windowResized = () => {
+        const container = sketchRef.current.parentElement;
+        p.resizeCanvas(
+          container.clientWidth * RENDER_SCALE,
+          container.clientHeight * RENDER_SCALE
+        );
+      };
     }; // end of p5 sketch definition
 
     // Create the p5 instance
     p5InstanceRef.current = new p5(sketch, sketchRef.current);
     
-    // Listen for quality adjustment events
+    // Listen for quality adjustment events with stability protection
     const handleQualityChange = (event) => {
       if (event.detail !== quality) {
+        // Clear any pending quality lock timers
+        if (qualityLockTimerRef.current) {
+          clearTimeout(qualityLockTimerRef.current);
+        }
+        
+        // Set new quality
         setQuality(event.detail);
+        lastQualityChangeRef.current = Date.now();
+        
+        // Lock quality changes for a period after change
+        qualityLockTimerRef.current = setTimeout(() => {
+          stabilityCounterRef.current++;
+        }, 10000);
       }
     };
     
@@ -552,6 +630,9 @@ export default function PhyloExpansionBackground() {
     // Cleanup on unmount
     return () => {
       window.removeEventListener('adjustQuality', handleQualityChange);
+      if (qualityLockTimerRef.current) {
+        clearTimeout(qualityLockTimerRef.current);
+      }
       if (p5InstanceRef.current) {
         p5InstanceRef.current.remove();
       }
@@ -581,7 +662,7 @@ export default function PhyloExpansionBackground() {
     };
   }, [quality]);
   
-  // Performance detection
+  // Performance detection - more conservative approach
   const detectPerformance = () => {
     // Check for low-end devices
     const isLowEndDevice = 
@@ -596,33 +677,33 @@ export default function PhyloExpansionBackground() {
       const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
       
       if (!gl) {
+        // WebGL not supported - use low quality
         setQuality('low');
         return;
       }
       
-      // Check for WEBGL_debug_renderer_info extension
-      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-      if (debugInfo) {
-        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
-        
-        // Check for integrated/mobile GPUs
-        if (/(intel|hd graphics|graphics 5|graphics 6|mobile|mali|adreno)/i.test(renderer)) {
-          setQuality(isLowEndDevice ? 'low' : 'medium');
-          return;
-        }
-      }
-      
-      // If we can't determine specifics but it's a mobile device
+      // Default to high quality on desktop, medium on mobile
       if (isLowEndDevice) {
         setQuality('medium');
-        return;
+      } else {
+        // For desktop, look for specific GPU info
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+          const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
+          
+          // We're more conservative with quality settings
+          if (/(intel|hd graphics|graphics 5|graphics 6|mobile|mali|adreno)/i.test(renderer)) {
+            setQuality('medium');
+          } else {
+            setQuality('high');
+          }
+        } else {
+          // Fallback if can't detect GPU
+          setQuality('medium');
+        }
       }
-      
-      // Default to high quality for desktop/powerful devices
-      setQuality('high');
-      
     } catch (e) {
-      // If WebGL detection fails, fall back based on user agent
+      // If WebGL detection fails, fall back to device type
       setQuality(isLowEndDevice ? 'low' : 'medium');
     }
   };
