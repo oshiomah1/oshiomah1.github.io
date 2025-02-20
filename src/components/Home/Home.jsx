@@ -17,8 +17,8 @@ const Home = () => {
             I work to understand biological sequences, describe new and rare organisms, and develop tools to further biological research.
           </p>
           <div className={styles.cta}>
-            <a href="about" className={styles.primaryButton}>About Me</a>
-            <a href="contact" className={styles.secondaryButton}>Contact</a>
+            <a href="#/about" className={styles.primaryButton}>About Me</a>
+            <a href="#/contact" className={styles.secondaryButton}>Contact</a>
           </div>
           <div className={styles.socialLinks}>
             <a href="https://github.com/jwestrob" className={styles.socialLink} aria-label="GitHub">
