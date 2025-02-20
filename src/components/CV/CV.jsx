@@ -47,7 +47,12 @@ const CV = () => {
               </div>
               <div className="skill-category">
                 <h4>Fields of Expertise</h4>
-                <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+                <ul style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
+                  gap: '0.8rem',
+                  margin: '0.5rem 0'
+                }}>
                   <li>Metagenomics</li>
                   <li>Phylogenetics</li>
                   <li>Metatranscriptomics</li>
