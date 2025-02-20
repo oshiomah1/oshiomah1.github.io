@@ -7,9 +7,22 @@
 .content {
   flex: 1;
   padding: 2rem;
-  max-width: 50%;
+  width: 90%;
+  max-width: 1200px;
   background-color: #000000;
   overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .content {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content {
+    width: 65%;
+  }
 }
 
 .title {
