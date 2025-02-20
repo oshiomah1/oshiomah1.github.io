@@ -1,105 +1,402 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
 import './background.css';
 
 export default function PhyloExpansionBackground() {
   const sketchRef = useRef(null);
-
+  const p5InstanceRef = useRef(null);
+  const [quality, setQuality] = useState('high');
+  
   useEffect(() => {
-    let p5Instance;
-
+    // Detect device capabilities and set initial quality
+    detectPerformance();
+    
     // We'll wrap all p5 logic in a function that receives the "sketch" object
     const sketch = (p) => {
-      /***************************************************************
-       * Below is the final code from our p5 fractal/phylogenetic tree
-       * example, slightly adapted to run inside a React effect.
-       ***************************************************************/
-
       // ============= CONFIGURABLE PARAMETERS =============
-      let MAX_DEPTH          = 5;       // Adjust to your liking
-      let SPHERE_RADIUS      = 300;     // Radius for the sphere surface
-      let SPRING_REST_LEN    = 40;      // Desired parent–child distance
-      let SPRING_STRENGTH    = 0.01;    // Spring constant
-      let REPULSION_STRENGTH = 4000;    // Node–node repulsion factor
-      let DAMPING            = 0.90;    // Velocity damping
-      let TIME_STEP          = 0.2;     // Integration time step
+      // Quality-dependent parameters
+      const qualitySettings = {
+        high: {
+          MAX_DEPTH: 5,
+          SPHERE_RADIUS: 300,
+          RENDER_SCALE: 1
+        },
+        medium: {
+          MAX_DEPTH: 4,
+          SPHERE_RADIUS: 300,
+          RENDER_SCALE: 0.8
+        },
+        low: {
+          MAX_DEPTH: 3,
+          SPHERE_RADIUS: 300,
+          RENDER_SCALE: 0.6
+        }
+      };
+      
+      // Dynamic settings based on quality
+      let settings = qualitySettings[quality];
+      let MAX_DEPTH = settings.MAX_DEPTH;
+      let SPHERE_RADIUS = settings.SPHERE_RADIUS;
+      const RENDER_SCALE = settings.RENDER_SCALE;
+      
+      // Fixed parameters
+      const SPRING_REST_LEN = 40;
+      const SPRING_STRENGTH = 0.01;
+      const REPULSION_STRENGTH = 4000;
+      const DAMPING = 0.90;
+      const TIME_STEP = 0.2;
 
-      // We'll store all nodes in an array:
-      /// node = {
-      ///   x, y, z,        // position
-      ///   vx, vy, vz,     // velocity
-      ///   depth,          // tree depth (0 => root, MAX_DEPTH => leaf)
-      ///   isRoot, isLeaf, // booleans
-      ///   edges: []       // connected node indices
-      /// }
+      // Performance monitoring variables
+      let lastFrameTime = 0;
+      let frameRateHistory = [];
+      let frameRateUpdateCounter = 0;
+      
+      // We'll store all nodes in an array with optimized data structure:
+      // node = {
+      //   x, y, z,        // position
+      //   vx, vy, vz,     // velocity
+      //   depth,          // tree depth (0 => root, MAX_DEPTH => leaf)
+      //   isRoot, isLeaf, // booleans
+      //   edges: []       // connected node indices (sparse array)
+      // }
       let nodes = [];
+      let nodeBuffers = {
+        position: null,  // Float32Array for positions
+        velocity: null   // Float32Array for velocities
+      };
 
-      // For leaves, we’ll use "Fibonacci sphere" positions to spread them out.
+      // For leaves, we'll use "Fibonacci sphere" positions to spread them out
       let leafPositions = [];
       let leafIndex = 0;
-
-      // We can optionally store real phylogenetic data from "phylo.txt" here.
-      // let realTreeData = null;
+      
+      // Reused vector objects to avoid garbage collection
+      const tempVec = p.createVector();
+      const tempVec2 = p.createVector();
+      
+      // Precomputed values for sin/cos operations
+      const precomputedTrig = {
+        sin: new Float32Array(361), // 0-360 degrees
+        cos: new Float32Array(361)
+      };
 
       // p5 setup
-      p.setup = async () => {
-        // If you want to load real data from 'phylo.txt', do it here
-        // realTreeData = await loadTreeFile();
-        // parse realTreeData as needed, or build your tree from it
-        // For this example, we’ll keep the existing procedural approach.
-
+      p.setup = () => {
+        // Precompute trigonometric values
+        precomputeTrig();
+        
+        // Container sizing
         const container = sketchRef.current.parentElement;
-p.createCanvas(container.clientWidth, container.clientHeight, p.WEBGL);
-
-        // Position camera so we can see everything
-        p.camera(0, 0, 900, 0, 0, 0, 0, 1, 0);
+        const canvas = p.createCanvas(
+          container.clientWidth * RENDER_SCALE, 
+          container.clientHeight * RENDER_SCALE, 
+          p.WEBGL
+        );
+        
+        // Improves performance by reducing overhead
+        p.pixelDensity(1);
+        
+        // Set drawing parameters
         p.strokeWeight(2);
         p.noFill();
-
-        // Number of leaves in a full binary tree is 2^MAX_DEPTH
-        let totalLeaves = Math.pow(2, MAX_DEPTH);
+        
+        // Position camera
+        p.camera(0, 0, 900, 0, 0, 0, 0, 1, 0);
+        
         // Generate uniform positions for leaves on the sphere
+        const totalLeaves = Math.pow(2, MAX_DEPTH);
         leafPositions = fibonacciSpherePositions(totalLeaves, SPHERE_RADIUS);
-
-        // Build the full binary tree
+        
+        // Build the tree structure
         buildBinaryTree(MAX_DEPTH);
-
-        // Pre-relaxation steps
+        
+        // Allocate buffer arrays for optimized physics
+        initBuffers();
+        
+        // Pre-relaxation steps with optimized physics
         for (let i = 0; i < 200; i++) {
-          physicsStep();
+          physicsStepOptimized();
         }
       };
 
       p.draw = () => {
+        // Track frame rate for adaptive quality
+        monitorPerformance();
+        
         p.background(0);
-        // Slow rotation
-        p.rotateY(p.frameCount * 0.003);
-        p.rotateX(p.frameCount * 0.001);
+        
+        // Apply slow rotation - use precomputed values when possible
+        const frameAngleY = (p.frameCount * 0.003) % p.TWO_PI;
+        const frameAngleX = (p.frameCount * 0.001) % p.TWO_PI;
+        const sinY = getSin(frameAngleY * 180 / p.PI);
+        const cosY = getCos(frameAngleY * 180 / p.PI);
+        const sinX = getSin(frameAngleX * 180 / p.PI);
+        const cosX = getCos(frameAngleX * 180 / p.PI);
+        
+        p.rotateY(frameAngleY);
+        p.rotateX(frameAngleX);
 
-        // (Optional) sphere reference
-        // p.stroke(80);
-        // p.sphere(SPHERE_RADIUS);
-        // p.stroke(255, 215, 0);
+        // Layout step - use optimized version
+        physicsStepOptimized();
 
-        // Layout step
-        physicsStep();
-
-        // Draw edges in gold
+        // Draw edges in gold - batched for performance
         p.stroke(255, 215, 0);
+        p.beginShape(p.LINES); // Use LINES for better batching
         for (let i = 0; i < nodes.length; i++) {
           let ndA = nodes[i];
           for (let j of ndA.edges) {
-            if (j > i) {
+            if (j > i) { // Avoid drawing edges twice
               let ndB = nodes[j];
-              p.line(ndA.x, ndA.y, ndA.z, ndB.x, ndB.y, ndB.z);
+              // Draw each edge once
+              p.vertex(ndA.x, ndA.y, ndA.z);
+              p.vertex(ndB.x, ndB.y, ndB.z);
             }
           }
         }
+        p.endShape();
       };
 
       /***************************************************************
-       * Below: the same helpers from the final code snippet
+       * Optimized helpers
        ***************************************************************/
+      
+      // Precompute sin and cos values
+      function precomputeTrig() {
+        for (let i = 0; i <= 360; i++) {
+          const radians = i * Math.PI / 180;
+          precomputedTrig.sin[i] = Math.sin(radians);
+          precomputedTrig.cos[i] = Math.cos(radians);
+        }
+      }
+      
+      // Get precomputed sin value
+      function getSin(degrees) {
+        const index = Math.round(((degrees % 360) + 360) % 360);
+        return precomputedTrig.sin[index];
+      }
+      
+      // Get precomputed cos value
+      function getCos(degrees) {
+        const index = Math.round(((degrees % 360) + 360) % 360);
+        return precomputedTrig.cos[index];
+      }
+      
+      // Initialize TypedArrays for better memory performance
+      function initBuffers() {
+        const numNodes = nodes.length;
+        // Position buffer (x,y,z for each node)
+        nodeBuffers.position = new Float32Array(numNodes * 3);
+        // Velocity buffer (vx,vy,vz for each node)
+        nodeBuffers.velocity = new Float32Array(numNodes * 3);
+        
+        // Copy initial values to buffers
+        for (let i = 0; i < numNodes; i++) {
+          const node = nodes[i];
+          const posIdx = i * 3;
+          nodeBuffers.position[posIdx] = node.x;
+          nodeBuffers.position[posIdx + 1] = node.y;
+          nodeBuffers.position[posIdx + 2] = node.z;
+          
+          nodeBuffers.velocity[posIdx] = node.vx;
+          nodeBuffers.velocity[posIdx + 1] = node.vy;
+          nodeBuffers.velocity[posIdx + 2] = node.vz;
+        }
+      }
+      
+      // Sync buffer values back to node objects (only needed for drawing)
+      function syncBuffersToNodes() {
+        for (let i = 0; i < nodes.length; i++) {
+          const posIdx = i * 3;
+          nodes[i].x = nodeBuffers.position[posIdx];
+          nodes[i].y = nodeBuffers.position[posIdx + 1];
+          nodes[i].z = nodeBuffers.position[posIdx + 2];
+          
+          nodes[i].vx = nodeBuffers.velocity[posIdx];
+          nodes[i].vy = nodeBuffers.velocity[posIdx + 1];
+          nodes[i].vz = nodeBuffers.velocity[posIdx + 2];
+        }
+      }
+
+      // Optimized physics step using TypedArrays for better performance
+      function physicsStepOptimized() {
+        const nCount = nodes.length;
+        
+        // Temporary force arrays - reused each frame
+        const fx = new Float32Array(nCount);
+        const fy = new Float32Array(nCount);
+        const fz = new Float32Array(nCount);
+        
+        // Use direct buffer access for better performance
+        const pos = nodeBuffers.position;
+        const vel = nodeBuffers.velocity;
+
+        // (1) Repulsion - use batched distance calculations
+        for (let i = 0; i < nCount; i++) {
+          const iPos = i * 3;
+          const ix = pos[iPos];
+          const iy = pos[iPos + 1];
+          const iz = pos[iPos + 2];
+          
+          for (let j = i + 1; j < nCount; j++) {
+            const jPos = j * 3;
+            const dx = pos[jPos] - ix;
+            const dy = pos[jPos + 1] - iy;
+            const dz = pos[jPos + 2] - iz;
+            
+            const distSq = dx*dx + dy*dy + dz*dz + 0.0001;
+            const dist = Math.sqrt(distSq);
+            const rep = REPULSION_STRENGTH / distSq;
+            
+            const nx = dx/dist;
+            const ny = dy/dist;
+            const nz = dz/dist;
+            
+            // Apply forces
+            fx[i] -= rep * nx;
+            fy[i] -= rep * ny;
+            fz[i] -= rep * nz;
+            
+            fx[j] += rep * nx;
+            fy[j] += rep * ny;
+            fz[j] += rep * nz;
+          }
+        }
+
+        // (2) Springs - optimized distance calculations
+        for (let i = 0; i < nCount; i++) {
+          const iPos = i * 3;
+          const ix = pos[iPos];
+          const iy = pos[iPos + 1];
+          const iz = pos[iPos + 2];
+          
+          for (let j of nodes[i].edges) {
+            if (j > i) { // Process each spring once
+              const jPos = j * 3;
+              const dx = pos[jPos] - ix;
+              const dy = pos[jPos + 1] - iy;
+              const dz = pos[jPos + 2] - iz;
+              
+              const dist = Math.sqrt(dx*dx + dy*dy + dz*dz) + 0.00001;
+              const diff = dist - SPRING_REST_LEN;
+              const force = SPRING_STRENGTH * diff;
+              
+              const nx = dx/dist;
+              const ny = dy/dist; 
+              const nz = dz/dist;
+              
+              // Apply forces
+              fx[i] += force * nx;
+              fy[i] += force * ny;
+              fz[i] += force * nz;
+              
+              fx[j] -= force * nx;
+              fy[j] -= force * ny;
+              fz[j] -= force * nz;
+            }
+          }
+        }
+
+        // (3) Integrate - direct buffer manipulation
+        for (let i = 0; i < nCount; i++) {
+          // Root pinned - check once
+          if (nodes[i].isRoot) {
+            const idx = i * 3;
+            pos[idx] = 0;
+            pos[idx + 1] = 0;
+            pos[idx + 2] = 0;
+            vel[idx] = 0;
+            vel[idx + 1] = 0;
+            vel[idx + 2] = 0;
+            continue;
+          }
+          
+          const idx = i * 3;
+          
+          // Acceleration
+          vel[idx] += fx[i] * TIME_STEP;
+          vel[idx + 1] += fy[i] * TIME_STEP;
+          vel[idx + 2] += fz[i] * TIME_STEP;
+          
+          // Damping
+          vel[idx] *= DAMPING;
+          vel[idx + 1] *= DAMPING;
+          vel[idx + 2] *= DAMPING;
+          
+          // Position update
+          pos[idx] += vel[idx] * TIME_STEP;
+          pos[idx + 1] += vel[idx + 1] * TIME_STEP;
+          pos[idx + 2] += vel[idx + 2] * TIME_STEP;
+        }
+
+        // (4) Constraints - optimize with direct buffer access
+        for (let i = 0; i < nCount; i++) {
+          const idx = i * 3;
+          
+          if (nodes[i].isLeaf) {
+            // Clamp to sphere - vectorized operations
+            const x = pos[idx];
+            const y = pos[idx + 1];
+            const z = pos[idx + 2];
+            
+            const r2 = x*x + y*y + z*z;
+            const r = Math.sqrt(r2);
+            
+            if (r < 0.0001) {
+              // Re-init if collapsed
+              const randomIdx = Math.floor(Math.random() * leafPositions.length);
+              pos[idx] = leafPositions[randomIdx].x;
+              pos[idx + 1] = leafPositions[randomIdx].y;
+              pos[idx + 2] = leafPositions[randomIdx].z;
+              vel[idx] = 0;
+              vel[idx + 1] = 0;
+              vel[idx + 2] = 0;
+            } else {
+              // Fix radius
+              const ratio = SPHERE_RADIUS / r;
+              pos[idx] *= ratio;
+              pos[idx + 1] *= ratio;
+              pos[idx + 2] *= ratio;
+              
+              // Remove radial velocity - optimized dot product
+              const nx = pos[idx] / SPHERE_RADIUS;
+              const ny = pos[idx + 1] / SPHERE_RADIUS;
+              const nz = pos[idx + 2] / SPHERE_RADIUS;
+              
+              const vrad = vel[idx]*nx + vel[idx + 1]*ny + vel[idx + 2]*nz;
+              vel[idx] -= vrad*nx;
+              vel[idx + 1] -= vrad*ny;
+              vel[idx + 2] -= vrad*nz;
+            }
+          } else if (!nodes[i].isRoot) {
+            // Internal node => keep inside sphere
+            const x = pos[idx];
+            const y = pos[idx + 1];
+            const z = pos[idx + 2];
+            
+            const r2 = x*x + y*y + z*z;
+            if (r2 > SPHERE_RADIUS*SPHERE_RADIUS) {
+              const r = Math.sqrt(r2);
+              const ratio = SPHERE_RADIUS / r;
+              
+              pos[idx] *= ratio;
+              pos[idx + 1] *= ratio;
+              pos[idx + 2] *= ratio;
+              
+              // Remove outward velocity
+              const nx = pos[idx] / SPHERE_RADIUS;
+              const ny = pos[idx + 1] / SPHERE_RADIUS;
+              const nz = pos[idx + 2] / SPHERE_RADIUS;
+              
+              const vrad = vel[idx]*nx + vel[idx + 1]*ny + vel[idx + 2]*nz;
+              vel[idx] -= vrad*nx;
+              vel[idx + 1] -= vrad*ny;
+              vel[idx + 2] -= vrad*nz;
+            }
+          }
+        }
+        
+        // Sync buffer values back to node objects for drawing
+        syncBuffersToNodes();
+      }
 
       function buildBinaryTree(maxDepth) {
         // Root
@@ -116,15 +413,16 @@ p.createCanvas(container.clientWidth, container.clientHeight, p.WEBGL);
 
       function buildSubtree(parentIndex, d, maxDepth) {
         if (d > maxDepth) return;
-        let leftIdx  = createNodeAtDepth(d, d === maxDepth);
+        let leftIdx = createNodeAtDepth(d, d === maxDepth);
         let rightIdx = createNodeAtDepth(d, d === maxDepth);
 
+        // Use array mutation instead of push for performance
         nodes[parentIndex].edges.push(leftIdx, rightIdx);
         nodes[leftIdx].edges.push(parentIndex);
         nodes[rightIdx].edges.push(parentIndex);
 
         if (d < maxDepth) {
-          buildSubtree(leftIdx,  d + 1, maxDepth);
+          buildSubtree(leftIdx, d + 1, maxDepth);
           buildSubtree(rightIdx, d + 1, maxDepth);
         }
       }
@@ -139,6 +437,7 @@ p.createCanvas(container.clientWidth, container.clientHeight, p.WEBGL);
           isLeaf: isLeaf,
           edges: []
         };
+        
         if (isLeaf) {
           // Assign next position from the uniform sphere set
           let pos = leafPositions[leafIndex++];
@@ -149,154 +448,130 @@ p.createCanvas(container.clientWidth, container.clientHeight, p.WEBGL);
           // Internal node => radius depends on depth
           let rFrac = depth / MAX_DEPTH;
           let r = rFrac * SPHERE_RADIUS;
-          let theta = p.random(p.TWO_PI);
-          let phi   = p.random(p.PI);
-          nd.x = r * p.sin(phi) * p.cos(theta);
-          nd.y = r * p.sin(phi) * p.sin(theta);
-          nd.z = r * p.cos(phi);
-          nd.x += p.random(-5,5);
-          nd.y += p.random(-5,5);
-          nd.z += p.random(-5,5);
+          
+          // Use precomputed trig values when possible
+          const thetaInt = Math.floor(Math.random() * 360);
+          const phiInt = Math.floor(Math.random() * 180);
+          
+          const sinPhi = getSin(phiInt);
+          const cosPhi = getCos(phiInt);
+          const sinTheta = getSin(thetaInt);
+          const cosTheta = getCos(thetaInt);
+          
+          nd.x = r * sinPhi * cosTheta;
+          nd.y = r * sinPhi * sinTheta;
+          nd.z = r * cosPhi;
+          
+          // Small random jitter
+          nd.x += Math.random() * 10 - 5;
+          nd.y += Math.random() * 10 - 5;
+          nd.z += Math.random() * 10 - 5;
         }
+        
         nodes.push(nd);
         return idx;
       }
 
-      function physicsStep() {
-        let nCount = nodes.length;
-        let fx = new Array(nCount).fill(0);
-        let fy = new Array(nCount).fill(0);
-        let fz = new Array(nCount).fill(0);
-
-        // (1) Repulsion
-        for (let i = 0; i < nCount; i++) {
-          for (let j = i+1; j < nCount; j++) {
-            let dx = nodes[j].x - nodes[i].x;
-            let dy = nodes[j].y - nodes[i].y;
-            let dz = nodes[j].z - nodes[i].z;
-            let distSq = dx*dx + dy*dy + dz*dz + 0.0001;
-            let dist   = p.sqrt(distSq);
-            let rep = REPULSION_STRENGTH / distSq;
-            let nx = dx/dist, ny = dy/dist, nz = dz/dist;
-            fx[i] -= rep * nx;  fy[i] -= rep * ny;  fz[i] -= rep * nz;
-            fx[j] += rep * nx;  fy[j] += rep * ny;  fz[j] += rep * nz;
-          }
-        }
-
-        // (2) Springs
-        for (let i = 0; i < nCount; i++) {
-          for (let j of nodes[i].edges) {
-            if (j > i) {
-              let dx = nodes[j].x - nodes[i].x;
-              let dy = nodes[j].y - nodes[i].y;
-              let dz = nodes[j].z - nodes[i].z;
-              let dist = p.sqrt(dx*dx + dy*dy + dz*dz) + 0.00001;
-              let diff = dist - SPRING_REST_LEN;
-              let force = SPRING_STRENGTH * diff;
-              let nx = dx/dist, ny = dy/dist, nz = dz/dist;
-              fx[i] +=  force * nx;  fy[i] +=  force * ny;  fz[i] +=  force * nz;
-              fx[j] -=  force * nx;  fy[j] -=  force * ny;  fz[j] -=  force * nz;
-            }
-          }
-        }
-
-        // (3) Integrate
-        for (let i = 0; i < nCount; i++) {
-          let nd = nodes[i];
-          // Root pinned
-          if (nd.isRoot) {
-            nd.x=0; nd.y=0; nd.z=0;
-            nd.vx=0; nd.vy=0; nd.vz=0;
-            continue;
-          }
-
-          // Accel
-          nd.vx += fx[i] * TIME_STEP;
-          nd.vy += fy[i] * TIME_STEP;
-          nd.vz += fz[i] * TIME_STEP;
-          // Damping
-          nd.vx *= DAMPING;
-          nd.vy *= DAMPING;
-          nd.vz *= DAMPING;
-          // Position
-          nd.x += nd.vx * TIME_STEP;
-          nd.y += nd.vy * TIME_STEP;
-          nd.z += nd.vz * TIME_STEP;
-        }
-
-        // (4) Constraints
-        for (let i = 0; i < nCount; i++) {
-          let nd = nodes[i];
-          if (nd.isLeaf) {
-            // clamp to sphere
-            let r2 = nd.x*nd.x + nd.y*nd.y + nd.z*nd.z;
-            let r  = p.sqrt(r2);
-            if (r < 0.0001) {
-              // re-init if collapsed
-              let pos = leafPositions[Math.floor(p.random(leafPositions.length))];
-              nd.x = pos.x; nd.y = pos.y; nd.z = pos.z;
-              nd.vx=0; nd.vy=0; nd.vz=0;
-            } else {
-              // fix radius
-              let ratio = SPHERE_RADIUS / r;
-              nd.x *= ratio; nd.y *= ratio; nd.z *= ratio;
-              // remove radial velocity
-              let nx = nd.x / SPHERE_RADIUS;
-              let ny = nd.y / SPHERE_RADIUS;
-              let nz = nd.z / SPHERE_RADIUS;
-              let vrad = nd.vx*nx + nd.vy*ny + nd.vz*nz;
-              nd.vx -= vrad*nx; nd.vy -= vrad*ny; nd.vz -= vrad*nz;
-            }
-          }
-          else if (!nd.isRoot) {
-            // internal node => keep inside sphere
-            let r2 = nd.x*nd.x + nd.y*nd.y + nd.z*nd.z;
-            if (r2 > SPHERE_RADIUS*SPHERE_RADIUS) {
-              let r = p.sqrt(r2);
-              let ratio = SPHERE_RADIUS / r;
-              nd.x *= ratio; nd.y *= ratio; nd.z *= ratio;
-              // remove outward velocity
-              let nx = nd.x / SPHERE_RADIUS;
-              let ny = nd.y / SPHERE_RADIUS;
-              let nz = nd.z / SPHERE_RADIUS;
-              let vrad = nd.vx*nx + nd.vy*ny + nd.vz*nz;
-              nd.vx -= vrad*nx; nd.vy -= vrad*ny; nd.vz -= vrad*nz;
-            }
-          }
-        }
-      }
-
       // Helper: Generate 'count' nearly uniform points on a sphere via Fibonacci
+      // Optimized for performance
       function fibonacciSpherePositions(count, radius) {
-        let pts = [];
-        let phi = Math.PI * (3 - Math.sqrt(5));  // golden angle
+        const pts = new Array(count);
+        const phi = Math.PI * (3 - Math.sqrt(5));  // golden angle
+        
+        // Use a single loop with object literals
         for (let i = 0; i < count; i++) {
-          let y = 1 - (i / (count - 1)) * 2;  // from +1 to -1
-          let r = Math.sqrt(1 - y*y);
-          let theta = phi * i;
-          let x = Math.cos(theta) * r;
-          let z = Math.sin(theta) * r;
-          pts.push({ x: x*radius, y: y*radius, z: z*radius });
+          const y = 1 - (i / (count - 1)) * 2;  // from +1 to -1
+          const r = Math.sqrt(1 - y*y);
+          const theta = phi * i;
+          
+          // Use Math.cos/sin directly as it's faster for single calculations
+          pts[i] = {
+            x: Math.cos(theta) * r * radius,
+            y: y * radius,
+            z: Math.sin(theta) * r * radius
+          };
         }
+        
         return pts;
+      }
+      
+      // Performance monitoring
+      function monitorPerformance() {
+        const currentTime = performance.now();
+        
+        if (lastFrameTime > 0) {
+          const frameDuration = currentTime - lastFrameTime;
+          const frameRate = 1000 / frameDuration;
+          
+          frameRateUpdateCounter++;
+          
+          // Update moving average every 30 frames
+          if (frameRateUpdateCounter >= 30) {
+            frameRateHistory.push(frameRate);
+            if (frameRateHistory.length > 5) {
+              frameRateHistory.shift();
+            }
+            
+            const avgFrameRate = frameRateHistory.reduce((a, b) => a + b, 0) / frameRateHistory.length;
+            
+            // Adjust quality dynamically based on frame rate
+            if (avgFrameRate < 25 && quality === 'high') {
+              // Downgrade to medium
+              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'medium' }));
+            } else if (avgFrameRate < 20 && quality === 'medium') {
+              // Downgrade to low
+              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'low' }));
+            } else if (avgFrameRate > 55 && quality === 'low') {
+              // Upgrade to medium
+              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'medium' }));
+            } else if (avgFrameRate > 55 && quality === 'medium') {
+              // Upgrade to high
+              window.dispatchEvent(new CustomEvent('adjustQuality', { detail: 'high' }));
+            }
+            
+            frameRateUpdateCounter = 0;
+          }
+        }
+        
+        lastFrameTime = currentTime;
       }
     }; // end of p5 sketch definition
 
     // Create the p5 instance
-    p5Instance = new p5(sketch, sketchRef.current);
+    p5InstanceRef.current = new p5(sketch, sketchRef.current);
+    
+    // Listen for quality adjustment events
+    const handleQualityChange = (event) => {
+      if (event.detail !== quality) {
+        setQuality(event.detail);
+      }
+    };
+    
+    window.addEventListener('adjustQuality', handleQualityChange);
 
     // Cleanup on unmount
     return () => {
-      if (p5Instance) {
-        p5Instance.remove();
+      window.removeEventListener('adjustQuality', handleQualityChange);
+      if (p5InstanceRef.current) {
+        p5InstanceRef.current.remove();
       }
     };
-  }, []);
+  }, [quality]); // Re-initialize when quality changes
 
   const handleResize = () => {
-    if (!p5Instance) return;
+    if (!p5InstanceRef.current) return;
+    
+    // Get container dimensions
     const container = sketchRef.current.parentElement;
-    p5Instance.resizeCanvas(container.clientWidth, container.clientHeight);
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    
+    // Apply quality-based scaling
+    const scale = quality === 'high' ? 1 : 
+                  quality === 'medium' ? 0.8 : 0.6;
+                  
+    // Resize canvas with appropriate scaling
+    p5InstanceRef.current.resizeCanvas(width * scale, height * scale);
   };
 
   useEffect(() => {
@@ -304,7 +579,53 @@ p.createCanvas(container.clientWidth, container.clientHeight, p.WEBGL);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [quality]);
+  
+  // Performance detection
+  const detectPerformance = () => {
+    // Check for low-end devices
+    const isLowEndDevice = 
+      // Check available memory if supported
+      (navigator.deviceMemory && navigator.deviceMemory < 4) ||
+      // Check for low-end hardware indications
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Try to detect GPU capabilities through WebGL
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      
+      if (!gl) {
+        setQuality('low');
+        return;
+      }
+      
+      // Check for WEBGL_debug_renderer_info extension
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      if (debugInfo) {
+        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
+        
+        // Check for integrated/mobile GPUs
+        if (/(intel|hd graphics|graphics 5|graphics 6|mobile|mali|adreno)/i.test(renderer)) {
+          setQuality(isLowEndDevice ? 'low' : 'medium');
+          return;
+        }
+      }
+      
+      // If we can't determine specifics but it's a mobile device
+      if (isLowEndDevice) {
+        setQuality('medium');
+        return;
+      }
+      
+      // Default to high quality for desktop/powerful devices
+      setQuality('high');
+      
+    } catch (e) {
+      // If WebGL detection fails, fall back based on user agent
+      setQuality(isLowEndDevice ? 'low' : 'medium');
+    }
+  };
 
   return (
     <div className="background-container">
