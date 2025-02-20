@@ -35,22 +35,25 @@ const CV = () => {
             <div className="skills-grid">
               <div className="skill-category">
                 <h4>Programming Languages</h4>
-                <ul>
+                <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
                   <li>Python</li>
                   <li>Bash</li>
                   <li>R</li>
+                  <li>Javascript</li>
                   <li>Julia</li>
-                  <li>C++</li>
+                  <li>Matlab</li>
+                  <li>C/C++</li>
                 </ul>
               </div>
               <div className="skill-category">
                 <h4>Fields of Expertise</h4>
-                <ul>
+                <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
                   <li>Metagenomics</li>
                   <li>Phylogenetics</li>
                   <li>Metatranscriptomics</li>
                   <li>Machine Learning</li>
                   <li>Metaproteomics</li>
+                  <li>Web Development</li>
                 </ul>
               </div>
             </div>

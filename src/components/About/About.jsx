@@ -23,7 +23,7 @@ const About = () => {
           I currently work at Sift Biosciences as a computational biologist, helping to build next-gen cancer immunotherapies.
           </p>
           <p>
-          All animations on this site were made by me (using LLMs, of course!)
+          All animations and pages on this site were coded by me (using LLMs, of course!)
           </p>
         </div>
       </div>

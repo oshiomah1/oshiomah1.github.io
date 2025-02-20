@@ -12,6 +12,13 @@
   width: 100%;
   max-width: 1200px;
   padding: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 4rem;
+  }
 }
 
 .content {
@@ -25,6 +32,8 @@
   border-radius: 50%;
   border: 3px solid #FFD700;
   overflow: hidden;
+  position: relative;
+  z-index: 1000;
 }
 
 .placeholder {
