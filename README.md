@@ -1,0 +1,1 @@
+# oshiomah1.github.io
